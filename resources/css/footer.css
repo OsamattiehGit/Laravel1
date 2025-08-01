@@ -1,0 +1,148 @@
+main {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.site-footer {
+    background-color: #003366;
+    color: #ffffff;
+    padding: 60px 40px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1300px;
+    margin: auto;
+}
+
+.footer-column {
+    flex: 1 1 300px;
+    margin: 20px;
+}
+
+.footer-logo {
+    width: 150px;
+    margin-bottom: 20px;
+}
+
+.footer-description {
+    margin: 10px 0 30px;
+    line-height: 1.6;
+    font-size: 14px;
+    color: #e0e0e0;
+}
+
+.newsletter-title {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.newsletter-form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ffffff33;
+}
+
+.newsletter-form input {
+    padding: 12px;
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 14px;
+    background: transparent;
+    color: white;
+}
+
+.newsletter-form button {
+    background-color: #f97316;
+    border: none;
+    padding: 12px 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.newsletter-form button::after {
+    content: '➔';
+    font-size: 18px;
+    color: white;
+}
+
+.footer-legal {
+    margin-top: 10px;
+}
+
+.footer-legal a {
+    color: #ffffff;
+    margin-right: 20px;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.links h4 span,
+.contact h4 span {
+    color: #f97316;
+}
+
+.links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.links ul li {
+    margin-bottom: 8px;
+}
+
+.links ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.contact p {
+    font-size: 14px;
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.footer-social {
+    margin-top: 15px;
+}
+
+.footer-social a {
+    display: inline-block;
+    margin-right: 12px;
+}
+
+.footer-social a i {
+    font-size: 16px;
+    color: white;
+    transition: opacity 0.2s;
+}
+
+.footer-social a i:hover {
+    opacity: 0.7;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        padding: 30px;
+    }
+
+    .footer-column {
+        margin: 20px 0;
+    }
+}

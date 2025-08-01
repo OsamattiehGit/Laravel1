@@ -1,0 +1,229 @@
+
+*
+{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5;
+  padding: 30px;
+  color: #333;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+header h1 span {
+  color: #ff6b00;
+}
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.course-card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.course-card:hover {
+  transform: translateY(-20px);
+  background-color: rgba(255, 60, 0, 0.614);
+
+}
+
+.course-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+
+.course-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #222;
+  text-align: center;
+}
+
+.course-card p {
+  font-size: 0.9rem;
+  color: #555;
+  text-align: center;
+  margin-bottom: 10px;
+  min-height: 50px;
+}
+
+.course-card .details {
+  font-size: 0.85rem;
+  color: #444;
+  margin-bottom: 15px;
+}
+
+.course-card a {
+  text-decoration: none;
+  background-color: #ff6b00;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.course-card a:hover {
+  background-color: #d85c00;
+}
+h1 span:first-child {
+  color: #f57c00;
+}
+
+h1 span:last-child {
+  color: #003C71;
+}
+.auth-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 60px;
+}
+
+.auth-form-box {
+    width: 40%;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+}
+
+.auth-form-box h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.auth-form-box h2 span {
+    color: #F97316;
+}
+
+.auth-form-box input,
+.auth-form-box button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.primary-btn {
+    background-color: #F97316;
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.auth-illustration {
+    width: 55%;
+    text-align: center;
+}
+
+.auth-illustration img {
+    max-width: 100%;
+    height: auto;
+}
+
+.remember-me {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.social-login button {
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.social-login .google {
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+.social-login .facebook {
+    background: #1877F2;
+    color: white;
+}
+
+.social-login .apple {
+    background: #000;
+    color: white;
+}
+
+.center-text {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.terms {
+    font-size: 12px;
+    text-align: center;
+    color: #888;
+}
+.logout-button {
+    background: none;
+    border: none;
+    color: #f97316;
+    cursor: pointer;
+    font-weight: 600;
+    padding: 0;
+    margin: 0 10px;
+}
+
+.logout-button:hover {
+    text-decoration: underline;
+}
+
+.Register-Title-First {
+    font-size: 24px;
+    color: #003C71;
+    margin-bottom: 20px;
+    margin-left: 125px;
+    float:left;
+}
+.Register-Title-Second {
+    font-size: 24px;
+    color: #f57c00;
+    margin-bottom: 20px;
+    margin-right: 125px;
+    float:right;
+}
+.bg-orange { background-color:#FF8C00!important; }
+.text-white{ color:#FFF!important; }
+.btn-outline-orange {
+  background:transparent;
+  border:2px solid #FF8C00;
+  color:#FF8C00;
+  padding:.5rem 1rem;
+  border-radius:6px;
+  font-weight:600;
+}

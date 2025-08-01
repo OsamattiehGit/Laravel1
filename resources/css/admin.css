@@ -1,0 +1,150 @@
+:root {
+  --orange: #FF7F00;
+  --navy: #003366;
+  --light-gray: #F9F9F9;
+  --dark-gray: #555;
+  --border-radius: 8px;
+  --spacing: 1rem;
+  --font-sans: 'Poppins', sans-serif;
+}
+
+.admin-container {
+  max-width: 1200px;
+  margin: var(--spacing) auto;
+  padding: 0 var(--spacing);
+  font-family: var(--font-sans);
+  color: var(--navy);
+}
+
+/* Title */
+.admin-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing);
+  position: relative;
+}
+.admin-title::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: var(--orange);
+  margin-top: 0.5rem;
+  border-radius: 2px;
+}
+
+/* Two‑column layout */
+.admin-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+/* Card wrapper */
+.admin-card {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card header */
+.admin-card-header {
+  background: var(--orange);
+  color: white;
+  padding: var(--spacing);
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+/* Card body */
+.admin-card-body {
+  padding: var(--spacing);
+  flex: 1;
+}
+
+/* Form groups */
+.admin-form-group {
+  margin-bottom: var(--spacing);
+}
+.admin-form-group label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+.admin-form-control,
+.admin-form-select,
+.admin-form-textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #CCC;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+}
+.admin-form-textarea {
+  resize: vertical;
+  min-height: 3rem;
+}
+.is-invalid {
+  border-color: red !important;
+}
+.invalid-feedback {
+  color: red;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+}
+
+/* Buttons */
+.admin-btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.admin-btn-primary {
+  background: var(--orange);
+  color: white;
+  border: 1px solid var(--orange);
+}
+.admin-btn-primary:hover {
+  background: #e57000;
+}
+.admin-btn-secondary {
+  background: white;
+  color: var(--navy);
+  border: 1px solid var(--navy);
+}
+.admin-btn-secondary:hover {
+  background: var(--navy);
+  color: white;
+}
+
+/* Table styling */
+.admin-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: var(--spacing);
+}
+.admin-table th,
+.admin-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+.admin-table thead th {
+  background: var(--orange);
+  color: white;
+  font-weight: 500;
+}
+.admin-table tbody tr:nth-child(even) {
+  background: var(--light-gray);
+}
+.admin-table td:last-child {
+  white-space: nowrap;
+}

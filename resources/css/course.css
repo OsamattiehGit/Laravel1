@@ -1,0 +1,295 @@
+/* ────────────── Banner ────────────── */
+.course-banner {
+  background: #0C3060;
+  padding: 80px 0;
+  text-align: center;
+}
+.course-banner .banner-image {
+  display: block;
+  width: 120px;
+  margin: 0 auto 24px;
+}
+.course-banner .banner-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #FFF;
+  margin-bottom: 8px;
+}
+.course-banner .banner-subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.25rem;
+  color: #FF8C00;
+}
+
+/* ────────────── Main Container ────────────── */
+.course-main {
+  padding: 60px 0;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+
+/* ────────────── Section Titles & Divider ────────────── */
+.section-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #FF8C00;
+  margin-bottom: 24px;
+}
+.section-subtitle {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #FF8C00;
+  margin: 32px 0 16px;
+}
+.section-divider {
+  border: none;
+  height: 2px;
+  background-color: #FF8C00;
+  margin: 3rem 0 1.5rem;
+}
+
+/* ────────────── About Text ────────────── */
+.about-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+/* ────────────── Objectives List ────────────── */
+.objectives-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.objectives-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.checkmark {
+  font-size: 1.25rem;
+  color: #4CAF50;
+  margin-right: 12px;
+  line-height: 1;
+}
+.objective-text {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* ────────────── Accordion ────────────── */
+.accordion {
+  width: 100%;
+}
+.accordion-item {
+  background: #FFF;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.accordion-toggle {
+  display: none;
+}
+.accordion-header {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  cursor: pointer;
+}
+.accordion-header:hover {
+  background: #f9f9f9;
+}
+.mod-index {
+  width: 32px;
+  font-weight: 600;
+  color: #FF8C00;
+  margin-right: 16px;
+}
+.mod-title {
+  flex: 1;
+  font-size: 1rem;
+  color: #333;
+}
+.mod-icon {
+  font-size: 1.5rem;
+  color: #FF8C00;
+  transition: transform .3s ease;
+}
+.accordion-toggle:checked + .accordion-header .mod-icon {
+  transform: rotate(45deg);
+}
+.accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .3s ease, padding .3s ease;
+}
+.accordion-toggle:checked ~ .accordion-body {
+  max-height: 200px;
+  padding: 12px 20px;
+}
+
+/* ────────────── Projects Grid ────────────── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+.project-card {
+  background: #FFF;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  text-align: center;
+  padding: 24px 16px;
+}
+.project-icon {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+.project-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+}
+.project-subtitle {
+  font-size: .875rem;
+  color: #666;
+}
+
+/* ────────────── Tools & Platforms ────────────── */
+.tools-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin: 32px 0;
+}
+.tool-card {
+  background: #FFF;
+  border-radius: 50%;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.tool-icon {
+  max-width: 60px;
+  max-height: 60px;
+}
+
+/* ────────────── Responsive Columns ────────────── */
+.course-main .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+.course-main .col-md-6,
+.course-main .col-lg-6 {
+  flex: 1 1 45%;
+  max-width: 90%;
+}
+@media (max-width: 739px) {
+  .course-main .col-md-6,
+  .course-main .col-lg-6 {
+    flex: 1 1 100%;
+  }
+}
+/* ────────────── CTA Banner ────────────── */
+.cta-banner {
+  background: #002C6B url('/images/cta-bg-pattern.png') center/cover no-repeat;
+  border-radius: 16px;
+  padding: 40px 24px;
+  display: grid;
+  grid-template-areas:
+    "text buttons"
+    "download download";
+  grid-template-columns: 1fr auto;
+  row-gap: 24px;
+  align-items: center;
+  margin: 4rem 0;
+}
+
+/* Text area */
+.cta-text {
+  grid-area: text;
+  color: #FFFFFF;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+/* Top right buttons */
+.cta-buttons {
+  grid-area: buttons;
+  display: flex;
+  gap: 16px;
+}
+
+/* Bottom full-width download */
+.cta-download {
+  grid-area: download;
+}
+
+/* Base button */
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/* SVG icon */
+.cta-icon {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+}
+
+/* Outline style (Demo/Enroll) */
+.cta-outline {
+  background: transparent;
+  border: 2px solid #FF8C00;
+  color: #FFFFFF;
+}
+
+/* Solid style (Download) */
+.cta-solid {
+  background: #FF8C00;
+  border: none;
+  color: #FFFFFF;
+}
+
+/* Make sure the download button fills its grid */
+.cta-download .cta-solid {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Responsive: stack on small */
+@media (max-width: 767px) {
+  .cta-banner {
+    grid-template-areas:
+      "text"
+      "buttons"
+      "download";
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .cta-buttons {
+    justify-content: center;
+  }
+}

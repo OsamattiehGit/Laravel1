@@ -1,0 +1,130 @@
+.about-hero {
+  display: flex;
+  justify-content: space-between;
+  background-color: #003366;
+  color: white;
+  padding: 80px 50px;
+  flex-wrap: wrap;
+}
+
+.hero-left {
+  flex: 1;
+  min-width: 300px;
+}
+
+.hero-left h5 {
+  color: #FF7500;
+  font-size: 16px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.hero-left h1 {
+  font-size: 42px;
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+.hero-left h1 span {
+  color: #FF7500;
+}
+
+.hero-left p {
+  font-size: 18px;
+  color: #ccc;
+}
+
+.hero-right {
+  flex: 1;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  min-width: 300px;
+}
+
+.hero-right img {
+  width: 150px;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Story Section */
+.story-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 80px 50px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.story-left img {
+  width: 300px;
+  border-radius: 50%;
+}
+
+.story-right {
+  flex: 1;
+  margin-left: 40px;
+  max-width: 600px;
+}
+
+.story-right h5 {
+  color: #003366;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.story-right h2 {
+  font-size: 34px;
+  color: #FF7500;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.story-right p {
+  font-size: 18px;
+  color: #555;
+}
+
+/* Mission and Vision */
+.mission-vision {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #003366;
+  padding: 60px 20px;
+  color: white;
+  flex-wrap: wrap;
+}
+
+.mission-box, .vision-box {
+  flex: 1;
+  min-width: 280px;
+  max-width: 500px;
+  margin: 20px;
+  text-align: center;
+}
+
+.mission-box img,
+.vision-box img {
+  width: 60px;
+  margin-bottom: 15px;
+}
+
+.mission-box h3,
+.vision-box h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.mission-box h3 span,
+.vision-box h3 span {
+  color: #FF7500;
+}
+
+.mission-box p,
+.vision-box p {
+  font-size: 16px;
+  color: #eee;
+}

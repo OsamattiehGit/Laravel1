@@ -1,0 +1,226 @@
+:root {
+  --primary:    #FF7F00;
+  --secondary:  #003366;
+  --bg:         #F2F6FB;
+  --card-radius: 12px;
+  --pill-radius: 30px;
+  --gutter:     1rem;
+}
+body {
+  background: var(--bg);
+}
+.courses-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem var(--gutter);
+}
+/* Title */
+.courses-title {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+}
+.courses-title--orange {
+  color: var(--primary);
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+.courses-title--navy {
+  color: var(--secondary);
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+/* Header row */
+.courses-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gutter);
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+/* Search */
+.search-box {
+  position: relative;
+  flex: 1 1 300px;
+}
+.search-box input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  padding-right: 3rem;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  gap: 0.5rem;
+}
+.filter-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background: #fff;
+  color: var(--secondary);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.filter-btn.active,
+.filter-btn:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* Sort */
+.sort-select {
+  flex: 1 1 200px;
+  text-align: right;
+}
+.sort-select select {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* Grid */
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+/* Card wrapper (transparent) */
+.course-card {
+  background: transparent;
+  overflow: visible;
+}
+
+/* Card Inner */
+.course-card-inner {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: var(--card-radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Top panel */
+.course-card-top {
+  background: var(--secondary);
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.course-card-top img {
+  max-height: 80px;
+  width: auto;
+}
+
+/* Bottom “pill” */
+.course-card-bottom {
+  background: #fff;
+  margin: -40px var(--gutter) 1rem;
+  padding: 2rem var(--gutter) 1rem;
+  border-radius: var(--pill-radius) var(--pill-radius) var(--card-radius) var(--card-radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+
+/* Title & text */
+.course-card-bottom h4 {
+  margin: 0 0 0.5rem;
+  color: var(--secondary);
+  font-size: 1.2rem;
+  text-align: center;
+}
+.course-card-bottom p {
+  margin: 0 0 1.5rem;
+  color: #555;
+  font-size: 0.9rem;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Buttons row */
+.course-card-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.btn-demo,
+.btn-enroll {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--pill-radius);
+  border: 2px solid var(--primary);
+  background: #fff;
+  color: var(--primary);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  text-decoration: none;
+}
+.btn-demo:hover,
+.btn-enroll:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* Download pill */
+.btn-download {
+  display: inline-block;
+  padding: 0.7rem 1.5rem;
+  border-radius: var(--pill-radius);
+  background: var(--primary);
+  color: #fff;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.btn-download:hover {
+  background: #e56a00;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+.pagination button {
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--secondary);
+  background: #fff;
+  color: var(--secondary);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.pagination button.active {
+  background: var(--secondary);
+  color: #fff;
+}
