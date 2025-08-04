@@ -188,6 +188,24 @@ class CourseController extends Controller
 
         return response()->json(['message' => 'Deleted'], 200);
     }
+    public function showSuggestionFlow()
+{
+    return view('courses.suggestion-flow');
+}
+
+public function getSuggestedCourses(Request $request)
+{
+    $field = $request->input('field'); // "IT" or "Non-IT"
+
+    if ($field === 'IT') {
+        $courses = Course::where('category', 'LIKE', '%IT%')->get();
+    } else {
+        $courses = Course::where('category', 'NOT LIKE', '%IT%')->get();
+    }
+
+    return response()->json($courses);
+}
+
 
 
 

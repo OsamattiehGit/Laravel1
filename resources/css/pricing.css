@@ -1,140 +1,177 @@
-.pricing-container {
-  background: #ffffff;
-  padding: 60px 20px;
+body {
+  background-color: #ffffff;
+  font-family: 'Poppins', sans-serif;
 }
 
+/* Background + Container */
+.pricing-container {
+  background: linear-gradient(to bottom, #04316A 50%, #ffffff 50%);
+  padding: 60px 20px 100px;
+  text-align: center;
+}
+
+/* Section Title */
 .section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #002147;
-  margin-bottom: 40px;
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 60px;
 }
 .section-title span {
-  color: #FF7500;
+  color: #F37021;
 }
 
+/* Plan Cards Grid */
 .plan-cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 30px;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
+/* Each Card */
 .plan-card {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 0 25px rgba(0,0,0,0.07);
+  background-color: #ffffff;
+  border-radius: 20px;
   padding: 30px 20px;
-  text-align: center;
   width: 300px;
-  transition: 0.3s;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.07);
+  position: relative;
+  text-align: left;
+  transition: transform 0.3s ease;
+  border: 2px solid transparent;
 }
+
 .plan-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-10px);
 }
 
-.plan-card h4 {
-  font-size: 1.5rem;
-  color: #002147;
-  margin-bottom: 15px;
+/* Highlighted middle card */
+.plan-card.highlighted {
+  border: 2px solid #F37021;
+  transform: scale(1.05);
 }
 
-.plan-card .price {
-  font-size: 1.8rem;
+/* Orange Badge Top Label */
+.plan-badge {
+  background-color: #F37021;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 8px;
   font-weight: 600;
-  color: #FF7500;
-  margin-bottom: 20px;
-}
-.plan-card .tax {
-  font-size: 1rem;
-  font-weight: 400;
+  font-size: 14px;
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
 }
 
-.plan-card ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 20px;
+/* Pricing Section */
+.price {
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: 40px;
+  margin-bottom: 8px;
+  color: #F37021;
+  text-align: center;
 }
-.plan-card ul li {
-  margin: 10px 0;
-  font-size: 0.95rem;
+
+.price .tax {
+  font-size: 16px;
+  font-weight: 500;
   color: #333;
 }
 
-.plan-card button {
-  background: #FF7500;
-  color: white;
-  border: none;
-  padding: 10px 25px;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: 0.2s;
-}
-.plan-card button:hover {
-  background: #e66400;
+.price small {
+  display: block;
+  font-size: 13px;
+  color: #6b7280;
 }
 
-.highlighted {
-  border: 2px solid #FF7500;
+/* Features List */
+.plan-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
 }
+
+.plan-card ul li {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  color: #444;
+  margin-bottom: 12px;
+  gap: 10px;
+}
+
+.plan-card ul li img {
+  width: 42px;
+  height: 42px;
+}
+
+/* Choose Button */
+.plan-card button {
+  background-color: transparent;
+  color: #F37021;
+  border: 2px solid #F37021;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  display: block;
+  margin: 20px auto 0;
+}
+
+.plan-card button:hover {
+  background-color: #F37021;
+  color: white;
+}
+
+/* Modal (unchanged if you're keeping JS) */
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(18, 18, 18, 0.7);
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  z-index: 1000;
 }
 
 .modal-content {
-  background: #ffffff;
-  padding: 30px 25px;
+  background: white;
+  padding: 30px;
   border-radius: 12px;
-  width: 90%;
-  max-width: 400px;
   text-align: center;
-  box-shadow: 0 0 30px rgba(0,0,0,0.2);
-  font-family: 'Roboto Condensed', sans-serif;
-}
-
-.modal-content h3 {
-  font-size: 1.4rem;
-  margin-bottom: 10px;
-  color: #002147;
-}
-
-.modal-content p {
-  font-size: 1rem;
-  margin-bottom: 20px;
+  max-width: 400px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 .modal-actions {
+  margin-top: 20px;
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  justify-content: space-around;
 }
 
-.btn-confirm,
-.btn-cancel {
-  padding: 8px 20px;
+.btn-confirm, .btn-cancel {
+  padding: 10px 20px;
+  font-weight: bold;
   border: none;
-  font-size: 1rem;
   border-radius: 6px;
-  cursor: pointer;
 }
 
 .btn-confirm {
-  background-color: #FF7500;
+  background-color: #F37021;
   color: white;
 }
 
 .btn-cancel {
-  background-color: transparent;
-  color: #FF7500;
-  border: 2px solid #FF7500;
+  background-color: #e5e7eb;
+  color: #111827;
 }

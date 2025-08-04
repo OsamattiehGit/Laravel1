@@ -6,48 +6,53 @@
 @push('styles')
   @vite('resources/css/pricing.css')
 @endpush
+
 <div class="pricing-container">
-  <h2 class="text-center section-title">Our <span>Pricing</span></h2>
+  <h2 class="section-title text-center">Our <span>Pricing</span></h2>
+
   <div class="plan-cards">
+    <!-- College Program -->
     <div class="plan-card">
-      <h4>College Program</h4>
-      <p class="price">₹ 20,000 <span class="tax">+ Tax</span>
-        <br><small>(Exclusive of GST & Taxes)</small>
+      <div class="plan-badge">College Program</div>
+      <p class="price">$20 <span class="tax">+ Tax</span><br>
+        <small>(Access to 1 course)</small>
       </p>
       <ul>
-        <li>For Colleges, Universities & group of Students</li>
-        <li>Common Timings</li>
+        <li><img src="{{ asset('images/icon-college.svg') }}" alt="college"> For Colleges, Universities & group of Students</li>
+        <li><img src="{{ asset('images/icon-clock.svg') }}" alt="clock"> Common Timings</li>
       </ul>
       <button onclick="choosePlan('C')">Choose Plan</button>
     </div>
 
-    <div class="plan-card highlighted">
-      <h4>Employee Program</h4>
-      <p class="price">₹ 50,000 <span class="tax">+ Tax</span>
-        <br><small>(Exclusive of GST & Taxes)</small>
+    <!-- Employee Program -->
+  <div class="plan-card">
+      <div class="plan-badge">Employee Program</div>
+      <p class="price">$35 <span class="tax">+ Tax</span><br>
+        <small>(Access to 3 course)</small>
       </p>
       <ul>
-        <li>1-1 Individuals</li>
-        <li>Choose Timings</li>
+        <li><img src="{{ asset('images/icon-people.svg') }}" alt="college"> 1-1 Individuals</li>
+        <li><img src="{{ asset('images/icon-clock.svg') }}" alt="clock"> Common Timings</li>
       </ul>
-      <button onclick="choosePlan('B')">Choose Plan</button>
+      <button onclick="choosePlan('C')">Choose Plan</button>
     </div>
 
+    <!-- Complete Transformation Program -->
     <div class="plan-card">
-      <h4>Complete Transformation Program</h4>
-      <p class="price">₹ 75,000 <span class="tax">+ Tax</span>
-        <br><small>(Exclusive of GST & Taxes)</small>
+      <div class="plan-badge">Complete Transformation Program</div>
+      <p class="price">$50 <span class="tax">+ Tax</span><br>
+        <small>(Access to 5 courses)</small>
       </p>
       <ul>
-        <li>1-1 Individuals</li>
-        <li>Flexible Timings</li>
+        <li><img src="{{ asset('images/icon-people.svg') }}" alt="people"> 1-1 Individuals</li>
+        <li><img src="{{ asset('images/icon-clock.svg') }}" alt="clock"> Flexible Timings</li>
       </ul>
       <button onclick="choosePlan('A')">Choose Plan</button>
     </div>
   </div>
 </div>
 
-
+<!-- Modal -->
 <div id="subscription-modal" class="modal-overlay" style="display: none;">
   <div class="modal-content">
     <h3 id="modal-title">Confirm Subscription</h3>
@@ -58,6 +63,6 @@
     </div>
   </div>
 </div>
+
 @vite('resources/js/pricing.js')
 @endsection
-

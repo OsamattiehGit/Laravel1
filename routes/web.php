@@ -60,4 +60,7 @@ Route::view('/course-selector', 'course-selector')->name('course.selector');
 
 // Suggest a course placeholder (optional)
 Route::view('/suggest-course', 'suggest-course')->name('suggest.course');
+Route::get('/suggest-course', [CourseController::class, 'showSuggestionFlow'])->name('suggest.course');
+Route::post('/suggest-course/result', [CourseController::class, 'getSuggestedCourses'])->name('suggest.course.result');
+
 require __DIR__.'/auth.php';
