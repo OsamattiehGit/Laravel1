@@ -17,12 +17,12 @@
                 onmouseover="this.style.color='#f37021'; this.style.borderBottom='2px solid #f37021';"
                 onmouseout="if(location.pathname !== '/home'){ this.style.color='#333'; this.style.borderBottom='none'; }">Home</a></li>
 
-            <li><a href="{{ url('/courses') }}"
-                style="text-decoration: none; color: {{ $current == 'courses' ? '#f37021' : '#333' }};
-                       border-bottom: {{ $current == 'courses' ? '2px solid #f37021' : 'none' }};
+            <li><a href="{{ url('/course-selector') }}"
+                style="text-decoration: none; color: {{ $current == 'course-selector' ? '#f37021' : '#333' }};
+                       border-bottom: {{ $current == 'course-selector' ? '2px solid #f37021' : 'none' }};
                        padding-bottom: 4px;"
                 onmouseover="this.style.color='#f37021'; this.style.borderBottom='2px solid #f37021';"
-                onmouseout="if(location.pathname !== '/courses'){ this.style.color='#333'; this.style.borderBottom='none'; }">Course Selector</a></li>
+                onmouseout="if(location.pathname !== '/course-selector'){ this.style.color='#333'; this.style.borderBottom='none'; }">Course Selector</a></li>
                 <li><a href="{{ url('/courses') }}"
                 style="text-decoration: none; color: {{ $current == 'courses' ? '#f37021' : '#333' }};
                        border-bottom: {{ $current == 'courses' ? '2px solid #f37021' : 'none' }};

@@ -55,5 +55,9 @@ Route::middleware(['web', 'auth'])
 )->name('course.enroll')
  ->middleware('auth');
 Route::post('/course/{course}/enroll', [EnrollmentController::class, 'enroll'])->name('course.enroll');
+// Course selector page
+Route::view('/course-selector', 'course-selector')->name('course.selector');
 
+// Suggest a course placeholder (optional)
+Route::view('/suggest-course', 'suggest-course')->name('suggest.course');
 require __DIR__.'/auth.php';
