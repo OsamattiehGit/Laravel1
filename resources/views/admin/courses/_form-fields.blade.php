@@ -48,6 +48,21 @@
   </select>
   @error('category_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
 </div>
+<!-- Course Type -->
+<div class="admin-form-group">
+  <label for="type">Type</label>
+  <select
+    name="type"
+    id="type"
+    class="admin-form-select @error('type') is-invalid @enderror"
+  >
+    <option value="IT" {{ old('type', $course->type ?? '') === 'IT' ? 'selected' : '' }}>IT</option>
+    <option value="Non-IT" {{ old('type', $course->type ?? '') === 'Non-IT' ? 'selected' : '' }}>Non-IT</option>
+  </select>
+  @error('type') <div class="invalid-feedback">{{ $message }}</div> @enderror
+</div>
+
+
 
 <div class="admin-form-group">
   <label for="status">Status</label>

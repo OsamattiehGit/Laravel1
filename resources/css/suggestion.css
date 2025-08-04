@@ -1,0 +1,149 @@
+/* === Wrapper & Title === */
+.suggestion-wrapper {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #002d72;
+  border-radius: 20px;
+  color: white;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.section-title .blue {
+  color: #002d72;
+}
+
+.section-title .orange {
+  color: #ff7f50;
+}
+
+/* === Chat Log === */
+.chat-log {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* === Chat Bubbles === */
+.chat-bubble {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: 90%;
+}
+
+.chat-bubble.ezy {
+  align-self: flex-start;
+}
+
+.chat-bubble.user {
+  align-self: flex-end;
+  justify-content: flex-end;
+}
+
+/* === Avatar (EZY) === */
+.chat-bubble .avatar {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  background: white;
+  color: #002d72;
+  font-weight: bold;
+  font-size: 0.9rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ff7f50;
+}
+
+.chat-bubble .msg {
+  background: white;
+  color: #002d72;
+  padding: 14px 18px;
+  border-radius: 15px;
+  line-height: 1.5;
+  font-size: 1rem;
+  max-width: 100%;
+}
+
+.chat-bubble.user .msg {
+  background: #ff7f50;
+  color: white;
+  border-radius: 15px 15px 0 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* === Options (Buttons) === */
+.option-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.option-btn {
+  background: #ff7f50;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.option-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.option-btn:hover {
+  background: #e0562e;
+}
+
+/* === Course List === */
+.course-list {
+  list-style: disc;
+  padding-left: 30px;
+  margin-top: 10px;
+  line-height: 1.6;
+  font-size: 1rem;
+  color: white;
+}
+.course-list {
+    list-style: none;
+    padding: 1rem;
+    margin: 1rem 0;
+    background-color: white;
+    color: #1e2b55; /* dark blue for text */
+    border-radius: 10px;
+    font-weight: 500;
+    line-height: 1.8;
+}
+
+.course-list li {
+    margin-bottom: 6px;
+    padding-left: 10px;
+    position: relative;
+}
+
+.course-list li::before {
+    content: '🎓';
+    position: absolute;
+    left: -20px;
+}

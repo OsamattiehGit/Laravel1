@@ -6,6 +6,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\AdminCourseController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\ComplaintController;
 use App\Models\Course;
 
 
@@ -59,8 +60,12 @@ Route::post('/course/{course}/enroll', [EnrollmentController::class, 'enroll'])-
 Route::view('/course-selector', 'course-selector')->name('course.selector');
 
 // Suggest a course placeholder (optional)
-Route::view('/suggest-course', 'suggest-course')->name('suggest.course');
 Route::get('/suggest-course', [CourseController::class, 'showSuggestionFlow'])->name('suggest.course');
 Route::post('/suggest-course/result', [CourseController::class, 'getSuggestedCourses'])->name('suggest.course.result');
+
+
+Route::get('/contact', [ComplaintController::class, 'showForm'])->name('contact.form');
+
+Route::post('/contact', [ComplaintController::class, 'submit'])->name('contact.submit');
 
 require __DIR__.'/auth.php';

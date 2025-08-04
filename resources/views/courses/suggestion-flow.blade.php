@@ -3,25 +3,20 @@
 @section('title', 'Suggest a Course')
 
 @push('styles')
-  @vite('resources/css/suggestion.css')
+    @vite('resources/css/suggestion.css')
 @endpush
+
 @section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <h1 class="section-title">
+        <span class="blue">Choose</span> <span class="orange">the Course</span>
+    </h1>
 <div class="suggestion-wrapper">
-  <h2 class="section-title">Choose The <span>Course</span></h2>
 
-  <!-- Step: Field Selection -->
-  <div class="bubble-block">
-    <p>Select the field you’re interested in</p>
-    <div class="bubble-buttons">
-      <button class="field-btn" data-field="IT">IT Field</button>
-      <button class="field-btn" data-field="Non-IT">Non IT Field</button>
+
+    <div id="chat-log" class="chat-log">
+        {{-- Chat bubbles will be appended here dynamically --}}
     </div>
-  </div>
-
-  <!-- Display Results -->
-  <div id="course-result" class="course-result-box"></div>
 </div>
 
 @vite('resources/js/suggestion.js')

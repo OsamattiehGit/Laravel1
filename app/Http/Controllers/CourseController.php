@@ -195,16 +195,20 @@ class CourseController extends Controller
 
 public function getSuggestedCourses(Request $request)
 {
-    $field = $request->input('field'); // "IT" or "Non-IT"
+    $field = $request->input('field'); // "IT Field" or "Non IT Field"
 
-    if ($field === 'IT') {
-        $courses = Course::where('category', 'LIKE', '%IT%')->get();
+    if ($field === 'IT Field') {
+        $categoryIds = \App\Models\Category::where('type', 'IT')->pluck('id');
     } else {
-        $courses = Course::where('category', 'NOT LIKE', '%IT%')->get();
+        $categoryIds = \App\Models\Category::where('type', 'Non-IT')->pluck('id');
     }
 
-    return response()->json($courses);
+    $courses = Course::whereIn('category_id', $categoryIds)->pluck('title');
+
+    return response()->json(['courses' => $courses]);
 }
+
+
 
 
 
