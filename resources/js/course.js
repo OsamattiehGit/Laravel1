@@ -12,43 +12,83 @@ document.addEventListener('DOMContentLoaded', () => {
       return window.location.href = window.pricingUrl;
     }
 
-    // 2) Confirm
-    if (!confirm(`Enroll in “${courseTitle}”?`)) {
-      return;
-    }
+    // 2) Custom Modal
+    showEnrollModal(courseTitle)
+      .then(async (confirmed) => {
+        if (!confirmed) return;
 
-    try {
-      // 3) POST with credentials + JSON
-      const res = await fetch(
-        `${window.enrollUrlBase}/${courseId}/enroll`,
-        {
-          method: 'POST',
-          credentials: 'same-origin',  // ◀️ send laravel_session
-          headers: {
-            'Accept':       'application/json',
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document
-              .querySelector('meta[name="csrf-token"]')
-              .content
-          },
-          body: JSON.stringify({})     // ◀️ CSRF needs a body
+        try {
+          // 3) POST with credentials + JSON (this code stays)
+          const res = await fetch(
+            `${window.enrollUrlBase}/${courseId}/enroll`,
+            {
+              method: 'POST',
+              credentials: 'same-origin',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+              },
+              body: JSON.stringify({})
+            }
+          );
+
+          // Success: 2xx codes only
+          if (res.ok) {
+            const data = await res.json();
+            showToast(`${data.message}<br>Remaining slots: <b>${data.balance}</b>`, true);
+            window.courseBalance = data.balance;
+          } else {
+            // Error: get message or fallback
+            const error = await res.json().catch(() => ({}));
+           showToast("You are already enrolled in this course.", false);
+          }
+        } catch (e) {
+          showToast('Network error: ' + (e.message || 'Unknown'), false);
         }
-      );
-
-      // 4) Non-200 → pull out JSON error
-      if (!res.ok) {
-        const err = await res.json().catch(() => null);
-        throw new Error(err?.error || res.statusText);
-      }
-
-      // 5) All good
-      const data = await res.json();
-      alert(`${data.message}\nRemaining slots: ${data.balance}`);
-      window.courseBalance = data.balance;
-
-    } catch (e) {
-      console.error('Enrollment failed:', e);
-      alert(e.message);
-    }
+      });
   });
 });
+
+// --- Modal & Toast Functions, unchanged ---
+function showEnrollModal(courseTitle) {
+  return new Promise((resolve) => {
+    const modal = document.getElementById('enroll-modal');
+    const message = document.getElementById('enroll-modal-message');
+    message.innerHTML = `Are you sure you want to enroll in <b>“${courseTitle}”</b>?`;
+    modal.style.display = 'flex';
+
+    function cleanup(result) {
+      modal.style.display = 'none';
+      confirmBtn.removeEventListener('click', yesHandler);
+      cancelBtn.removeEventListener('click', noHandler);
+    }
+
+    const confirmBtn = document.getElementById('enroll-confirm-btn');
+    const cancelBtn = document.getElementById('enroll-cancel-btn');
+
+    function yesHandler() { cleanup(true); resolve(true); }
+    function noHandler()  { cleanup(false); resolve(false); }
+
+    confirmBtn.addEventListener('click', yesHandler);
+    cancelBtn.addEventListener('click', noHandler);
+
+    // Dismiss on backdrop click
+    modal.onclick = (e) => {
+      if (e.target === modal) cleanup(false), resolve(false);
+    };
+  });
+}
+
+function showToast(msg, success = true) {
+  let toast = document.getElementById('custom-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'custom-toast';
+        document.body.appendChild(toast);
+    }
+  toast.innerHTML = msg;
+  toast.className = 'custom-toast ' + (success ? 'toast-success' : 'toast-error');
+  toast.style.display = 'block';
+  setTimeout(() => { toast.style.display = 'none'; }, 2500);
+}

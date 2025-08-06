@@ -11,15 +11,16 @@ use App\Models\Course;
 
 
 // 🔓 Public Pages
+
 Route::get('/', function () {
     $courses = Course::all();
     return view('home', compact('courses'));
 })->name('home');
-Route::get('/home', function () {
-    $courses = Course::all();
-    return view('home', compact('courses'));
-})->name('home');
 
+// Redirect /home to /
+Route::get('/home', function () {
+    return redirect()->route('home');
+});
 Route::view('/faq', 'faq');
 Route::view('/contact', 'contact');
 Route::view('/about', 'about');
@@ -35,9 +36,8 @@ Route::get('/course/{course}/download', [CourseController::class, 'download'])->
 Route::middleware('auth')->group(function () {
     Route::view('/dashboard', 'dashboard')->name('dashboard');
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
+
 
 
  Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');

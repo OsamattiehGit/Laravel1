@@ -293,3 +293,67 @@
     justify-content: center;
   }
 }
+.enroll-modal-backdrop {
+    position: fixed; z-index: 9999; left: 0; top: 0; width: 100vw; height: 100vh;
+    background: rgba(7,23,46,0.5); display: flex; align-items: center; justify-content: center;
+    animation: fadeIn .2s;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.enroll-modal-content {
+    background: #09336a;
+    border-radius: 18px;
+    padding: 36px 32px 24px 32px;
+    color: #fff;
+    max-width: 340px;
+    width: 100%;
+    box-shadow: 0 6px 48px rgba(0,0,0,0.13);
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    animation: popin .23s;
+}
+@keyframes popin { from { transform: scale(.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.enroll-modal-header {
+    display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 10px;
+}
+.enroll-modal-header h5 {
+    font-size: 1.32rem;
+    color: #FF8C00;
+    margin: 0;
+    font-weight: 700;
+}
+.enroll-modal-icon {
+    margin-bottom: 0px;
+}
+.enroll-modal-body {
+    margin-bottom: 18px;
+    font-size: 1.05rem;
+    color: #fff;
+}
+.enroll-modal-footer {
+    display: flex; gap: 18px; justify-content: center;
+}
+#enroll-confirm-btn {
+    min-width: 110px;
+}
+#enroll-cancel-btn {
+    min-width: 90px;
+}
+.custom-toast {
+    position: fixed;
+    bottom: 32px; left: 50%; transform: translateX(-50%);
+    background: #002C6B;
+    color: #fff;
+    padding: 16px 36px;
+    border-radius: 10px;
+    font-size: 1.08rem;
+    z-index: 99999;
+    box-shadow: 0 4px 28px rgba(0,0,0,0.15);
+    opacity: 0.98;
+    transition: opacity 0.4s;
+    min-width: 220px;
+    text-align: center;
+}
+.toast-success { border-left: 7px solid #11d33b; }
+.toast-error { border-left: 7px solid #ff4337; }
+.toast-success { background: #11d33b !important; color: #fff; }
+.toast-error   { background: #ff1100 !important; color: #fff; }

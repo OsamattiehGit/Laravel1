@@ -57,4 +57,10 @@ public function update(ProfileUpdateRequest $request): RedirectResponse
 
         return Redirect::to('/');
     }
+    public function profile() {
+    $user = auth()->user();
+    $enrollments = $user->enrollments()->with('course')->get();
+    return view('profile', compact('enrollments'));
+}
+
 }

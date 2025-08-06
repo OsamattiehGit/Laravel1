@@ -1,45 +1,153 @@
-
 @extends('layouts.app')
 @section('title', 'Create Account')
-@vite(['resources/css/style.css'])
+@push('styles')
+@vite('resources/css/register.css')
+@endpush
 @section('content')
-<div class="auth-container">
-    <div class="auth-form-box">
-        <h2 class="Register-Title-First">Create</h2>
-        <h2 class="Register-Title-Second">Account</h2>
-
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-            <label for="email">Email Address</label>
-            <input id="email" type="email" name="email" required>
-
-            <label for="password">Password</label>
-            <input id="password" type="password" name="password" required>
-
-            <label for="password_confirmation">Repeat Password</label>
-            <input id="password_confirmation" type="password" name="password_confirmation" required>
-
-            <div class="remember-me">
-                <input type="checkbox" name="remember" id="remember">
-                <label for="remember">Remember Me</label>
-            </div>
-
-            <button type="submit" class="primary-btn">Create Account</button>
-
-            <p class="center-text"><a href="{{ route('login') }}">Already Created? Login Here</a></p>
-
-            <div class="social-login">
-                <button type="button" class="google">Sign in with Google</button>
-                <button type="button" class="facebook">Sign in with Facebook</button>
-                <button type="button" class="apple">Sign in with Apple</button>
-            </div>
-
-            <p class="terms">By continuing, you agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
-        </form>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
     </div>
+@endif
+<div class="container-fluid px-0" style="background-color: #f8f9fa; min-height: 100vh;">
+    <div class="row g-0 min-vh-100">
+        <!-- Left side - Form -->
+        <div class="col-lg-5 col-md-6 d-flex align-items-center justify-content-center p-4">
+            <div class="w-100" style="max-width: 800px">
+                <div class="bg-white p-4 p-lg-5 rounded-3 shadow-sm">
+                    <!-- Title -->
+                    <div class="mb-4">
+                    <h2 class="fw-bold text-center" style="font-family: 'Poppins', sans-serif; font-size: 2.2rem;">
+    <span style="color: #003C71;">Create</span>
+    <span style="color: #FF942F;">Account</span>
+</h2>
+                    </div>
 
-    <div class="auth-illustration">
-        <img src="{{ asset('images/illustration.svg') }}" alt="Illustration">
+                    <!-- Form -->
+                    <div class="card rounded-4 shadow p-4 mx-auto" style="max-width:800px;">
+                    <form method="POST" action="{{ route('register') }}">
+                        @csrf
+
+                        <!-- Email Input -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label text-muted small">Email Address</label>
+                            <input id="email"
+                                   type="email"
+                                   name="email"
+                                   class="form-control border-0 border-bottom rounded-0 px-0 py-2"
+                                   style="background-color: transparent; border-color: #e0e0e0 !important;"
+                                   required>
+                        </div>
+                         <!-- name Input -->
+                         <div class="mb-3">
+    <label for="name" class="form-label text-muted small">Full Name</label>
+    <input id="name"
+           type="text"
+           name="name"
+           class="form-control border-0 border-bottom rounded-0 px-0 py-2"
+           style="background-color: transparent; border-color: #e0e0e0 !important;"
+           required>
+</div>
+
+                        <!-- Password Input -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label text-muted small">Password</label>
+                            <input id="password"
+                                   type="password"
+                                   name="password"
+                                   class="form-control border-0 border-bottom rounded-0 px-0 py-2"
+                                   style="background-color: transparent; border-color: #e0e0e0 !important;"
+                                   required>
+                        </div>
+
+                        <!-- Confirm Password Input -->
+                        <div class="mb-3">
+                            <label for="password_confirmation" class="form-label text-muted small">Repeat Password</label>
+                            <input id="password_confirmation"
+                                   type="password"
+                                   name="password_confirmation"
+                                   class="form-control border-0 border-bottom rounded-0 px-0 py-2"
+                                   style="background-color: transparent; border-color: #e0e0e0 !important;"
+                                   required>
+                        </div>
+
+                        <!-- Remember Me Checkbox -->
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                            <label class="form-check-label text-muted small" for="remember">
+                                Remember Me
+                            </label>
+                        </div>
+
+                        <!-- Create Account Button -->
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary py-3 fw-bold rounded-2" style="background-color: #003C71; border-color: #003C71; font-size: 1rem;">
+                                Create Account
+                            </button>
+                        </div>
+
+                        <!-- Login Link -->
+                        <div class="text-center mb-4">
+                            <small class="text-muted">Already created?
+                                <a href="{{ route('login') }}" class="text-decoration-none" style="color: #f57c00;">Login here</a>
+                            </small>
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="position-relative text-center mb-4">
+                            <hr class="text-muted">
+                            <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted small">or</span>
+                        </div>
+
+                        <!-- Social Login Buttons -->
+                        <div class="d-grid gap-2">
+                            <!-- Google Sign In -->
+                            <button type="button" class="btn btn-outline-secondary d-flex align-items-center justify-content-center py-2">
+                                <img src="{{ asset('images/google-icon.svg') }}" alt="Google Icon" class="me-2" style="width: 18px; height: 18px;">
+                                Sign in with Google
+                            </button>
+
+                            <!-- Facebook Sign In -->
+                            <button type="button" class="btn btn-outline-secondary d-flex align-items-center justify-content-center py-2" style="background-color: #1877F2; color: white;">
+                                <img src="{{ asset('images/facebook-icon.svg') }}" alt="Facebook Icon" class="me-2" style="width: 18px; height: 18px;">
+                                Sign in with Facebook
+                            </button>
+
+                            <!-- Apple Sign In -->
+                           <button type="button" class="btn btn-outline-secondary d-flex align-items-center justify-content-center py-2" style="background-color: #000000; color: white;">
+                                <img src="{{ asset('images/apple-icon.svg') }}" alt="Facebook Icon" class="me-2" style="width: 18px; height: 18px;">
+                                Sign in with Apple
+                            </button>
+                        </div>
+
+                        <!-- Terms -->
+                        <div class="text-center mt-4">
+                            <small class="text-muted">
+                                By continuing, you agree to the
+                                <a href="#" class="text-decoration-none" style="color: #f57c00;">Terms of Service</a>
+                                and
+                                <a href="#" class="text-decoration-none" style="color: #f57c00;">Privacy Policy</a>
+                            </small>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>
+        <!-- Right side - Illustration -->
+        <div class="col-lg-7 col-md-6 d-none d-md-flex align-items-center justify-content-center p-4" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+            <div class="text-center">
+                <img src="{{ asset('images/illustration.svg') }}"
+                     alt="Registration Illustration"
+                     class="img-fluid"
+                     style="max-width: 80%; height: auto;">
+            </div>
+        </div>
     </div>
 </div>
+
 @endsection

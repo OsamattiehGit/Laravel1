@@ -1,142 +1,194 @@
+
+/* Custom CSS for exact Figma design */
 body {
-  background-color: #ffffff;
   font-family: 'Poppins', sans-serif;
 }
 
-/* Background + Container */
-.pricing-container {
-  background: linear-gradient(to bottom, #04316A 50%, #ffffff 50%);
-  padding: 60px 20px 100px;
-  text-align: center;
+.pricing-section {
+  background: linear-gradient(180deg, #04316A 50%, #ffffff 50%);
+  padding: 60px 0 100px;
+  position: relative;
 }
 
-/* Section Title */
-.section-title {
+.pricing-title {
   font-size: 2.75rem;
   font-weight: 800;
   color: #ffffff;
   margin-bottom: 60px;
 }
-.section-title span {
+
+.pricing-title .text-orange {
   color: #F37021;
 }
 
-/* Plan Cards Grid */
-.plan-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px;
-  max-width: 1200px;
+/* Decorative dots - left side */
+.pricing-section::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  width: 80px;
+  height: 120px;
+  background-image:
+    radial-gradient(circle, #F37021 2px, transparent 2px),
+    radial-gradient(circle, #F37021 2px, transparent 2px),
+    radial-gradient(circle, #F37021 2px, transparent 2px),
+    radial-gradient(circle, #F37021 2px, transparent 2px);
+  background-size: 15px 15px;
+  background-position: 0 0, 15px 15px, 30px 30px, 45px 45px;
+  background-repeat: repeat;
+}
+
+/* Decorative dots - right side */
+.pricing-section::after {
+  content: '';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  width: 80px;
+  height: 120px;
+  background-image:
+    radial-gradient(circle, #F37021 2px, transparent 2px),
+    radial-gradient(circle, #F37021 2px, transparent 2px),
+    radial-gradient(circle, #F37021 2px, transparent 2px),
+    radial-gradient(circle, #F37021 2px, transparent 2px);
+  background-size: 15px 15px;
+  background-position: 0 0, 15px 15px, 30px 30px, 45px 45px;
+  background-repeat: repeat;
+}
+
+.plan-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 25px 20px 30px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: transform 0.3s ease;
+  border: 2px solid transparent;
+  height: 100%;
+  max-width: 300px;
   margin: 0 auto;
 }
 
-/* Each Card */
-.plan-card {
-  background-color: #ffffff;
-  border-radius: 20px;
-  padding: 30px 20px;
-  width: 300px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.07);
-  position: relative;
-  text-align: left;
-  transition: transform 0.3s ease;
-  border: 2px solid transparent;
-}
-
 .plan-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-5px);
 }
 
-/* Highlighted middle card */
+/* Middle card highlighted */
 .plan-card.highlighted {
   border: 2px solid #F37021;
-  transform: scale(1.05);
+  transform: scale(1.08);
+  z-index: 2;
 }
 
-/* Orange Badge Top Label */
+.plan-card.highlighted:hover {
+  transform: scale(1.08) translateY(-5px);
+}
+
 .plan-badge {
-  background-color: #F37021;
+  background: linear-gradient(135deg, #F37021, #E55A00);
   color: white;
-  padding: 6px 16px;
-  border-radius: 8px;
+  padding: 8px 20px;
+  border-radius: 12px;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 13px;
   position: absolute;
-  top: -20px;
+  top: -12px;
   left: 50%;
   transform: translateX(-50%);
-  text-align: center;
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(243, 112, 33, 0.3);
 }
 
-/* Pricing Section */
-.price {
-  font-size: 28px;
-  font-weight: 700;
-  margin-top: 40px;
-  margin-bottom: 8px;
+.plan-price {
+  font-size: 32px;
+  font-weight: 800;
   color: #F37021;
-  text-align: center;
+  margin: 30px 0 8px;
+  line-height: 1.2;
 }
 
-.price .tax {
-  font-size: 16px;
+.plan-price .currency {
+  font-size: 24px;
+  margin-right: 3px;
+}
+
+.plan-price .tax-info {
+  font-size: 14px;
   font-weight: 500;
   color: #333;
+  margin-left: 5px;
 }
 
-.price small {
+.plan-price small {
   display: block;
-  font-size: 13px;
-  color: #6b7280;
+  font-size: 12px;
+  color: #666;
+  font-weight: 400;
+  margin-top: 5px;
 }
 
-/* Features List */
-.plan-card ul {
+.plan-features {
   list-style: none;
   padding: 0;
-  margin: 20px 0;
+  margin: 25px 0 30px;
 }
 
-.plan-card ul li {
+.plan-features li {
+  display: flex;
+  align-items: flex-start;
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 15px;
+  gap: 12px;
+  line-height: 1.4;
+}
+
+.plan-features li .feature-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  background: #f8f9fa;
+  border-radius: 8px;
   display: flex;
   align-items: center;
-  font-size: 15px;
-  color: #444;
-  margin-bottom: 12px;
-  gap: 10px;
+  justify-content: center;
 }
 
-.plan-card ul li img {
-  width: 42px;
-  height: 42px;
+.plan-features li .feature-icon img {
+  width: 24px;
+  height: 24px;
 }
 
-/* Choose Button */
-.plan-card button {
+.choose-btn {
   background-color: transparent;
   color: #F37021;
   border: 2px solid #F37021;
-  padding: 10px 24px;
-  border-radius: 8px;
+  padding: 12px 30px;
+  border-radius: 10px;
   font-weight: 600;
   font-size: 14px;
-  cursor: pointer;
-  transition: 0.3s ease-in-out;
+  transition: all 0.3s ease;
+  width: auto;
+  margin: 0 auto;
   display: block;
-  margin: 20px auto 0;
 }
 
-.plan-card button:hover {
+.choose-btn:hover {
   background-color: #F37021;
   color: white;
+  border-color: #F37021;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(243, 112, 33, 0.3);
 }
 
-/* Modal (unchanged if you're keeping JS) */
+/* Modal Styles */
 .modal-overlay {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
@@ -159,11 +211,13 @@ body {
   justify-content: space-around;
 }
 
-.btn-confirm, .btn-cancel {
+.btn-confirm,
+.btn-cancel {
   padding: 10px 20px;
   font-weight: bold;
   border: none;
   border-radius: 6px;
+  cursor: pointer;
 }
 
 .btn-confirm {
@@ -174,4 +228,60 @@ body {
 .btn-cancel {
   background-color: #e5e7eb;
   color: #111827;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .pricing-section::before,
+  .pricing-section::after {
+    display: none;
+  }
+
+  .plan-card.highlighted {
+    transform: scale(1.02);
+  }
+
+  .plan-card.highlighted:hover {
+    transform: scale(1.02) translateY(-5px);
+  }
+}
+
+@media (max-width: 768px) {
+  .pricing-title {
+    font-size: 2rem;
+  }
+
+  .plan-card {
+    margin-bottom: 30px;
+    max-width: 280px;
+  }
+
+  .plan-price {
+    font-size: 28px;
+  }
+}
+#pricing-toast {
+    position: fixed;
+    top: 36px; /* Or bottom: 32px */
+    left: 50%;
+    transform: translateX(-50%);
+    background: #09336a;
+    color: #fff;
+    padding: 18px 38px;
+    border-radius: 10px;
+    font-size: 1.15rem;
+    z-index: 99999;
+    min-width: 220px;
+    text-align: center;
+    box-shadow: 0 4px 28px rgba(0,0,0,0.13);
+    opacity: 0.98;
+    border-left: 7px solid #11d33b;
+}
+#pricing-toast.toast-error {
+    border-left: 7px solid #ff4337;
+    background: #b30d1a;
+}
+#pricing-toast.toast-success {
+    border-left: 7px solid #11d33b;
+    background: #0d924b;
 }

@@ -1,0 +1,35 @@
+.form-control:focus {
+    box-shadow: none;
+    border-color: #f57c00 !important;
+}
+
+.form-check-input:checked {
+    background-color: #f57c00;
+    border-color: #f57c00;
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.2rem rgba(245, 124, 0, 0.25);
+}
+
+.btn-outline-secondary {
+    border-color: #dee2e6;
+    color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+    color: #6c757d;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 1.5rem !important;
+    }
+}

@@ -7,7 +7,7 @@ export default defineConfig({
             input: [
                 'resources/css/home.css',
                 'resources/css/app.css',
-                'resources/css/style.css',
+                'resources/css/register.css',
                 'resources/css/course.css',
                 'resources/css/pricing.css',
                 'resources/css/courses.css',

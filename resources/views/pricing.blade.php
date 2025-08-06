@@ -4,53 +4,100 @@
 
 @section('content')
 @push('styles')
-  @vite('resources/css/pricing.css')
+    @vite('resources/css/pricing.css')
 @endpush
 
-<div class="pricing-container">
-  <h2 class="section-title text-center">Our <span>Pricing</span></h2>
-
-  <div class="plan-cards">
-    <!-- College Program -->
-    <div class="plan-card">
-      <div class="plan-badge">College Program</div>
-      <p class="price">$20 <span class="tax">+ Tax</span><br>
-        <small>(Access to 1 course)</small>
-      </p>
-      <ul>
-        <li><img src="{{ asset('images/icon-college.svg') }}" alt="college"> For Colleges, Universities & group of Students</li>
-        <li><img src="{{ asset('images/icon-clock.svg') }}" alt="clock"> Common Timings</li>
-      </ul>
-      <button onclick="choosePlan('C')">Choose Plan</button>
+<section class="pricing-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="pricing-title text-center">Our <span class="text-orange">Pricing</span></h2>
+      </div>
     </div>
 
-    <!-- Employee Program -->
-  <div class="plan-card">
-      <div class="plan-badge">Employee Program</div>
-      <p class="price">$35 <span class="tax">+ Tax</span><br>
-        <small>(Access to 3 course)</small>
-      </p>
-      <ul>
-        <li><img src="{{ asset('images/icon-people.svg') }}" alt="college"> 1-1 Individuals</li>
-        <li><img src="{{ asset('images/icon-clock.svg') }}" alt="clock"> Common Timings</li>
-      </ul>
-      <button onclick="choosePlan('C')">Choose Plan</button>
-    </div>
+    <div class="row justify-content-center align-items-end g-4">
+      <!-- College Program -->
+      <div class="col-lg-4 col-md-6">
+        <div class="plan-card text-center">
+          <div class="plan-badge">College Program</div>
+          <div class="plan-price">
+            <span class="currency">$</span> 19.99 <span class="tax-info">+ Tax</span>
+            <small>(Access to 1 Course)</small>
+          </div>
+          <ul class="plan-features">
+            <li>
+              <div class="feature-icon">
+                <img src="{{ asset('images/college-icon.svg') }}" alt="college">
+              </div>
+              <span>For Colleges, Universities & group of Students</span>
+            </li>
+            <li>
+              <div class="feature-icon">
+                <img src="{{ asset('images/icon-clock.svg') }}" alt="clock">
+              </div>
+              <span>Common Timings</span>
+            </li>
+          </ul>
+          <button class="btn choose-btn" onclick="choosePlan('C')">Choose Plan</button>
+        </div>
+      </div>
 
-    <!-- Complete Transformation Program -->
-    <div class="plan-card">
-      <div class="plan-badge">Complete Transformation Program</div>
-      <p class="price">$50 <span class="tax">+ Tax</span><br>
-        <small>(Access to 5 courses)</small>
-      </p>
-      <ul>
-        <li><img src="{{ asset('images/icon-people.svg') }}" alt="people"> 1-1 Individuals</li>
-        <li><img src="{{ asset('images/icon-clock.svg') }}" alt="clock"> Flexible Timings</li>
-      </ul>
-      <button onclick="choosePlan('A')">Choose Plan</button>
+      <!-- Employee Program (Highlighted) -->
+      <div class="col-lg-4 col-md-6">
+        <div class="plan-card text-center highlighted">
+          <div class="plan-badge">Employee Program</div>
+          <div class="plan-price">
+            <span class="currency">$</span> 34.99 <span class="tax-info">+ Tax</span>
+            <small>(Access to 3 Courses)</small>
+          </div>
+          <ul class="plan-features">
+            <li>
+              <div class="feature-icon">
+                <img src="{{ asset('images/icon-people.svg') }}" alt="people">
+              </div>
+              <span>1-1 Individuals</span>
+            </li>
+            <li>
+              <div class="feature-icon">
+                <img src="{{ asset('images/icon-clock.svg') }}" alt="clock">
+              </div>
+              <span>Choose Timings</span>
+            </li>
+          </ul>
+          <button class="btn choose-btn" onclick="choosePlan('B')">Choose Plan</button>
+        </div>
+      </div>
+
+      <!-- Complete Transformation Program -->
+      <div class="col-lg-4 col-md-6">
+        <div class="plan-card text-center">
+          <div class="plan-badge">Complete Transformation Program</div>
+          <div class="plan-price">
+            <span class="currency">$</span> 49.99 <span class="tax-info">+ Tax</span>
+            <small>(Access to 5 Courses)</small>
+          </div>
+          <ul class="plan-features">
+            <li>
+              <div class="feature-icon">
+                <img src="{{ asset('images/icon-people.svg') }}" alt="people">
+              </div>
+              <span>1-1 Individuals</span>
+            </li>
+            <li>
+              <div class="feature-icon">
+                <img src="{{ asset('images/icon-clock.svg') }}" alt="clock">
+              </div>
+              <span>Flexible Timings</span>
+            </li>
+          </ul>
+          <button class="btn choose-btn" onclick="choosePlan('A')">Choose Plan</button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</section>
+<!-- Toast for pricing notifications -->
+<div id="pricing-toast" style="display:none;"></div>
 
 <!-- Modal -->
 <div id="subscription-modal" class="modal-overlay" style="display: none;">
@@ -63,6 +110,7 @@
     </div>
   </div>
 </div>
+<div>
 
 @vite('resources/js/pricing.js')
 @endsection

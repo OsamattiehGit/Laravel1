@@ -2,8 +2,8 @@
 
 
 .contact-header h1 {
-  font-size: 2rem;
-  margin: 0;
+ font-size: 2.5rem;
+  font-weight: 700;
 }
 
 /* FORM SECTION WRAPPER */
@@ -141,7 +141,11 @@
 .info-item img {
   width: 60px;
   margin-bottom: 1rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 
 .info-item h4 {
   color: #f3702b;
@@ -170,8 +174,9 @@
   color: #fff;
   text-align: center;
   padding: 4rem 1rem;               /* vertical padding above & below the title */
-  font-size: 2rem;
+  font-size: 70px;
   font-weight: bold;
+  margin-bottom: 50px;
   /* massive bottom corner rounding */
   border-bottom-left-radius: 80px;
   border-bottom-right-radius: 80px;

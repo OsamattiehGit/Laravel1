@@ -12,6 +12,14 @@ window.choosePlan = function(type) {
   document.getElementById("subscription-modal").style.display = "flex";
 };
 
+function showPricingToast(msg, isSuccess = true) {
+  const toast = document.getElementById('pricing-toast');
+  toast.innerHTML = msg;
+  toast.className = isSuccess ? 'toast-success' : 'toast-error';
+  toast.style.display = 'block';
+  setTimeout(() => { toast.style.display = 'none'; }, 2500);
+}
+
 document.getElementById("confirm-subscribe").addEventListener("click", () => {
   if (!selectedType) return;
 
@@ -27,8 +35,6 @@ document.getElementById("confirm-subscribe").addEventListener("click", () => {
   })
   .then(async res => {
     if (!res.ok) {
-      // if Laravel redirected you to HTML (login page or error),
-      // res.text() will contain a "<!DOCTYPE html>…"
       const text = await res.text();
       if (text.includes('<!DOCTYPE html>')) {
         throw new Error('Authentication error – please log in again.');
@@ -38,12 +44,14 @@ document.getElementById("confirm-subscribe").addEventListener("click", () => {
     return res.json();
   })
   .then(data => {
-    alert(`${data.message}\nNew Balance: ${data.new_balance}`);
-    window.location.reload();
+    showPricingToast(
+      `${data.message}<br><b>New Balance:</b> ${data.new_balance}`,
+      true
+    );
+    setTimeout(() => window.location.reload(), 2100); // Reload after toast
   })
   .catch(err => {
-    console.error("Subscription failed:", err.message);
-    alert("Subscription failed:\n" + err.message);
+    showPricingToast("Subscription failed:<br>" + err.message, false);
   })
   .finally(() => {
     document.getElementById("subscription-modal").style.display = "none";

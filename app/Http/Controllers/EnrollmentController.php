@@ -47,7 +47,7 @@ public function enroll(Request $request, \App\Models\Course $course)
     // Check balance
     if ($user->course_balance <= 0) {
         return response()->json([
-            'error' => 'No course balance. Please subscribe to a plan.',
+            'message' => 'No course balance. Please subscribe to a plan.',   // <-- changed key
             'redirect' => route('pricing.page')
         ], 403);
     }
@@ -55,7 +55,7 @@ public function enroll(Request $request, \App\Models\Course $course)
     // Prevent duplicate enrollments
     if ($user->enrollments()->where('course_id', $course->id)->exists()) {
         return response()->json([
-            'error' => 'You are already enrolled in this course.'
+            'message' => 'You are already enrolled in this course.'         // <-- changed key
         ], 409);
     }
 
@@ -69,6 +69,7 @@ public function enroll(Request $request, \App\Models\Course $course)
         'balance' => $user->course_balance
     ]);
 }
+
 
 
 }

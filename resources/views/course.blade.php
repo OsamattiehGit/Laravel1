@@ -4,7 +4,7 @@
 @push('styles')
   @vite('resources/css/course.css')
 @endpush
-
+@vite('resources/js/course.js')
 @section('content')
 
   {{-- ────────────── Banner ────────────── --}}
@@ -119,6 +119,25 @@
 </svg>
     <span>Enroll Now</span>
 </button>
+<!-- Enroll Now Custom Modal -->
+<div id="enroll-modal" class="enroll-modal-backdrop" style="display: none;">
+    <div class="enroll-modal-content">
+        <div class="enroll-modal-header">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FF8C00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="enroll-modal-icon">
+                <rect x="2" y="4" width="20" height="16" rx="3" ry="3"></rect>
+                <path d="M8 2v4"></path><path d="M16 2v4"></path>
+            </svg>
+            <h5>Confirm Enrollment</h5>
+        </div>
+        <div class="enroll-modal-body">
+            <span id="enroll-modal-message">Are you sure you want to enroll in this course?</span>
+        </div>
+        <div class="enroll-modal-footer">
+            <button class="cta-btn cta-outline" id="enroll-cancel-btn">Cancel</button>
+            <button class="cta-btn cta-solid" id="enroll-confirm-btn">Yes, Enroll</button>
+        </div>
+    </div>
+</div>
 
 
   {{-- Full-width “Download Curriculum” button --}}
