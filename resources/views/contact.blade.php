@@ -16,7 +16,7 @@
     <img src="{{ asset('images/dots.svg') }}" alt="Dots Pattern" class="dot-pattern">
 
     <!-- Decorative half-circle on the bottom right -->
-    <img src="{{ asset('images/small-circle-hero.svg') }}" alt="Circle Pattern" class="circle-pattern">
+    <img src="{{ asset('images/orange-circle.svg') }}" alt="Circle Pattern" class="circle-pattern">
 
     <div class="contact-box">
       @if(session('success'))

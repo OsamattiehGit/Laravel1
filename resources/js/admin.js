@@ -122,6 +122,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   window.editCourse = async function(id) {
+    // if there's an existing curriculum file
+if (c.curriculum) {
+  const link = document.createElement('a');
+  link.href = `/storage/${c.curriculum}`;
+  link.textContent = "Download Existing Curriculum";
+  link.target = "_blank";
+  form.querySelector("#curriculum")?.parentNode.appendChild(link);
+}
+
     try {
       const res  = await fetch(`${API_URL}/${id}`);
       const json = await res.json();

@@ -19,6 +19,7 @@ class Course extends Model
         'course_content',
         'user_id',
         'image',
+        'curriculum',
         'projects',
         'tools',
     ];

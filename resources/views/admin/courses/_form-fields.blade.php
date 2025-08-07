@@ -77,6 +77,14 @@
   </select>
   @error('status') <div class="invalid-feedback">{{ $message }}</div> @enderror
 </div>
+<div class="mb-3">
+  <label for="curriculum" class="form-label">Curriculum (PDF, DOC, DOCX)</label>
+  <input type="file" name="curriculum" id="curriculum" class="form-control" accept=".pdf,.doc,.docx">
+  @if(isset($course) && $course->curriculum)
+      <a href="{{ asset('storage/'.$course->curriculum) }}" target="_blank">View Current Curriculum</a>
+  @endif
+</div>
+
 
 <div class="admin-form-group">
   <label for="image">Image (SVG/PNG/JPG)</label>

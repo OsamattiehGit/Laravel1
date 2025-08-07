@@ -14,15 +14,27 @@
 @endphp
 
 <header style="background-color: {{ $navbarBg }}; padding: 0 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 0;">
-    <nav style="display: flex; align-items: center; justify-content: space-between; margin:0; padding:0;">
+    <nav style="display: flex; align-items: center; justify-content: space-between; margin:0; padding:0; position: relative;">
 
         <!-- Logo -->
         <a href="{{ url('/') }}">
             <img src="{{ asset('images/logo.svg') }}" alt="EzySkills Logo" style="height: 62px;">
         </a>
 
+        <!-- Mobile Menu Toggle -->
+        <button id="mobile-toggle" style="
+            display: none;
+            background: none;
+            border: 1px solid {{ $navbarText }};
+            color: {{ $navbarText }};
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 18px;
+        ">☰</button>
+
         <!-- Navigation Links -->
-        <ul style="
+        <ul id="nav-menu" style="
             list-style: none;
             display: flex;
             gap: 25px;
@@ -83,7 +95,7 @@
         </ul>
 
         <!-- Auth Buttons -->
-        <div style="display: flex; gap: 10px; align-items: center;">
+        <div id="auth-buttons" style="display: flex; gap: 10px; align-items: center;">
             @guest
                 <a href="{{ route('login') }}" style="padding: 8px 20px; background-color: #f37021; color: white; border-radius: 4px; text-decoration: none;border: 1px solid black;">Login</a>
 
@@ -103,3 +115,91 @@
         </div>
     </nav>
 </header>
+
+<style>
+    @media (max-width: 768px) {
+        #mobile-toggle {
+            display: block !important;
+        }
+
+        #nav-menu {
+            display: none !important;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: {{ $navbarBg }};
+            flex-direction: column !important;
+            gap: 0 !important;
+            padding: 15px !important;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        #nav-menu.show {
+            display: flex !important;
+        }
+
+        #nav-menu li {
+            text-align: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        #nav-menu li:last-child {
+            border-bottom: none;
+        }
+
+        #auth-buttons {
+            display: none !important;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: {{ $navbarBg }};
+            justify-content: center !important;
+            flex-wrap: wrap;
+            padding: 15px !important;
+            margin-top: 0 !important;
+            z-index: 1000;
+        }
+
+        #auth-buttons.show {
+            display: flex !important;
+        }
+
+        nav {
+            flex-wrap: wrap;
+        }
+    }
+
+    @media (max-width: 480px) {
+        #auth-buttons a, #auth-buttons button {
+            padding: 6px 12px !important;
+            font-size: 14px !important;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggle = document.getElementById('mobile-toggle');
+        const menu = document.getElementById('nav-menu');
+        const authButtons = document.getElementById('auth-buttons');
+
+        if (toggle) {
+            toggle.addEventListener('click', function() {
+                menu.classList.toggle('show');
+                authButtons.classList.toggle('show');
+            });
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('nav') && menu.classList.contains('show')) {
+                menu.classList.remove('show');
+                authButtons.classList.remove('show');
+            }
+        });
+    });
+</script>

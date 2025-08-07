@@ -13,61 +13,57 @@
     @stack('styles')
 </head>
 <body>
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <h1 class="hero-heading">
-                        Skill Your Way <br>
-                        Up To Success <br>
-                        With Us
-                    </h1>
-                    <p class="hero-subheading">
-                        Get the skills you need for <br> the future of work.
-                    </p>
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- LEFT SIDE TEXT -->
+      <div class="col-lg-6 text-center text-lg-start">
+        <h1 class="hero-heading">
+          Skill Your Way<br>
+          Up To Success<br>
+          With Us
+        </h1>
+        <p class="hero-subheading">
+          Get the skills you need for<br>the future of work.
+        </p>
 
-                    <div class="search-container">
-                   <form action="{{ route('courses') }}" method="GET" class="d-flex align-items-center gap-2 mb-4">
-    <input
-        type="text"
-        name="q"
-        class="form-control search-input"
-        placeholder="Search The Course Here…"
-        value="{{ old('q', $q ?? request('q')) }}"
-        style="font-size: 1.25rem; border: 2px solid #FF8C00; border-radius: 10px;width:400px"
-    >
-    <button class="search-btn" type="submit" style="background: #002C6B; border: none;">Search</button>
-</form>
+        <!-- SEARCH FORM -->
+        <form action="{{ route('courses') }}" method="GET" class="d-flex flex-column flex-md-row gap-2 align-items-stretch hero-search-form">
+          <input type="text" name="q" class="form-control search-input"
+                 placeholder="Search The Course Here…"
+                 value="{{ old('q', $q ?? request('q')) }}">
+          <button class="search-btn" type="submit">Search</button>
+        </form>
 
-
-                    </div>
-
-                    <div class="tags-container">
-                        <span class="tag orange">Cloud Computing</span>
-                        <span class="tag gray">Cyber Security</span>
-                        <span class="tag gray">DevOps</span>
-                        <span class="tag gray">Data Science</span>
-                        <span class="tag gray">Software Testing</span>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="hero-right">
-                        <div class="layer-wrapper">
-                                        <img src="{{ asset('images/small-circle-hero.svg') }}" alt="Hero Image" class="circle-hero-small">
-<img src="{{ asset('images/hero-girl-circle.svg') }}" alt="Hero Image" class="circle-hero">
-        <img src="{{ asset('images/hero-girl.svg') }}" alt="Hero Image" class="hero-img">
-                            <div class="floating-svg-card">
-                                  <img src="{{ asset('images/icon-analyst.svg') }}" alt="Best Seller Course Cards">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- TAGS -->
+        <div class="tags-container">
+          <span class="tag orange">Cloud Computing</span>
+          <span class="tag">Cyber Security</span>
+          <span class="tag">DevOps</span>
+          <span class="tag">Data Science</span>
+          <span class="tag">Software Testing</span>
         </div>
-    </section>
+      </div>
 
+      <!-- RIGHT SIDE VISUALS -->
+      <div class="col-lg-6 d-flex justify-content-center mt-4 mt-lg-0">
+        <div class="hero-visuals-wrapper">
+          <!-- Background Circles -->
+          <img src="{{ asset('images/orange-circle.svg') }}" alt="Orange Circle" class="hero-figma-orange-circle">
+          <img src="{{ asset('images/blue-circle.svg') }}" alt="Blue Circle" class="hero-figma-blue-circle">
+
+          <!-- Main Girl Image -->
+          <img src="{{ asset('images/hero-girl.svg') }}" alt="Girl" class="hero-figma-girl">
+
+          <!-- Floating Data Analyst Card -->
+          <img src="{{ asset('images/icon-analyst.svg') }}" alt="Data Analyst Card" class="hero-float-card-svg">
+
+          <!-- Best Seller Badge -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
     <!-- AI Slider Section -->
     <section class="ai-slider-section">
         <div class="container">
@@ -163,7 +159,7 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-10">
-                      <img src="{{ asset('images/how-it-works.svg') }}" alt="How It Works Steps" class="img-fluid">
+                      <img src="{{ asset('images/how-it-works.svg') }}" alt="How It Works Steps" class="how-it-works-img">
                 </div>
             </div>
         </div>
@@ -203,39 +199,42 @@
     </section>
 
     <!-- Achievements Section -->
-    <section class="achievements-section">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                   <img src="{{ asset('images/achievements-illustration.svg') }}" alt="Achievements Illustration" class="img-fluid">
-                </div>
-                <div class="col-lg-6">
-                    <h3 class="achievements-title"><span class="highlight-blue">Our</span> <span class="highlight-orange">Achievements</span></h3>
-
+<section class="achievements-section">
+    <div class="container">
+        <div class="row align-items-center achievements-row">
+            <div class="col-lg-6 col-12 d-flex justify-content-center">
+                <img src="{{ asset('images/achievements-illustration.svg') }}" class="achievements-illustration" alt="Achievements Illustration" />
+            </div>
+            <div class="col-lg-6 col-12 achievements-right">
+                <h2 class="achievements-title">Our <span class="highlight-orange">Achievements</span></h2>
+                <div class="achievements-stats">
                     <div class="stat-box">
-                       <img src="{{ asset('images/icons/student.svg') }}" alt="Students Icon" class="stat-icon">
+                        <img src="{{ asset('images/icons/student.svg') }}" class="stat-icon" alt="Students Trained" />
                         <div>
                             <strong>100</strong>
-                            <p>Students Trained</p>
+                            <div>Students Trained</div>
                         </div>
                     </div>
-
                     <div class="stat-box">
-                         <img src="{{ asset('images/icons/book.svg') }}" alt="Courses Icon" class="stat-icon">
+                        <img src="{{ asset('images/icons/book.svg') }}" class="stat-icon" alt="Courses" />
                         <div>
                             <strong>50</strong>
-                            <p>Courses Available</p>
+                            <div>Courses Available</div>
                         </div>
                     </div>
+                    <div class="stat-box">
 
-                    <div class="stat-box wide">
-                        <strong>70%</strong>
-                        <p>Students Secured Jobs in Level 1 Companies</p>
+                        <div>
+                            <strong>70%</strong>
+                            <div>Students Secured Jobs in Level 1 Companies</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <!-- Mentors Section -->
     <section class="mentors-section">
@@ -246,23 +245,22 @@
             </h2>
 
             <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="mentor-card">
-                        <div class="mentor-badge">🏆 Best Trainer</div>
-                       <img src="{{ asset('images/icons/male1.svg') }}" alt="Sandeep" class="mentor-photo">
-
-                        <h3 class="mentor-name">Sandeep</h3>
-                        <p class="mentor-role">.Net & Azure</p>
-                        <div class="mentor-rating">⭐⭐⭐⭐☆ <span style="color: #FF7500;">72 Reviews</span></div>
-                        <div class="mentor-meta">
-                            <span>📚 39 Modules</span>
-                            <span>👨‍🎓 375 Students</span>
-                        </div>
-                        <p class="mentor-desc">
-                            Sandeep is a Software Developer who expertised in .NET & Azure for more than 24 years and training 100's of students to accomplish their goals & dreams.
-                        </p>
-                    </div>
-                </div>
+          <div class="col-lg-4 col-md-6 d-flex justify-content-center">
+    <div class="mentor-card">
+        <div class="mentor-badge">Best Trainer🏆</div>
+        <img src="{{ asset('images/icons/male1.svg') }}" alt="Sandeep" class="mentor-photo">
+        <h3 class="mentor-name">Sandeep</h3>
+        <p class="mentor-role">.Net & Azure</p>
+        <div class="mentor-rating">⭐⭐⭐⭐☆ <span style="color: #FF7500;">72 Reviews</span></div>
+        <div class="mentor-meta">
+            <span>📚 39 Modules</span>
+            <span>👨‍🎓 375 Students</span>
+        </div>
+        <p class="mentor-desc">
+            Sandeep is a Software Developer who expertised in .NET & Azure for more than 24 years and training 100's of students to accomplish their goals & dreams.
+        </p>
+    </div>
+</div>
 
                 <div class="col-lg-4 col-md-6">
                     <div class="mentor-card">
@@ -301,10 +299,10 @@
     </section>
 
     <!-- Certifications Section -->
-    <section class="certifications-section">
-        <div class="container text-center">
-            <h3 class="achievements-title"><span class="highlight-orange">Our Certifications</span></h3>
-            <div class="cert-logos">
+<section class="certifications-section">
+    <div class="container">
+        <h2 class="achievements-title" style="text-align:center;">Our Certifications</h2>
+        <div class="cert-logos">
                 <img src="{{ asset('images/icons/iso27001.svg') }}" alt="ISO 27001 Certified">
                 <img src="{{ asset('images/icons/iso9001.svg') }}"  alt="ISO 9001 Certified">
                 <img src="{{ asset('images/icons/iso20000.svg') }}" alt="ISO 20000-1 Certified">

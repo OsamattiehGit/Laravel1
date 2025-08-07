@@ -36,6 +36,8 @@ class AdminCourseController extends Controller
             'tools.*.icon'    => 'nullable|image|mimes:svg,png,jpg,jpeg|max:2048',
             'tools.*.name'    => 'nullable|string|max:255',
             'image'           => 'nullable|image|mimes:svg,png,jpg,jpeg|max:2048',
+            'curriculum' => 'nullable|mimes:pdf,doc,docx|max:5120',
+
         ]);
 
         // 2) Handle “Add New Category”
@@ -94,20 +96,25 @@ class AdminCourseController extends Controller
         }
 
         // 7) Persist
-        Course::create([
-            'title'          => $v['title'],
-            'description'    => $v['description'],
-            'instructor'     => $v['instructor'],
-            'category_id'    => $v['category_id'],
-            'status'         => $v['status'],
-            'objectives'     => $objectives,
-            'course_content' => $content,
-            'projects'       => $projects,
-            'tools'          => $tools,
-            'image'          => $v['image'] ?? null,
-            'user_id'        => auth()->id(),
-        ]);
+ $course = Course::create([
+    'title'          => $v['title'],
+    'description'    => $v['description'],
+    'instructor'     => $v['instructor'],
+    'category_id'    => $v['category_id'],
+    'status'         => $v['status'],
+    'objectives'     => $objectives,
+    'course_content' => $content,
+    'projects'       => $projects,
+    'tools'          => $tools,
+    'image'          => $v['image'] ?? null,
+    'user_id'        => auth()->id(),
+]);
 
+if ($request->hasFile('curriculum')) {
+    $curriculumPath = $request->file('curriculum')->store('curriculums', 'public');
+    $course->curriculum = $curriculumPath;
+    $course->save();
+}
         return redirect()
             ->route('admin.courses.index')
             ->with('success','Course added successfully.');
@@ -139,6 +146,8 @@ class AdminCourseController extends Controller
             'tools.*.icon'    => 'nullable|image|mimes:svg,png,jpg,jpeg|max:2048',
             'tools.*.name'    => 'nullable|string|max:255',
             'image'           => 'nullable|image|mimes:svg,png,jpg,jpeg|max:2048',
+            'curriculum' => 'nullable|mimes:pdf,doc,docx|max:5120', // 5MB limit
+
         ]);
 
         // 2) Handle new category
@@ -215,6 +224,15 @@ class AdminCourseController extends Controller
             'image'          => $v['image'] ?? $course->image,
             'user_id'        => auth()->id(),
         ]);
+if ($request->hasFile('curriculum')) {
+    if ($course->curriculum) {
+        Storage::disk('public')->delete($course->curriculum);
+    }
+    $curriculumPath = $request->file('curriculum')->store('curriculums', 'public');
+    $course->curriculum = $curriculumPath;
+    $course->save();
+}
+
 
         return redirect()
             ->route('admin.courses.index')
@@ -223,6 +241,10 @@ class AdminCourseController extends Controller
 
     public function destroy(Course $course)
     {
+        if ($course->curriculum) {
+    Storage::disk('public')->delete($course->curriculum);
+}
+
         if ($course->image) {
             Storage::disk('public')->delete($course->image);
         }

@@ -15,9 +15,11 @@
       </div>
     </div>
 
-    <div class="row justify-content-center align-items-end g-4">
+ <div class="row justify-content-center align-items-stretch gy-4 gx-4">
+
       <!-- College Program -->
-      <div class="col-lg-4 col-md-6">
+      <div class="col-md-4 col-sm-6">
+
         <div class="plan-card text-center">
           <div class="plan-badge">College Program</div>
           <div class="plan-price">
@@ -43,7 +45,8 @@
       </div>
 
       <!-- Employee Program (Highlighted) -->
-      <div class="col-lg-4 col-md-6">
+      <div class="col-md-4 col-sm-6">
+
         <div class="plan-card text-center highlighted">
           <div class="plan-badge">Employee Program</div>
           <div class="plan-price">
@@ -69,7 +72,8 @@
       </div>
 
       <!-- Complete Transformation Program -->
-      <div class="col-lg-4 col-md-6">
+<div class="col-md-4 col-sm-6">
+
         <div class="plan-card text-center">
           <div class="plan-badge">Complete Transformation Program</div>
           <div class="plan-price">
