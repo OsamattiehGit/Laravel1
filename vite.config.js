@@ -13,7 +13,6 @@ export default defineConfig({
                 'resources/css/courses.css',
                 'resources/css/admin.css',
                 'resources/js/app.js',
-                'resources/js/main.js',
                 'resources/js/admin.js',
                 'resources/js/course.js',
                 'resources/js/courses.js',
