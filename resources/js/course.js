@@ -92,3 +92,24 @@ function showToast(msg, success = true) {
   toast.style.display = 'block';
   setTimeout(() => { toast.style.display = 'none'; }, 2500);
 }
+// Smooth accordion open/close (figma-like)
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.acc-item').forEach(item => {
+    const chk = item.querySelector('.acc-toggle');
+    const body = item.querySelector('.acc-body');
+    if (!chk || !body) return;
+
+    const sync = () => {
+      if (chk.checked) {
+        body.classList.add('is-open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+      } else {
+        body.style.maxHeight = 0;
+        body.classList.remove('is-open');
+      }
+    };
+    chk.addEventListener('change', sync);
+    // initialize closed
+    sync();
+  });
+});

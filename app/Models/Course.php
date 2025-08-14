@@ -22,12 +22,14 @@ class Course extends Model
         'curriculum',
         'projects',
         'tools',
+        'course_content_details',
     ];
     protected $casts = [
         'objectives'      => 'array',
         'course_content'  => 'array',
         'projects'        => 'array',
         'tools'           => 'array',
+        'course_content_details' => 'array'
     ];
 
     // A course belongs to a user (instructor)

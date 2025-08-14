@@ -18,7 +18,7 @@
 
         <!-- Logo -->
         <a href="{{ url('/') }}">
-            <img src="{{ asset('images/logo.svg') }}" alt="EzySkills Logo" style="height: 62px;">
+            <img src="{{ asset('images/logo.svg') }}" alt="EzySkills Logo" style="height: 62px;padding-left:60px">
         </a>
 
         <!-- Mobile Menu Toggle -->
@@ -97,17 +97,17 @@
         <!-- Auth Buttons -->
         <div id="auth-buttons" style="display: flex; gap: 10px; align-items: center;">
             @guest
-                <a href="{{ route('login') }}" style="padding: 8px 20px; background-color: #f37021; color: white; border-radius: 4px; text-decoration: none;border: 1px solid black;">Login</a>
+                <a href="{{ route('login') }}" style="padding: 8px 20px; background-color: #f37021; color: white; border-radius: 4px; text-decoration: none;border: 1px solid black;margin-right:10px">Login</a>
 
-                <a href="{{ route('register') }}" style="border: black;padding: 8px 20px; background-color: #f37021; color: white; border-radius: 4px; text-decoration: none;border: 1px solid black;">Create Account</a>
+                <a href="{{ route('register') }}" style="border: black;padding: 8px 20px; background-color: #f37021; color: white; border-radius: 4px; text-decoration: none;border: 1px solid black;margin-right:40px">Create Account</a>
             @else
                 <a href="{{ url('admin/courses') }}" title="Settings">
-                    <img src="{{ asset('images/settings-icon.svg') }}" alt="Settings" style="height: 24px;">
+                    <img src="{{ asset('images/settings-icon.svg') }}" alt="Settings" style="height: 24px;padding-right:10px">
                 </a>
                 <a href="{{ url('/profile') }}" title="Profile">
                     <img src="{{ asset('images/profile-icon.png') }}" alt="Profile" style="height: 28px; border-radius: 50%;">
                 </a>
-                <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                <form method="POST" action="{{ route('logout') }}" style="display: inline;padding-left:10px;padding-right:50px">
                     @csrf
                     <button type="submit" style="padding: 8px 20px; background-color: #f37021; color: white; border: none; border-radius: 4px; cursor: pointer;">Logout</button>
                 </form>

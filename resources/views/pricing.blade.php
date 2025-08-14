@@ -18,12 +18,12 @@
  <div class="row justify-content-center align-items-stretch gy-4 gx-4">
 
       <!-- College Program -->
-      <div class="col-md-4 col-sm-6">
+      <div class="col-md-3 col-sm-6">
 
         <div class="plan-card text-center">
           <div class="plan-badge">College Program</div>
           <div class="plan-price">
-            <span class="currency">$</span> 19.99 <span class="tax-info">+ Tax</span>
+            <span class="currency">$ 19.99 </span><span class="tax-info">+ Tax</span>
             <small>(Access to 1 Course)</small>
           </div>
           <ul class="plan-features">
@@ -45,7 +45,7 @@
       </div>
 
       <!-- Employee Program (Highlighted) -->
-      <div class="col-md-4 col-sm-6">
+      <div class="col-md-3 col-sm-6">
 
         <div class="plan-card text-center highlighted">
           <div class="plan-badge">Employee Program</div>
@@ -72,7 +72,7 @@
       </div>
 
       <!-- Complete Transformation Program -->
-<div class="col-md-4 col-sm-6">
+<div class="col-md-3 col-sm-6">
 
         <div class="plan-card text-center">
           <div class="plan-badge">Complete Transformation Program</div>

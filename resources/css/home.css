@@ -40,29 +40,41 @@
         }
 
         /* Search Form Styles */
-        .hero-search-form {
-            margin-bottom: 2rem;
-        }
+.hero-search-form {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 2rem;
+}
 
-        .search-input {
-            font-size: 1.13rem;
-            padding: 1.1rem 1rem;
-            border: 2px solid #e9ecef;
-            border-radius: 10px 0 0 10px;
-            background: #fff;
-            flex: 1;
-        }
+.search-input {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: 1.13rem;
+  padding: 1.1rem 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 10px 0 0 10px;
+  background: #fff;
+}
+.search-btn {
+  display: inline-block;
+  width: auto;
+  min-width: 0;
+  height: 100%;
+  flex: 0 0 auto;
+  align-self: stretch;
+  padding: 1.1rem 1.5rem;
+  border: none;
+  border-radius: 0 10px 10px 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  background: var(--primary-blue);
+  color: #fff;
+  font-weight: 600;
+  white-space: nowrap;
+  z-index: 5;
 
-        .search-btn {
-            background: var(--primary-blue);
-            color: #fff;
-            border-radius: 0 10px 10px 0;
-            padding: 1.1rem 1.5rem;
-            font-weight: 600;
-            border: none;
-            transition: background .2s;
-            white-space: nowrap;
-        }
+}
+
 
         .search-btn:hover,
         .search-btn:focus {
@@ -341,8 +353,8 @@
             .hero-figma-orange-circle {
                 width: 120px;
                 height: 120px;
-                right: 30px;
-                top: 15px;
+                right: 10px;
+                top: -10px;
             }
 
             .hero-figma-blue-circle {
@@ -353,13 +365,13 @@
             }
 
             .hero-figma-girl {
-                width: 130px;
+                width: 180px;
             }
 
             .hero-float-card-svg {
                 width: 120px;
-                left: 5px;
-                bottom: 5px;
+                left: 60px;
+                bottom: 50px;
             }
 
             .best-seller-badge {
@@ -373,18 +385,34 @@
                 display: none; /* Hide on very small screens to avoid overcrowding */
             }
 
-            .search-input {
-                border-radius: 10px 10px 0 0;
-            }
-
-            .search-btn {
-                border-radius: 0 0 10px 10px;
-            }
-
+    .search-input {
+        max-width: 65vw;
+    }
+    .search-btn {
+        min-width: 80px;
+        max-width: 120px;
+    }
             .tag {
                 font-size: 12px;
                 padding: 6px 12px;
             }
+            .hero-search-form {
+        flex-direction: row;
+        width: 100%;
+    }
+    .search-input {
+        font-size: 0.95rem;
+        padding: 0.7rem 0.7rem;
+        border-radius: 10px 0 0 10px;
+        min-width: 0;
+    }
+    .search-btn {
+        padding: 0.7rem 1rem;
+        font-size: 0.95rem;
+        border-radius: 0 10px 10px 0;
+        min-width: 80px;
+        max-width: 120px;
+    }
         }
 
         /* Extra Small Mobile */

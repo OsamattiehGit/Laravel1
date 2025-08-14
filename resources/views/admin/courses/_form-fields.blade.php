@@ -1,3 +1,6 @@
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+@vite('resources/js/admin.js')
+
 @push('styles')
   @vite('resources/css/admin.css')
 @endpush
@@ -133,6 +136,20 @@
   >{{ is_string($oldCnt) ? $oldCnt : implode(',', $oldCnt) }}</textarea>
   @error('course_content') <div class="invalid-feedback">{{ $message }}</div> @enderror
 </div>
+{{-- Sectioned Course Content Builder --}}
+{{-- ================== Sectioned Course Content Builder ================== --}}
+<div class="admin-form-group">
+  <label>Detailed Course Content <small>(Sectioned: text / image / video)</small></label>
+
+  <div id="course-content-details"></div>
+
+  <button type="button" class="btn btn-primary my-2" id="add-section">+ Add Section</button>
+
+  {{-- Preload previous content (JSON) --}}
+  <input type="hidden" id="preload-content-details"
+         value='@json(old("course_content_details", $course->course_content_details ?? []))'>
+</div>
+
 {{-- make absolutely sure $projects & $tools are arrays --}}
 @php
   // Projects

@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const pager   = document.getElementById('pagination');
 
   if (!grid) return;
+    const urlParams = new URLSearchParams(window.location.search);
+  const qParam = urlParams.get('q') || '';
+  search.value = qParam;
 
   // wire up events
   search.addEventListener('input', debounce(() => load(1), 300));
@@ -25,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // core loader
   function load(page) {
     const q      = search.value.trim();
-    const filter = document.querySelector('.filter-btn.active').dataset.filter;
+    const filter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
     const sort   = sortSel.value;
     const params = new URLSearchParams({ page, q, filter, sort });
 
@@ -45,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
                           </p>`;
       });
   }
-
   // render grid
   function render(courses) {
     grid.innerHTML = '';
