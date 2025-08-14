@@ -15,23 +15,24 @@
       </div>
     </div>
 
- <div class="row justify-content-center align-items-stretch gy-4 gx-4">
+    <div class="row justify-content-center align-items-stretch gy-4 gx-2">
 
       <!-- College Program -->
       <div class="col-md-3 col-sm-6">
-
         <div class="plan-card text-center">
-          <div class="plan-badge">College Program</div>
-          <div class="plan-price">
-            <span class="currency">$ 19.99 </span><span class="tax-info">+ Tax</span>
-            <small>(Access to 1 Course)</small>
+          <div class="card-upper">
+            <div class="plan-badge">College Program</div>
+            <div class="plan-price">
+              <span class="currency">₹</span>20,000<span class="tax-info">+ Tax</span>
+              <small>(Exclusive of GST & Taxes)</small>
+            </div>
           </div>
           <ul class="plan-features">
             <li>
               <div class="feature-icon">
                 <img src="{{ asset('images/college-icon.svg') }}" alt="college">
               </div>
-              <span>For Colleges, Universities & group of Students</span>
+              <span>For Colleges, Universities & Group Of Students</span>
             </li>
             <li>
               <div class="feature-icon">
@@ -41,17 +42,21 @@
             </li>
           </ul>
           <button class="btn choose-btn" onclick="choosePlan('C')">Choose Plan</button>
+          <div class="payment-gateway">
+            <img src="{{ asset('images/razorpay-logo.png') }}" alt="Razorpay" class="razorpay-logo">
+          </div>
         </div>
       </div>
 
       <!-- Employee Program (Highlighted) -->
       <div class="col-md-3 col-sm-6">
-
         <div class="plan-card text-center highlighted">
-          <div class="plan-badge">Employee Program</div>
-          <div class="plan-price">
-            <span class="currency">$</span> 34.99 <span class="tax-info">+ Tax</span>
-            <small>(Access to 3 Courses)</small>
+          <div class="card-upper">
+            <div class="plan-badge">Employee Program</div>
+            <div class="plan-price">
+              <span class="currency">₹</span>50,000<span class="tax-info">+ Tax</span>
+              <small>(Exclusive of GST & Taxes)</small>
+            </div>
           </div>
           <ul class="plan-features">
             <li>
@@ -68,17 +73,21 @@
             </li>
           </ul>
           <button class="btn choose-btn" onclick="choosePlan('B')">Choose Plan</button>
+          <div class="payment-gateway">
+            <img src="{{ asset('images/razorpay-logo.png') }}" alt="Razorpay" class="razorpay-logo">
+          </div>
         </div>
       </div>
 
       <!-- Complete Transformation Program -->
-<div class="col-md-3 col-sm-6">
-
+      <div class="col-md-3 col-sm-6">
         <div class="plan-card text-center">
-          <div class="plan-badge">Complete Transformation Program</div>
-          <div class="plan-price">
-            <span class="currency">$</span> 49.99 <span class="tax-info">+ Tax</span>
-            <small>(Access to 5 Courses)</small>
+          <div class="card-upper">
+            <div class="plan-badge">Complete Transformation Program</div>
+            <div class="plan-price">
+              <span class="currency">₹</span>75,000<span class="tax-info">+ Tax</span>
+              <small>(Exclusive of GST & Taxes)</small>
+            </div>
           </div>
           <ul class="plan-features">
             <li>
@@ -95,11 +104,15 @@
             </li>
           </ul>
           <button class="btn choose-btn" onclick="choosePlan('A')">Choose Plan</button>
+          <div class="payment-gateway">
+            <img src="{{ asset('images/razorpay-logo.png') }}" alt="Razorpay" class="razorpay-logo">
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
 <!-- Toast for pricing notifications -->
 <div id="pricing-toast" style="display:none;"></div>
 
@@ -114,7 +127,6 @@
     </div>
   </div>
 </div>
-<div>
 
 @vite('resources/js/pricing.js')
 @endsection
