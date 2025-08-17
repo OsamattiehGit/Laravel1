@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Ezyskills</title>
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 @vite ([
@@ -74,40 +75,55 @@
     <section class="ai-slider-section">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-5">
-                    <h2 class="ai-title">
-                        <span class="highlight-blue">World's</span><br>
-                        <span class="highlight-blue">First AI Based</span><br>
-                        <span class="highlight-orange">Online Learning</span><br>
-                        <span class="highlight-orange">Platform</span>
-                    </h2>
-                </div>
-                <div class="col-lg-7">
-                    <div id="aiCarousel" class="carousel slide carousel-container" data-bs-ride="carousel" data-bs-interval="3000">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="{{ asset('images/slide-course-selector.png') }}"  class="d-block w-100" alt="AI Based Course Selector">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset('images/slide-scenarios.png') }}"  class="d-block w-100" alt="AI Based Scenarios">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset('images/slide-quizzes.png') }}" class="d-block w-100" alt="AI Based Quizzes">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset('images/slide-gamification.png') }}" class="d-block w-100" alt="AI Based Gamification">
-                            </div>
+                <!-- Left Side - Text Content -->
+                <div class="col-lg-6">
+                    <div class="ai-text-content">
+                        <h1 class="ai-main-heading">
+                            <span class="text-blue">World's</span><br>
+                            <span class="text-blue">First AI Based</span><br>
+                            <span class="text-orange">Online Learning</span><br>
+                            <span class="text-orange">Platform</span>
+                        </h1>
+                        <!-- Decorative dots pattern -->
+                        <div class="dots-pattern">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
                         </div>
-                        <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#aiCarousel" data-bs-slide-to="0" class="active"></button>
-                            <button type="button" data-bs-target="#aiCarousel" data-bs-slide-to="1"></button>
-                            <button type="button" data-bs-target="#aiCarousel" data-bs-slide-to="2"></button>
-                            <button type="button" data-bs-target="#aiCarousel" data-bs-slide-to="3"></button>
+                    </div>
+                </div>
+                
+                <!-- Right Side - Carousel -->
+                <div class="col-lg-6">
+                    <div id="aiPeek" class="gallery">
+                        <div class="gallery-cell">
+                            <img src="{{ asset('images/slide-course-selector.png') }}" alt="AI Based Course Selector">
+                        </div>
+                        <div class="gallery-cell">
+                            <img src="{{ asset('images/slide-scenarios.png') }}" alt="AI Based Scenarios">
+                        </div>
+                        <div class="gallery-cell">
+                            <img src="{{ asset('images/slide-quizzes.png') }}" alt="AI Based Quizzes">
+                        </div>
+                        <div class="gallery-cell">
+                            <img src="{{ asset('images/slide-gamification.png') }}" alt="AI Based Gamification">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+
+
     </section>
 
     <!-- Who Can Join Section -->
@@ -331,7 +347,10 @@
     </section>
 
     <!-- Bootstrap JS Bundle -->
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
 </body>
 </html>
 @endsection

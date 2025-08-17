@@ -2,13 +2,13 @@ let selectedType = null;
 
 window.choosePlan = function(type) {
   const planNames = {
-    A: "College Program",
-    B: "Employee Program",
-    C: "Complete Transformation Program"
+    A: "Complete Transformation Program",
+    B: "Employee Program", 
+    C: "College Program"
   };
   selectedType = type;
   document.getElementById("modal-message").textContent =
-    `Are you sure you want to subscribe to Plan ${planNames[type]}?`;
+    `Are you sure you want to subscribe to the ${planNames[type]}?`;
   document.getElementById("subscription-modal").style.display = "flex";
 };
 

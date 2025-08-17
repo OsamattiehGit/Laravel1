@@ -4,6 +4,7 @@
             --primary-orange: #f57c2b;
             --light-gray: #A2A2A2;
             --input-gray: #A5A5A5;
+            --peek: clamp(120px, 20vw, 300px); /* Increased peek amount for better visibility */
         }
 
         body {
@@ -107,17 +108,17 @@
         .hero-visuals-wrapper {
             position: relative;
             width: 100%;
-            max-width: 500px;
-            height: 450px;
+            max-width: 700px;
+            height: 600px;
             margin: 0 auto;
         }
 
         .hero-figma-orange-circle {
             position: absolute;
-            right: 0;
-            top: 0;
+            right: 30px;
+            top: -50px;
             width: 280px;
-            height: 280px;
+            height: 380px;
             z-index: 1;
             pointer-events: none;
             user-select: none;
@@ -127,8 +128,8 @@
             position: absolute;
             right: 20px;
             top: 80px;
-            width: 320px;
-            height: 320px;
+            width: 420px;
+            height: 420px;
             z-index: 2;
             pointer-events: none;
             user-select: none;
@@ -137,8 +138,8 @@
         .hero-figma-girl {
             position: absolute;
             left: 70%;
-            top: 45%;
-            width: 280px;
+            top: 40%;
+            width: 380px;
             height: auto;
             transform: translate(-50%, -50%);
             z-index: 3;
@@ -149,8 +150,8 @@
         .hero-float-card-svg {
             position: absolute;
             left: 120px;
-            bottom: 80px;
-            width: 220px;
+            bottom: 120px;
+            width: 320px;
             height: auto;
             z-index: 4;
             pointer-events: none;
@@ -163,29 +164,29 @@
         /* Large Tablets */
         @media (max-width: 1199.98px) {
             .hero-visuals-wrapper {
-                max-width: 450px;
-                height: 400px;
+                max-width: 600px;
+                height: 500px;
             }
 
             .hero-figma-orange-circle {
-                width: 240px;
-                height: 240px;
+                width: 320px;
+                height: 320px;
             }
 
             .hero-figma-blue-circle {
-                width: 280px;
-                height: 280px;
+                width: 360px;
+                height: 360px;
                 right: 15px;
                 top: 70px;
             }
 
             .hero-figma-girl {
-                width: 240px;
+                width: 320px;
             }
 
             .hero-float-card-svg {
-                width: 180px;
-                left: -15px;
+                width: 400px;
+                left: 20px;
             }
         }
 
@@ -197,31 +198,31 @@
             }
 
             .hero-visuals-wrapper {
-                max-width: 380px;
-                height: 350px;
+                max-width: 500px;
+                height: 450px;
                 margin-top: 40px;
             }
 
             .hero-figma-orange-circle {
-                width: 200px;
-                height: 200px;
+                width: 280px;
+                height: 280px;
                 right: 10px;
             }
 
             .hero-figma-blue-circle {
-                width: 240px;
-                height: 240px;
+                width: 320px;
+                height: 320px;
                 right: 15px;
                 top: 60px;
             }
 
             .hero-figma-girl {
-                width: 200px;
+                width: 280px;
             }
 
             .hero-float-card-svg {
-                width: 160px;
-                left: -10px;
+                width: 320px;
+                left: 20px;
                 bottom: 15px;
             }
 
@@ -455,6 +456,52 @@
 .ai-slider-section {
     padding: 80px 0;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+/* Left side text content */
+.ai-text-content {
+    padding-right: 60px; /* More space between text and carousel */
+}
+
+.ai-main-heading {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 30px;
+}
+
+.text-blue {
+    color: var(--primary-blue);
+}
+
+.text-orange {
+    color: var(--primary-orange);
+}
+
+/* Decorative dots pattern */
+.dots-pattern {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    max-width: 200px;
+    margin-top: 40px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background: var(--primary-orange);
+    border-radius: 50%;
+    opacity: 0.7;
+}
+
+.dot:nth-child(3),
+.dot:nth-child(7),
+.dot:nth-child(11) {
+    opacity: 0.3;
 }
 
 .ai-title {
@@ -469,23 +516,6 @@
 
 .highlight-blue { color: var(--primary-blue);}
 .highlight-orange { color: var(--primary-orange);}
-
-.carousel-container {
-    position: relative;
-    overflow: hidden;
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-.carousel-slide img {
-    width: 100%;
-    height: auto;
-    border-radius: 12px;
-}
-.carousel-indicators { bottom: -50px; }
-.carousel-indicators button {
-    width: 40px; height: 4px; border-radius: 2px; background-color: #ccc; margin: 0 5px;
-}
-.carousel-indicators button.active { background-color: var(--primary-orange); }
 
 .who-can-join {
     padding: 80px 0;
@@ -961,4 +991,180 @@
         height: 105px;
         margin-top: 2.2rem;
     }
+}
+
+/* === Flickity Peek / Queue styles === */
+/* You already have --peek in :root. Keep it! */
+
+/* Let the slide’s shadow show outside the viewport */
+#aiPeek .flickity-viewport { overflow: visible; }
+
+/* No background; we’re on your gradient section */
+#aiPeek.gallery { background: transparent; }
+
+/* Each cell fills the container minus the right-side peek area. No right margin for crisp edge. */
+#aiPeek .gallery-cell{
+  width: calc(100% - var(--peek));
+  margin-right: 0;
+}
+
+/* Slide images match your card look */
+#aiPeek .gallery-cell img{
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.10);
+}
+
+/* Page dots styled like your indicators */
+#aiPeek .flickity-page-dots{
+  bottom: -30px;                    /* adjust if you want more space */
+}
+#aiPeek .flickity-page-dots .dot{
+  width: 40px; height: 4px;
+  border-radius: 2px;
+  background: #ccc;
+  opacity: 1;
+  margin: 0 5px;
+}
+#aiPeek .flickity-page-dots .dot.is-selected{
+  background: var(--primary-orange);
+}
+
+/* Optional: tweak peek on smaller screens (you already set :root --peek; keep these if you like) */
+@media (max-width: 768px){
+  :root{ --peek: clamp(40px, 10vw, 120px); }
+}
+@media (max-width: 480px){
+  :root{ --peek: 48px; }
+}
+
+/* === Flickity Carousel Styles === */
+
+/* Container setup for peek effect */
+#aiPeek.gallery { 
+  background: transparent; 
+  margin: 0 -25%; /* Extend even further to the right */
+  padding: 0 25%; /* Add more padding to show peek */
+  position: relative;
+  right: -20%; /* Push carousel even more to the right */
+  overflow: visible; /* Allow peek to be visible */
+}
+
+/* Let the slide's shadow show outside the viewport */
+#aiPeek .flickity-viewport { 
+  overflow: visible; 
+}
+
+/* Each cell fills the container minus the right-side peek area */
+#aiPeek .gallery-cell {
+  width: calc(100% - var(--peek)); /* Make slides fill most of container */
+  margin-right: 0;
+  max-width: 700px; /* Increase maximum width even more */
+}
+
+/* Slide images match your card look */
+#aiPeek .gallery-cell img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.10);
+  object-fit: cover; /* Ensure images maintain aspect ratio */
+}
+
+/* Ensure text in slides is visible and properly styled */
+#aiPeek .gallery-cell {
+  position: relative;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Text styling for slide content */
+#aiPeek .gallery-cell h1,
+#aiPeek .gallery-cell h2,
+#aiPeek .gallery-cell h3,
+#aiPeek .gallery-cell p {
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* Page dots styled like your indicators */
+#aiPeek .flickity-page-dots {
+  bottom: -30px;
+}
+#aiPeek .flickity-page-dots .dot {
+  width: 40px; 
+  height: 4px;
+  border-radius: 2px;
+  background: #ccc;
+  opacity: 1;
+  margin: 0 5px;
+}
+#aiPeek .flickity-page-dots .dot.is-selected {
+  background: var(--primary-orange);
+}
+
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .ai-slider-section {
+    padding: 60px 0;
+    min-height: auto;
+  }
+  
+  .ai-text-content {
+    padding-right: 0;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  
+  .ai-main-heading {
+    font-size: clamp(2rem, 6vw, 3rem);
+  }
+  
+  .dots-pattern {
+    margin: 30px auto 0;
+  }
+  
+  #aiPeek.gallery {
+    margin: 0 -10%;
+    padding: 0 10%;
+    right: 0; /* Reset position on mobile */
+  }
+  #aiPeek .gallery-cell {
+    width: calc(90% - var(--peek));
+    max-width: 400px;
+  }
+  :root { --peek: clamp(40px, 10vw, 120px); }
+}
+@media (max-width: 480px) {
+  .ai-main-heading {
+    font-size: clamp(1.8rem, 7vw, 2.5rem);
+  }
+  
+  .dots-pattern {
+    gap: 10px;
+    max-width: 150px;
+  }
+  
+  .dot {
+    width: 10px;
+    height: 10px;
+  }
+  
+  #aiPeek.gallery {
+    margin: 0 -5%;
+    padding: 0 5%;
+    right: 0; /* Reset position on mobile */
+  }
+  #aiPeek .gallery-cell {
+    width: calc(92% - var(--peek));
+    max-width: 350px;
+  }
+  :root { --peek: 48px; }
 }

@@ -5,199 +5,262 @@ body {
 }
 
 .pricing-section {
-  background: linear-gradient(180deg, #04316A 50%, #ffffff 50%);
-  padding: 60px 0 100px;
+  background: #ffffff;
+  padding: 80px 0 120px;
   position: relative;
+  overflow: hidden;
 }
 
-.pricing-title {
-  font-size: 2.75rem;
-  font-weight: 800;
-  color: #ffffff;
-  margin-bottom: 60px;
-}
-
-.pricing-title .text-orange {
-  color: #F37021;
-}
-
-/* Decorative dots - left side */
+/* Blue background for top section with downward curve */
 .pricing-section::before {
   content: '';
   position: absolute;
-  left: 10px;
-  top: 50%;
-  width: 80px;
-  height: 120px;
-  background-image:
-    radial-gradient(circle, #F37021 2px, transparent 2px),
-    radial-gradient(circle, #F37021 2px, transparent 2px),
-    radial-gradient(circle, #F37021 2px, transparent 2px),
-    radial-gradient(circle, #F37021 2px, transparent 2px);
-  background-size: 15px 15px;
-  background-position: 0 0, 15px 15px, 30px 30px, 45px 45px;
-  background-repeat: repeat;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: #003366;
+  clip-path: polygon(0 0, 100% 0, 100% 82%, 50% 92%, 0 82%);
+
+
+
+  z-index: 1;
 }
 
-/* Decorative dots - right side */
+.pricing-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #FF7F00;
+  margin-bottom: 80px;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+/* Decorative dots - left side */
 .pricing-section::after {
   content: '';
   position: absolute;
-  right: 10px;
-  top: 50%;
-  width: 80px;
-  height: 120px;
+  left: 20px;
+  top: 60%;
+  width: 100px;
+  height: 150px;
   background-image:
-    radial-gradient(circle, #F37021 2px, transparent 2px),
-    radial-gradient(circle, #F37021 2px, transparent 2px),
-    radial-gradient(circle, #F37021 2px, transparent 2px),
-    radial-gradient(circle, #F37021 2px, transparent 2px);
-  background-size: 15px 15px;
-  background-position: 0 0, 15px 15px, 30px 30px, 45px 45px;
+    radial-gradient(circle, #FF7F00 3px, transparent 3px),
+    radial-gradient(circle, #FF7F00 3px, transparent 3px),
+    radial-gradient(circle, #FF7F00 3px, transparent 3px),
+    radial-gradient(circle, #FF7F00 3px, transparent 3px),
+    radial-gradient(circle, #FF7F00 3px, transparent 3px);
+  background-size: 20px 20px;
+  background-position: 0 0, 20px 20px, 40px 40px, 60px 60px, 80px 80px;
   background-repeat: repeat;
+  z-index: 2;
+}
+
+/* Decorative dots - right side */
+.pricing-section .container::before {
+  content: '';
+  position: absolute;
+  right: 20px;
+  top: 60%;
+  width: 100px;
+  height: 150px;
+  background-image:
+    radial-gradient(circle, #FF7F00 3px, transparent 3px),
+    radial-gradient(circle, #FF7F00 3px, transparent 3px),
+    radial-gradient(circle, #FF7F00 3px, transparent 3px),
+    radial-gradient(circle, #FF7F00 3px, transparent 3px),
+    radial-gradient(circle, #FF7F00 3px, transparent 3px);
+  background-size: 20px 20px;
+  background-position: 0 0, 20px 20px, 40px 40px, 60px 60px, 80px 80px;
+  background-repeat: repeat;
+  z-index: 2;
+}
+
+/* Pricing cards container - centered horizontally with close spacing */
+.pricing-cards-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+  margin-top: 40px;
 }
 
 .plan-card {
   background: #ffffff;
   border-radius: 20px;
-  padding: 25px 20px 30px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   position: relative;
-  transition: transform 0.3s ease;
-  border: 2px solid transparent;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  margin-left: auto;
-    margin-right: auto;
-  flex-direction: column;
-}
-
-.col-lg-4, .col-md-6 {
-  display: flex;
-}
-.plan-card {
-  justify-content: space-between;
-}
-
-.plan-card {
-  flex: 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 400px;
+  width: 300px;
   display: flex;
   flex-direction: column;
+  overflow: visible;
+  margin-bottom: 20px;
 }
 
+.plan-card-employee {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 0;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid #FF7F00;
+  height: 500px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  transform: scale(1.05);
+  overflow: visible;
+}
+
+.plan-card-employee:hover {
+  transform: scale(1.05) translateY(-8px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
 
 .plan-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
 }
 
-/* Middle card highlighted */
-.plan-card.highlighted {
-  border: 2px solid #F37021;
-  transform: scale(1.08);
-  z-index: 2;
-}
-
-.plan-card.highlighted:hover {
-  transform: scale(1.08) translateY(-5px);
-}
-
+/* Orange badge above each card */
 .plan-badge {
-  background: linear-gradient(135deg, #F37021, #E55A00);
-  color: white;
-  padding: 8px 20px;
-  border-radius: 12px;
+  background: #ffffff;
+  color: #FF7F00;
+  padding: 8px 16px;
+  border-radius: 15px;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 12px;
   position: absolute;
-  top: -12px;
+  top: -15px;
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
-  box-shadow: 0 4px 15px rgba(243, 112, 33, 0.3);
+  letter-spacing: 0.3px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  width: auto;
+  min-width: 140px;
 }
 
+/* Upper orange section of card */
+.card-upper {
+  background: #FF7F00;
+  padding: 20px 20px 25px;
+  border-radius: 20px 20px 0 0;
+  margin: 0;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Price styling */
 .plan-price {
-  font-size: 32px;
+  background: transparent;
+  color: white;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  font-size: 36px;
   font-weight: 800;
-  color: #F37021;
-  margin: 30px 0 8px;
   line-height: 1.2;
+  text-align: center;
 }
 
 .plan-price .currency {
-  font-size: 24px;
-  margin-right: 3px;
+  font-size: 28px;
+  margin-right: 5px;
+  color: white;
 }
 
 .plan-price .tax-info {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
-  color: #333;
-  margin-left: 5px;
+  color: white;
+  margin-left: 8px;
 }
 
 .plan-price small {
   display: block;
-  font-size: 12px;
-  color: #666;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.9);
   font-weight: 400;
-  margin-top: 5px;
+  margin-top: 8px;
 }
 
+/* Lower white section of card */
 .plan-features {
   list-style: none;
-  padding: 0;
-  margin: 25px 0 30px;
+  padding: 25px 20px;
+  margin: 0;
+  flex-grow: 1;
+  background: white;
+  border-radius: 0 0 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-
 
 .plan-features li {
   display: flex;
   align-items: flex-start;
-  font-size: 14px;
+  font-size: 18px;
   color: #444;
-  margin-bottom: 15px;
-  gap: 12px;
-  line-height: 1.4;
+  margin-bottom: 18px;
+  gap: 15px;
+  line-height: 1.5;
+}
+
+.plan-features li:last-child {
+  margin-bottom: 0;
 }
 
 .plan-features li .feature-icon {
-  width: 40px;
-  height: 40px;
+  width: 65px;
+  height: 65px;
   flex-shrink: 0;
   background: #f8f9fa;
-  border-radius: 8px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid #e9ecef;
 }
 
 .plan-features li .feature-icon img {
-  width: 44px;
-  height: 44px;
+  width: 28px;
+  height: 28px;
 }
 
+/* Choose Plan button */
 .choose-btn {
-  background-color: transparent;
-  color: #F37021;
-  border: 2px solid #F37021;
-  padding: 12px 30px;
-  border-radius: 10px;
+  background-color: white;
+  color: #FF7F00;
+  border: 2px solid #FF7F00;
+  padding: 14px 35px;
+  border-radius: 12px;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 15px;
   transition: all 0.3s ease;
   width: auto;
-  margin: 0 auto;
+  margin: 0 auto 25px;
   display: block;
+  letter-spacing: 0.5px;
+  cursor: pointer;
 }
 
 .choose-btn:hover {
-  background-color: #F37021;
+  background-color: #FF7F00;
   color: white;
-  border-color: #F37021;
+  border-color: #FF7F00;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(243, 112, 33, 0.3);
+  box-shadow: 0 6px 20px rgba(255, 127, 0, 0.4);
 }
 
 /* Modal Styles */
@@ -239,7 +302,7 @@ body {
 }
 
 .btn-confirm {
-  background-color: #F37021;
+  background-color: #FF7F00;
   color: white;
 }
 
@@ -250,37 +313,117 @@ body {
 
 /* Responsive adjustments */
 @media (max-width: 992px) {
-  .pricing-section::before,
-  .pricing-section::after {
+  .pricing-section::after,
+  .pricing-section .container::before {
     display: none;
   }
 
-  .plan-card.highlighted {
-    transform: scale(1.02);
+  .pricing-cards-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
   }
 
-  .plan-card.highlighted:hover {
-    transform: scale(1.02) translateY(-5px);
+  .plan-card,
+  .plan-card-employee {
+    margin: 20px 0;
+    width: 300px;
+    height: 420px;
+  }
+
+  .plan-card-employee {
+    height: 500px;
+    transform: scale(1.02);
   }
 }
 
 @media (max-width: 768px) {
   .pricing-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
+    margin-bottom: 60px;
   }
 
-  .plan-card {
-    margin-bottom: 30px;
-    max-width: 280px;
+  .pricing-section {
+    padding: 60px 0 100px;
+  }
+
+  .plan-card,
+  .plan-card-employee {
+    margin: 15px 0;
+    width: 300px;
+    height: 400px;
+  }
+
+  .plan-card-employee {
+    height: 480px;
+    transform: scale(1.02);
+  }
+
+  .plan-card-employee:hover {
+    transform: scale(1.02) translateY(-5px);
   }
 
   .plan-price {
     font-size: 28px;
   }
+
+  .plan-badge {
+    font-size: 11px;
+    padding: 6px 12px;
+    min-width: 120px;
+  }
 }
+
+@media (max-width: 576px) {
+  .pricing-title {
+    font-size: 2rem;
+  }
+
+  .plan-card,
+  .plan-card-employee {
+    margin: 10px 0;
+    width: 280px;
+    height: 380px;
+  }
+
+  .plan-card-employee {
+    height: 460px;
+    transform: scale(1.01);
+  }
+
+  .plan-card-employee:hover {
+    transform: scale(1.01) translateY(-3px);
+  }
+
+  .plan-price {
+    font-size: 26px;
+  }
+
+  .plan-badge {
+    font-size: 10px;
+    padding: 5px 10px;
+    min-width: 110px;
+  }
+
+  .plan-features li {
+    font-size: 13px;
+  }
+
+  .plan-features li .feature-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .plan-features li .feature-icon img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Toast styling */
 #pricing-toast {
     position: fixed;
-    top: 36px; /* Or bottom: 32px */
+    top: 36px;
     left: 50%;
     transform: translateX(-50%);
     background: #09336a;
@@ -295,10 +438,12 @@ body {
     opacity: 0.98;
     border-left: 7px solid #11d33b;
 }
+
 #pricing-toast.toast-error {
     border-left: 7px solid #ff4337;
     background: #b30d1a;
 }
+
 #pricing-toast.toast-success {
     border-left: 7px solid #11d33b;
     background: #0d924b;

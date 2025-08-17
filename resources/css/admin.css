@@ -96,6 +96,77 @@
   font-size: 0.875rem;
 }
 
+/* Course Content Builder */
+.course-content-details {
+  margin-top: 1rem;
+}
+
+.content-section {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #fafafa;
+}
+
+.section-title {
+  color: var(--navy);
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-bottom: 2px solid var(--orange);
+  padding-bottom: 0.5rem;
+}
+
+.content-item {
+  padding: 0.75rem;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+}
+
+.content-item:not(:last-child) {
+  margin-bottom: 0.75rem;
+}
+
+.text-content p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--dark-gray);
+}
+
+.image-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.video-content video {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Content Builder Form */
+#course-content-details {
+  margin-bottom: 1rem;
+}
+
+.section-group {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+}
+
+.content-item {
+  background: white;
+  border: 1px solid #dee2e6;
+  margin-bottom: 0.5rem;
+}
+
+.content-item:last-child {
+  margin-bottom: 0;
+}
+
 /* Buttons */
 .admin-btn {
   display: inline-block;

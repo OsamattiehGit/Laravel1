@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class AdminCourseController extends Controller
 {
@@ -47,7 +48,8 @@ public function store(Request $request)
         'course_content_details.*.section'      => 'required_with:course_content_details|string|max:255',
         'course_content_details.*.items'        => 'nullable|array',
         'course_content_details.*.items.*.type' => 'required|in:text,image,video',
-        'course_content_details.*.items.*.value'=> 'required|string|max:2000',
+        'course_content_details.*.items.*.value'=> 'nullable|string|max:2000',
+        'course_content_details.*.items.*.file' => 'nullable|file|mimes:png,jpg,jpeg,svg,mp4,webm,ogg|max:10240',
     ]);
 
     // New category
@@ -95,15 +97,30 @@ public function store(Request $request)
         ];
     }
 
-    // ✅ Normalize structured course content
-    $details = array_values(array_map(function ($sec) {
-        $items = array_values(array_map(function ($it) {
-            $type  = in_array($it['type'] ?? 'text', ['text','image','video']) ? $it['type'] : 'text';
-            $value = trim((string)($it['value'] ?? ''));
+    // ✅ Normalize structured course content with file handling
+    $details = array_values(array_map(function ($sec, $secIdx) use ($request) {
+        $items = array_values(array_map(function ($it, $itemIdx) use ($request, $secIdx) {
+            $type = in_array($it['type'] ?? 'text', ['text','image','video']) ? $it['type'] : 'text';
+            $value = '';
+
+            if ($type === 'text') {
+                $value = trim((string)($it['value'] ?? ''));
+            } else {
+                // Handle file uploads for image/video
+                if ($request->hasFile("course_content_details.{$secIdx}.items.{$itemIdx}.file")) {
+                    $file = $request->file("course_content_details.{$secIdx}.items.{$itemIdx}.file");
+                    $value = $file->store('course-content', 'public');
+                } else {
+                    // Keep existing file path if no new file uploaded
+                    $value = $it['_existing'] ?? '';
+                }
+            }
+
             return ['type' => $type, 'value' => $value];
-        }, $sec['items'] ?? []));
+        }, $sec['items'] ?? [], array_keys($sec['items'] ?? [])));
+
         return ['section' => trim((string)($sec['section'] ?? '')), 'items' => $items];
-    }, $request->input('course_content_details', [])));
+    }, $request->input('course_content_details', []), array_keys($request->input('course_content_details', []))));
 
     // Create
     $course = Course::create([
@@ -117,7 +134,7 @@ public function store(Request $request)
         'projects'               => $projects,
         'tools'                  => $tools,
         'image'                  => $v['image'] ?? null,
-        'user_id'                => auth()->id(),
+        'user_id'                => Auth::id(),
         'course_content_details' => $details,               // ✅ correct structured data
     ]);
 
@@ -166,7 +183,8 @@ public function store(Request $request)
         'course_content_details.*.section'      => 'required_with:course_content_details|string|max:255',
         'course_content_details.*.items'        => 'nullable|array',
         'course_content_details.*.items.*.type' => 'required|in:text,image,video',
-        'course_content_details.*.items.*.value'=> 'required|string|max:2000',
+        'course_content_details.*.items.*.value'=> 'nullable|string|max:2000',
+        'course_content_details.*.items.*.file' => 'nullable|file|mimes:png,jpg,jpeg,svg,mp4,webm,ogg|max:10240',
     ]);
 
     // New category
@@ -217,15 +235,30 @@ public function store(Request $request)
         ];
     }
 
-    // ✅ Normalize structured course content
-    $details = array_values(array_map(function ($sec) {
-        $items = array_values(array_map(function ($it) {
-            $type  = in_array($it['type'] ?? 'text', ['text','image','video']) ? $it['type'] : 'text';
-            $value = trim((string)($it['value'] ?? ''));
+    // ✅ Normalize structured course content with file handling
+    $details = array_values(array_map(function ($sec, $secIdx) use ($request) {
+        $items = array_values(array_map(function ($it, $itemIdx) use ($request, $secIdx) {
+            $type = in_array($it['type'] ?? 'text', ['text','image','video']) ? $it['type'] : 'text';
+            $value = '';
+
+            if ($type === 'text') {
+                $value = trim((string)($it['value'] ?? ''));
+            } else {
+                // Handle file uploads for image/video
+                if ($request->hasFile("course_content_details.{$secIdx}.items.{$itemIdx}.file")) {
+                    $file = $request->file("course_content_details.{$secIdx}.items.{$itemIdx}.file");
+                    $value = $file->store('course-content', 'public');
+                } else {
+                    // Keep existing file path if no new file uploaded
+                    $value = $it['_existing'] ?? '';
+                }
+            }
+
             return ['type' => $type, 'value' => $value];
-        }, $sec['items'] ?? []));
+        }, $sec['items'] ?? [], array_keys($sec['items'] ?? [])));
+
         return ['section' => trim((string)($sec['section'] ?? '')), 'items' => $items];
-    }, $request->input('course_content_details', [])));
+    }, $request->input('course_content_details', []), array_keys($request->input('course_content_details', []))));
 
     // Update
     $course->update([
@@ -239,7 +272,7 @@ public function store(Request $request)
         'projects'               => $projects,
         'tools'                  => $tools,
         'image'                  => $v['image'] ?? $course->image,
-        'user_id'                => auth()->id(),
+        'user_id'                => Auth::id(),
         'course_content_details' => $details,   // ✅ single, correct write
     ]);
 

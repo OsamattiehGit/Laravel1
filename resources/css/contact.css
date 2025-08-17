@@ -13,31 +13,39 @@ body {
 
 /* HEADER SECTION */
 .contact-header {
-    background: linear-gradient(135deg, #f3702b 0%, #ff8c42 100%);
+    background: transparent;
     text-align: center;
     padding: 80px 20px;
     color: white;
     position: relative;
     overflow: hidden;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
 }
 
+/* Blue background with downward curve matching pricing page */
 .contact-header::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(243, 112, 43, 0.1);
-    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    background: #f3702b;
+    clip-path: ellipse(59% 61% at 50% 25%);
+
+
+    z-index: 1;
 }
+
+
 
 .contact-header h1 {
     font-size: 3rem;
     font-weight: 700;
     margin: 0;
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
 /* FORM SECTION */

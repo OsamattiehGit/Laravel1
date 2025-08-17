@@ -107,21 +107,41 @@
 
                   @elseif($type === 'image')
                     <figure class="acc-figure">
-                      <img src="{{ $val }}" alt="{{ $sec['section'] ?? 'Section image' }}">
+                      @if(Str::startsWith($val, 'http'))
+                        <img src="{{ $val }}" alt="{{ $sec['section'] ?? 'Section image' }}">
+                      @else
+                        <img src="{{ Storage::url($val) }}" alt="{{ $sec['section'] ?? 'Section image' }}">
+                      @endif
                     </figure>
 
                   @elseif($type === 'video')
                     @php
-                      // YouTube → embed
-                      $src = $val;
-                      if (preg_match('~(?:youtu\.be/|youtube\.com/(?:watch\?v=|embed/|shorts/))([A-Za-z0-9_-]{6,})~i', $val, $m)) {
-                        $src = 'https://www.youtube.com/embed/'.$m[1];
+                      // Check if it's a YouTube URL or file path
+                      if (Str::startsWith($val, 'http')) {
+                        // YouTube → embed
+                        $src = $val;
+                        if (preg_match('~(?:youtu\.be/|youtube\.com/(?:watch\?v=|embed/|shorts/))([A-Za-z0-9_-]{6,})~i', $val, $m)) {
+                          $src = 'https://www.youtube.com/embed/'.$m[1];
+                        }
+
+                        if (str_contains($src, 'youtube.com/embed')) {
+                          $isYoutube = true;
+                          $youtubeSrc = $src;
+                        } else {
+                          $isYoutube = false;
+                          $videoSrc = $src;
+                        }
+                      } else {
+                        // File path
+                        $isYoutube = false;
+                        $videoSrc = Storage::url($val);
                       }
                     @endphp
-                    @if(str_contains($src, 'youtube.com/embed'))
-                      <div class="video-embed"><iframe src="{{ $src }}" allowfullscreen></iframe></div>
+
+                    @if($isYoutube)
+                      <div class="video-embed"><iframe src="{{ $youtubeSrc }}" allowfullscreen></iframe></div>
                     @else
-                      <video class="video-file" controls preload="metadata"><source src="{{ $src }}"></video>
+                      <video class="video-file" controls preload="metadata"><source src="{{ $videoSrc }}"></video>
                     @endif
                   @endif
                 @endforeach

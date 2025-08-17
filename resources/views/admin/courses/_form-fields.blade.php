@@ -48,8 +48,22 @@
         {{ old('category_id', $course->category_id) == $cat->id ? 'selected' : '' }}
       >{{ $cat->name }}</option>
     @endforeach
+    <option value="__new__">+ Create New Category</option>
   </select>
   @error('category_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
+</div>
+
+<!-- New Category Input (hidden by default) -->
+<div class="admin-form-group" id="new-category-container" style="display: none;">
+  <label for="new_category">New Category Name</label>
+  <input
+    type="text"
+    name="new_category"
+    id="new_category"
+    class="admin-form-control @error('new_category') is-invalid @enderror"
+    placeholder="Enter new category name"
+  >
+  @error('new_category') <div class="invalid-feedback">{{ $message }}</div> @enderror
 </div>
 <!-- Course Type -->
 <div class="admin-form-group">
@@ -136,10 +150,10 @@
   >{{ is_string($oldCnt) ? $oldCnt : implode(',', $oldCnt) }}</textarea>
   @error('course_content') <div class="invalid-feedback">{{ $message }}</div> @enderror
 </div>
-{{-- Sectioned Course Content Builder --}}
 {{-- ================== Sectioned Course Content Builder ================== --}}
 <div class="admin-form-group">
   <label>Detailed Course Content <small>(Sectioned: text / image / video)</small></label>
+  <p class="text-muted small mb-3">Create structured content that will appear in the course content dropdown on the course page.</p>
 
   <div id="course-content-details"></div>
 
