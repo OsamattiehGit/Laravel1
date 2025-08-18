@@ -104,18 +104,20 @@
                 
                 <!-- Right Side - Carousel -->
                 <div class="col-lg-6">
-                    <div id="aiPeek" class="gallery">
-                        <div class="gallery-cell">
-                            <img src="{{ asset('images/slide-course-selector.png') }}" alt="AI Based Course Selector">
-                        </div>
-                        <div class="gallery-cell">
-                            <img src="{{ asset('images/slide-scenarios.png') }}" alt="AI Based Scenarios">
-                        </div>
-                        <div class="gallery-cell">
-                            <img src="{{ asset('images/slide-quizzes.png') }}" alt="AI Based Quizzes">
-                        </div>
-                        <div class="gallery-cell">
-                            <img src="{{ asset('images/slide-gamification.png') }}" alt="AI Based Gamification">
+                    <div class="ai-carousel-container">
+                        <div id="aiPeek" class="gallery">
+                            <div class="gallery-cell">
+                                <img src="{{ asset('images/slide-course-selector.png') }}" alt="AI Based Course Selector">
+                            </div>
+                            <div class="gallery-cell">
+                                <img src="{{ asset('images/slide-scenarios.png') }}" alt="AI Based Scenarios">
+                            </div>
+                            <div class="gallery-cell">
+                                <img src="{{ asset('images/slide-quizzes.png') }}" alt="AI Based Quizzes">
+                            </div>
+                            <div class="gallery-cell">
+                                <img src="{{ asset('images/slide-gamification.png') }}" alt="AI Based Gamification">
+                            </div>
                         </div>
                     </div>
                 </div>

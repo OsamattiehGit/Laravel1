@@ -18,7 +18,6 @@
       </div>
     </div>
 
-<<<<<<< HEAD
     <div class="pricing-cards-container">
       <!-- College Program -->
       <div class="plan-card text-center">
@@ -28,38 +27,6 @@
             <span class="currency">₹</span> 20,000 <span class="tax-info">+ Tax</span>
             <small>(Exclusive of GST & Taxes)</small>
           </div>
-=======
-    <div class="row justify-content-center align-items-stretch gy-4 gx-2">
-
-      <!-- College Program -->
-      <div class="col-md-3 col-sm-6">
-        <div class="plan-card text-center">
-          <div class="card-upper">
-            <div class="plan-badge">College Program</div>
-            <div class="plan-price">
-              <span class="currency">₹</span>20,000<span class="tax-info">+ Tax</span>
-              <small>(Exclusive of GST & Taxes)</small>
-            </div>
-          </div>
-          <ul class="plan-features">
-            <li>
-              <div class="feature-icon">
-                <img src="{{ asset('images/college-icon.svg') }}" alt="college">
-              </div>
-              <span>For Colleges, Universities & Group Of Students</span>
-            </li>
-            <li>
-              <div class="feature-icon">
-                <img src="{{ asset('images/icon-clock.svg') }}" alt="clock">
-              </div>
-              <span>Common Timings</span>
-            </li>
-          </ul>
-          <button class="btn choose-btn" onclick="choosePlan('C')">Choose Plan</button>
-          <div class="payment-gateway">
-            <img src="{{ asset('images/razorpay-logo.png') }}" alt="Razorpay" class="razorpay-logo">
-          </div>
->>>>>>> 6b63e9515f0410da64bf7766135ab3d2cd3aa342
         </div>
         <ul class="plan-features">
           <li>
@@ -80,7 +47,6 @@
         </ul>
       </div>
 
-<<<<<<< HEAD
       <!-- Employee Program -->
       <div class="plan-card-employee text-center">
         <div class="plan-badge">Employee Program</div>
@@ -89,36 +55,6 @@
             <span class="currency">₹</span> 50,000 <span class="tax-info">+ Tax</span>
             <small>(Exclusive of GST & Taxes)</small>
           </div>
-=======
-      <!-- Employee Program (Highlighted) -->
-      <div class="col-md-3 col-sm-6">
-        <div class="plan-card text-center highlighted">
-          <div class="card-upper">
-            <div class="plan-badge">Employee Program</div>
-            <div class="plan-price">
-              <span class="currency">₹</span>50,000<span class="tax-info">+ Tax</span>
-              <small>(Exclusive of GST & Taxes)</small>
-            </div>
-          </div>
-          <ul class="plan-features">
-            <li>
-              <div class="feature-icon">
-                <img src="{{ asset('images/icon-people.svg') }}" alt="people">
-              </div>
-              <span>1-1 Individuals</span>
-            </li>
-            <li>
-              <div class="feature-icon">
-                <img src="{{ asset('images/icon-clock.svg') }}" alt="clock">
-              </div>
-              <span>Choose Timings</span>
-            </li>
-          </ul>
-          <button class="btn choose-btn" onclick="choosePlan('B')">Choose Plan</button>
-          <div class="payment-gateway">
-            <img src="{{ asset('images/razorpay-logo.png') }}" alt="Razorpay" class="razorpay-logo">
-          </div>
->>>>>>> 6b63e9515f0410da64bf7766135ab3d2cd3aa342
         </div>
         <ul class="plan-features">
           <li>
@@ -140,7 +76,6 @@
       </div>
 
       <!-- Complete Transformation Program -->
-<<<<<<< HEAD
       <div class="plan-card text-center">
         <div class="plan-badge">Complete Transformation Program</div>
         <div class="card-upper">
@@ -148,35 +83,6 @@
             <span class="currency">₹</span> 75,000 <span class="tax-info">+ Tax</span>
             <small>(Exclusive of GST & Taxes)</small>
           </div>
-=======
-      <div class="col-md-3 col-sm-6">
-        <div class="plan-card text-center">
-          <div class="card-upper">
-            <div class="plan-badge">Complete Transformation Program</div>
-            <div class="plan-price">
-              <span class="currency">₹</span>75,000<span class="tax-info">+ Tax</span>
-              <small>(Exclusive of GST & Taxes)</small>
-            </div>
-          </div>
-          <ul class="plan-features">
-            <li>
-              <div class="feature-icon">
-                <img src="{{ asset('images/icon-people.svg') }}" alt="people">
-              </div>
-              <span>1-1 Individuals</span>
-            </li>
-            <li>
-              <div class="feature-icon">
-                <img src="{{ asset('images/icon-clock.svg') }}" alt="clock">
-              </div>
-              <span>Flexible Timings</span>
-            </li>
-          </ul>
-          <button class="btn choose-btn" onclick="choosePlan('A')">Choose Plan</button>
-          <div class="payment-gateway">
-            <img src="{{ asset('images/razorpay-logo.png') }}" alt="Razorpay" class="razorpay-logo">
-          </div>
->>>>>>> 6b63e9515f0410da64bf7766135ab3d2cd3aa342
         </div>
         <ul class="plan-features">
           <li>

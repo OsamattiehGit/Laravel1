@@ -5,54 +5,29 @@ body {
 }
 
 .pricing-section {
-<<<<<<< HEAD
   background: #ffffff;
-=======
-  background: #003366;
->>>>>>> 6b63e9515f0410da64bf7766135ab3d2cd3aa342
   padding: 80px 0 120px;
   position: relative;
   overflow: hidden;
 }
 
-<<<<<<< HEAD
 /* Blue background for top section with downward curve */
-=======
-/* Curved blue clip-path that goes down from top and curves upwards */
->>>>>>> 6b63e9515f0410da64bf7766135ab3d2cd3aa342
 .pricing-section::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-<<<<<<< HEAD
   height: 50%;
   background: #003366;
   clip-path: polygon(0 0, 100% 0, 100% 82%, 50% 92%, 0 82%);
 
 
 
-=======
-  height: 100%;
-  background: #003366;
-  clip-path: polygon(
-    0% 0%,
-    100% 0%,
-    100% 100%,
-    85% 85%,
-    70% 70%,
-    50% 60%,
-    30% 70%,
-    15% 85%,
-    0% 100%
-  );
->>>>>>> 6b63e9515f0410da64bf7766135ab3d2cd3aa342
   z-index: 1;
 }
 
 .pricing-title {
-<<<<<<< HEAD
   font-size: 3.5rem;
   font-weight: 700;
   color: #FF7F00;
@@ -60,18 +35,6 @@ body {
   position: relative;
   z-index: 2;
   text-align: center;
-=======
-  font-size: 3rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 80px;
-  position: relative;
-  z-index: 2;
-}
-
-.pricing-title .text-orange {
-  color: #FF7F00;
->>>>>>> 6b63e9515f0410da64bf7766135ab3d2cd3aa342
 }
 
 /* Decorative dots - left side */
@@ -112,7 +75,6 @@ body {
   background-position: 0 0, 20px 20px, 40px 40px, 60px 60px, 80px 80px;
   background-repeat: repeat;
   z-index: 2;
-<<<<<<< HEAD
 }
 
 /* Pricing cards container - centered horizontally with close spacing */
@@ -124,8 +86,6 @@ body {
   position: relative;
   z-index: 2;
   margin-top: 40px;
-=======
->>>>>>> 6b63e9515f0410da64bf7766135ab3d2cd3aa342
 }
 
 .plan-card {
@@ -135,7 +95,6 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-<<<<<<< HEAD
   height: 400px;
   width: 300px;
   display: flex;
@@ -161,42 +120,6 @@ body {
 }
 
 .plan-card-employee:hover {
-=======
-  border: 2px solid transparent;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  z-index: 2;
-  max-width: 320px;
-  margin: 0;
-  overflow: hidden;
-  transform: translateZ(0);
-}
-
-.plan-card.highlighted {
-  background: #ffffff;
-  border-radius: 20px;
-  padding: 0;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-  position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 2px solid #FF7F00;
-  height: 110%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  z-index: 3;
-  max-width: 320px;
-  margin: 0;
-  overflow: hidden;
-  transform: scale(1.05) translateZ(0);
-}
-
-.plan-card.highlighted:hover {
->>>>>>> 6b63e9515f0410da64bf7766135ab3d2cd3aa342
   transform: scale(1.05) translateY(-8px);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
 }
@@ -204,20 +127,10 @@ body {
 .plan-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-<<<<<<< HEAD
-=======
-}
-
-.card-upper {
-  background: #FF7F00;
-  padding: 20px 0;
-  border-radius: 20px 20px 0 0;
->>>>>>> 6b63e9515f0410da64bf7766135ab3d2cd3aa342
 }
 
 /* Orange badge above each card */
 .plan-badge {
-<<<<<<< HEAD
   background: #ffffff;
   color: #FF7F00;
   padding: 8px 16px;
@@ -235,21 +148,6 @@ body {
   z-index: 10;
   width: auto;
   min-width: 140px;
-=======
-  background: white;
-  color: #FF7F00;
-  padding: 8px 25px;
-  border-radius: 25px;
-  font-weight: 600;
-  font-size: 14px;
-  position: relative;
-  white-space: nowrap;
-  letter-spacing: 0.5px;
-  text-align: center;
-  margin: 0 auto 15px;
-  width: fit-content;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
->>>>>>> 6b63e9515f0410da64bf7766135ab3d2cd3aa342
 }
 
 /* Upper orange section of card */
@@ -266,11 +164,7 @@ body {
 .plan-price {
   background: transparent;
   color: white;
-<<<<<<< HEAD
   padding: 0;
-=======
-  padding: 0 20px;
->>>>>>> 6b63e9515f0410da64bf7766135ab3d2cd3aa342
   margin: 0;
   position: relative;
   font-size: 36px;
@@ -307,23 +201,16 @@ body {
   margin: 0;
   flex-grow: 1;
   background: white;
-<<<<<<< HEAD
   border-radius: 0 0 20px 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-=======
->>>>>>> 6b63e9515f0410da64bf7766135ab3d2cd3aa342
 }
 
 .plan-features li {
   display: flex;
   align-items: flex-start;
-<<<<<<< HEAD
   font-size: 18px;
-=======
-  font-size: 15px;
->>>>>>> 6b63e9515f0410da64bf7766135ab3d2cd3aa342
   color: #444;
   margin-bottom: 18px;
   gap: 15px;
@@ -335,13 +222,8 @@ body {
 }
 
 .plan-features li .feature-icon {
-<<<<<<< HEAD
   width: 65px;
   height: 65px;
-=======
-  width: 50px;
-  height: 50px;
->>>>>>> 6b63e9515f0410da64bf7766135ab3d2cd3aa342
   flex-shrink: 0;
   background: #f8f9fa;
   border-radius: 12px;
@@ -358,11 +240,7 @@ body {
 
 /* Choose Plan button */
 .choose-btn {
-<<<<<<< HEAD
   background-color: white;
-=======
-  background-color: transparent;
->>>>>>> 6b63e9515f0410da64bf7766135ab3d2cd3aa342
   color: #FF7F00;
   border: 2px solid #FF7F00;
   padding: 14px 35px;
@@ -374,10 +252,7 @@ body {
   margin: 0 auto 25px;
   display: block;
   letter-spacing: 0.5px;
-<<<<<<< HEAD
   cursor: pointer;
-=======
->>>>>>> 6b63e9515f0410da64bf7766135ab3d2cd3aa342
 }
 
 .choose-btn:hover {
@@ -386,26 +261,6 @@ body {
   border-color: #FF7F00;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(255, 127, 0, 0.4);
-<<<<<<< HEAD
-=======
-}
-
-/* Payment Gateway */
-.payment-gateway {
-  text-align: center;
-  margin-top: auto;
-}
-
-.razorpay-logo {
-  height: 20px;
-  width: auto;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-}
-
-.plan-card:hover .razorpay-logo {
-  opacity: 1;
->>>>>>> 6b63e9515f0410da64bf7766135ab3d2cd3aa342
 }
 
 /* Modal Styles */
@@ -456,23 +311,6 @@ body {
   color: #111827;
 }
 
-/* Better centering and tighter card layout */
-.row.justify-content-center {
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: -40px;
-}
-
-.col-md-3 {
-  padding: 0 10px;
-  display: flex;
-  justify-content: center;
-  flex: 0 0 auto;
-  max-width: 300px;
-}
-
 /* Responsive adjustments */
 @media (max-width: 992px) {
   .pricing-section::after,
@@ -480,43 +318,10 @@ body {
     display: none;
   }
 
-<<<<<<< HEAD
   .pricing-cards-container {
     flex-direction: column;
     align-items: center;
     gap: 30px;
-=======
-  .plan-card,
-  .plan-card.highlighted {
-    margin-bottom: 20px;
-  }
-
-  .row.justify-content-center {
-    gap: 20px;
-  }
-}
-
-@media (max-width: 768px) {
-  .pricing-title {
-    font-size: 2.5rem;
-    margin-bottom: 60px;
-  }
-
-  .pricing-section {
-    padding: 60px 0 100px;
-  }
-
-  .plan-card,
-  .plan-card.highlighted {
-    margin-bottom: 20px;
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .plan-card.highlighted {
-    transform: scale(1.02);
->>>>>>> 6b63e9515f0410da64bf7766135ab3d2cd3aa342
   }
 
   .plan-card,
@@ -530,24 +335,14 @@ body {
     height: 500px;
     transform: scale(1.02);
   }
-
-  .plan-price {
-    font-size: 32px;
-  }
-
-  .plan-badge {
-    font-size: 13px;
-    padding: 8px 20px;
-  }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .pricing-title {
     font-size: 2.5rem;
     margin-bottom: 60px;
   }
 
-<<<<<<< HEAD
   .pricing-section {
     padding: 60px 0 100px;
   }
@@ -566,41 +361,10 @@ body {
 
   .plan-card-employee:hover {
     transform: scale(1.02) translateY(-5px);
-=======
-  .plan-card,
-  .plan-card.highlighted {
-    padding: 20px 15px 25px;
-    max-width: 280px;
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  .plan-card.highlighted {
-    transform: scale(1.01);
-  }
-
-  .plan-card.highlighted:hover {
-    transform: scale(1.01) translateY(-3px);
->>>>>>> 6b63e9515f0410da64bf7766135ab3d2cd3aa342
   }
 
   .plan-price {
     font-size: 28px;
-    padding: 20px 15px;
-  }
-
-  .plan-features li {
-    font-size: 14px;
-  }
-
-  .plan-features li .feature-icon {
-    width: 45px;
-    height: 45px;
-  }
-
-  .plan-features li .feature-icon img {
-    width: 24px;
-    height: 24px;
   }
 
   .plan-badge {
@@ -610,7 +374,6 @@ body {
   }
 }
 
-<<<<<<< HEAD
 @media (max-width: 576px) {
   .pricing-title {
     font-size: 2rem;
@@ -658,8 +421,6 @@ body {
 }
 
 /* Toast styling */
-=======
->>>>>>> 6b63e9515f0410da64bf7766135ab3d2cd3aa342
 #pricing-toast {
     position: fixed;
     top: 36px;
