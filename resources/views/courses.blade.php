@@ -45,7 +45,7 @@
     </div>
   </div>
 
-  <div id="course-list" class="course-grid"></div>
+  <div id="course-list" class="course-grid" style="display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 1.5rem !important; width: 100% !important;"></div>
   <div id="pagination"    class="pagination"></div>
 </div>
 @endsection

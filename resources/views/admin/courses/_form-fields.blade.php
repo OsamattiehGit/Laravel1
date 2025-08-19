@@ -218,7 +218,7 @@
         {{-- keep old path --}}
         <input type="hidden"
                name="projects[{{ $i }}][_icon]"
-               value="{{ $proj['icon'] }}">
+               value="{{ $proj['icon'] ?? '' }}">
 
         {{-- upload new icon --}}
         <input type="file"
@@ -279,7 +279,7 @@
 
         <input type="hidden"
                name="tools[{{ $i }}][_icon]"
-               value="{{ $tool['icon'] }}">
+               value="{{ $tool['icon'] ?? '' }}">
 
         <input type="file"
                name="tools[{{ $i }}][icon]"

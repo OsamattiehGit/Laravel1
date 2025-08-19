@@ -92,6 +92,20 @@ function showToast(msg, success = true) {
   toast.style.display = 'block';
   setTimeout(() => { toast.style.display = 'none'; }, 2500);
 }
+
+// Function to show enrollment required message
+function showEnrollmentRequired() {
+  console.log('showEnrollmentRequired called'); // Debug log
+  showToast("You have to be enrolled to access Course content", false);
+  
+  // Fallback alert in case toast doesn't work
+  if (typeof showToast === 'undefined') {
+    alert("You have to be enrolled to access Course content");
+  }
+}
+
+// Make function globally available
+window.showEnrollmentRequired = showEnrollmentRequired;
 // Smooth accordion open/close (figma-like)
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.acc-item').forEach(item => {

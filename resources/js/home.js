@@ -1,83 +1,70 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const el = document.querySelector('#aiPeek.gallery');
-    if (!el) return;
-    
-    // Destroy existing instance if any
-    if (el._flickity) { 
-        el._flickity.destroy(); 
+    const container = document.querySelector('.carousel-container');
+    const track     = container?.querySelector('.carousel-track');
+    const slides    = track ? Array.from(track.children) : [];
+    const dots      = container ? Array.from(container.querySelectorAll('.carousel-dot')) : [];
+    if (!container || !track || slides.length === 0) return;
+  
+    let index = 0, anim = false, timer;
+  
+    const gapPx  = () => parseFloat(getComputedStyle(track).gap || 0) || 0;
+    const stepPx = () => slides[0].getBoundingClientRect().width + gapPx();
+    const peekPx = () => parseFloat(getComputedStyle(container).getPropertyValue('--peek')) || 0;
+  
+    const offsetFor = (i) => {
+      // base distance
+      let px = i * stepPx();
+      // avoid sub-pixel gaps
+      return Math.round(px);
+    };
+  
+    function go(to){
+      if (anim) return;
+      index = (to + slides.length) % slides.length;
+      anim = true;
+      track.style.transform = `translateX(${-offsetFor(index)}px)`;
+      dots.forEach((d,i)=>d.classList.toggle('active', i===index));
+      setTimeout(()=>anim=false, 600);
     }
-
-    // Initialize Flickity with settings that match Figma design
-    el._flickity = new Flickity(el, {
-        cellAlign: 'left',
-        contain: false, // Allow overflow for peek effect
-        wrapAround: true, // Enable cycling through slides
-        autoPlay: 4000, // 4 seconds per slide
-        pauseAutoPlayOnHover: true,
-        prevNextButtons: false, // No arrow buttons
-        pageDots: true, // Show navigation dots
-        draggable: true, // Allow dragging
-        selectedAttraction: 0.025, // Smooth transitions
-        friction: 0.28,
-        adaptiveHeight: false,
-        percentPosition: false,
-        setGallerySize: true,
-        // Custom settings for peek effect
-        cellSelector: '.gallery-cell',
-        // Ensure proper slide width for peek effect
-        on: {
-            ready: function() {
-                // Set up peek effect after initialization
-                setupPeekEffect();
-            }
-        }
+  
+    const next = () => go(index + 1);
+    const prev = () => go(index - 1);
+  
+    dots.forEach((dot,i)=>dot.addEventListener('click',()=>go(i)));
+  
+    // touch / drag
+    let startX=0, dragging=false;
+    container.addEventListener('touchstart', e=>{ startX=e.touches[0].clientX; stop(); }, {passive:true});
+    container.addEventListener('touchend',   e=>{
+      const dx = startX - e.changedTouches[0].clientX;
+      if (Math.abs(dx)>50) (dx>0?next():prev());
+      start();
+    }, {passive:true});
+    container.addEventListener('mousedown', e=>{ dragging=true; startX=e.clientX; stop(); container.style.cursor='grabbing'; });
+    document.addEventListener('mouseup', e=>{
+      if (!dragging) return; dragging=false; container.style.cursor='grab';
+      const dx = startX - e.clientX;
+      if (Math.abs(dx)>50) (dx>0?next():prev());
+      start();
     });
-    
-    // Function to set up the peek effect
-    function setupPeekEffect() {
-        const cells = el.querySelectorAll('.gallery-cell');
-        const containerWidth = el.offsetWidth;
-        
-        // Responsive peek amounts
-        let peekAmount;
-        if (containerWidth >= 1200) {
-            peekAmount = 120; // Desktop
-        } else if (containerWidth >= 768) {
-            peekAmount = 80; // Tablet
-        } else if (containerWidth >= 576) {
-            peekAmount = 60; // Mobile
-        } else {
-            peekAmount = 40; // Small mobile
-        }
-        
-        cells.forEach(cell => {
-            cell.style.width = `calc(100% - ${peekAmount}px)`;
-            cell.style.marginRight = '0';
-        });
-        
-        // Force Flickity to recalculate
-        el._flickity.resize();
-    }
-    
-    // Handle window resize
+  
+    function start(){ if (!timer) timer = setInterval(next, 2000); }
+    function stop(){ if (timer){ clearInterval(timer); timer=null; } }
+  
+    container.addEventListener('mouseenter', stop);
+    container.addEventListener('mouseleave', start);
+  
+    // keep alignment on resize
     window.addEventListener('resize', () => {
-        if (el._flickity) {
-            setupPeekEffect();
-        }
-    });
-    
-    // Handle slide change events
-    el._flickity.on('change', function(index) {
-        // Optional: Add any slide change logic here
-        console.log('Slide changed to:', index);
-    });
-    
-    // Handle reaching the last slide (for wrap-around behavior)
-    el._flickity.on('settle', function(index) {
-        // This ensures smooth cycling through all slides
-        if (index === el._flickity.slides.length - 1) {
-            // If we're at the last slide, the next auto-play will go to first slide
-            // due to wrapAround: true
-        }
-    });
-});
+      track.style.transition = 'none';
+      track.style.transform  = `translateX(${-offsetFor(index)}px)`;
+      requestAnimationFrame(()=> track.style.transition = 'transform .6s ease');
+    }, {passive:true});
+  
+    // init
+    container.style.cursor='grab';
+    track.style.transform='translateX(0)';
+    dots.forEach((d,i)=>d.classList.toggle('active', i===0));
+    start();
+  });
+  

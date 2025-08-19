@@ -91,7 +91,15 @@ class CourseController extends Controller
             }
         }
 
-        return view('course', compact('course'));
+        // Check if user is enrolled in this course
+        $isEnrolled = false;
+        if (auth()->check()) {
+            $isEnrolled = auth()->user()->enrollments()
+                ->where('course_id', $course->id)
+                ->exists();
+        }
+
+        return view('course', compact('course', 'isEnrolled'));
     }
 
     /**

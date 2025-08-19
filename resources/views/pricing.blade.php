@@ -24,8 +24,8 @@
         <div class="plan-badge">College Program</div>
         <div class="card-upper">
           <div class="plan-price">
-            <span class="currency">₹</span> 20,000 <span class="tax-info">+ Tax</span>
-            <small>(Exclusive of GST & Taxes)</small>
+            <span class="currency">$</span> 19.99 <span class="tax-info">+ Tax</span>
+            <small>(Access to 1 Course)</small>
           </div>
         </div>
         <ul class="plan-features">
@@ -52,8 +52,8 @@
         <div class="plan-badge">Employee Program</div>
         <div class="card-upper">
           <div class="plan-price">
-            <span class="currency">₹</span> 50,000 <span class="tax-info">+ Tax</span>
-            <small>(Exclusive of GST & Taxes)</small>
+            <span class="currency">$</span> 34,99 <span class="tax-info">+ Tax</span>
+            <small>(Access to 3 Courses)</small>
           </div>
         </div>
         <ul class="plan-features">
@@ -80,8 +80,8 @@
         <div class="plan-badge">Complete Transformation Program</div>
         <div class="card-upper">
           <div class="plan-price">
-            <span class="currency">₹</span> 75,000 <span class="tax-info">+ Tax</span>
-            <small>(Exclusive of GST & Taxes)</small>
+            <span class="currency">$</span> 49.99 <span class="tax-info">+ Tax</span>
+            <small>(Access to 5 Courses)</small>
           </div>
         </div>
         <ul class="plan-features">

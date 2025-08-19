@@ -118,6 +118,11 @@
 
 <style>
     @media (max-width: 768px) {
+        nav a img {
+            padding-left: 10px !important;
+            height: 50px !important;
+        }
+        
         #mobile-toggle {
             display: block !important;
         }
@@ -174,6 +179,11 @@
     }
 
     @media (max-width: 480px) {
+        nav a img {
+            padding-left: 5px !important;
+            height: 45px !important;
+        }
+        
         #auth-buttons a, #auth-buttons button {
             padding: 6px 12px !important;
             font-size: 14px !important;

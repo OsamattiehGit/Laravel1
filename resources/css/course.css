@@ -65,6 +65,23 @@ body{font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Ari
 .acc-title{font-size:15px;color:#222}
 .acc-plus{color:var(--orange);font-size:22px;line-height:0;transform:rotate(0deg);transition:transform .25s}
 .acc-toggle:checked + .acc-head .acc-plus{transform:rotate(45deg)}
+
+/* Locked content styling */
+.locked-content{
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+.locked-content:hover{
+  opacity: 1;
+  background: #f8f9fa;
+}
+.acc-lock{
+  color: #dc3545;
+  font-size: 18px;
+  line-height: 0;
+}
+
 .acc-body{max-height:0;overflow:hidden;padding:0 18px;transition:max-height .35s ease,padding .25s ease}
 .acc-toggle:checked ~ .acc-body{padding:12px 18px 16px}
 .acc-text{margin:6px 0 12px;line-height:1.7}
@@ -127,9 +144,52 @@ body{font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Ari
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
   padding:10px 18px;border-radius:10px;font-weight:600;font-size:1rem;text-decoration:none;white-space:nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
-.btn-outline{background:transparent;border:2px solid var(--orange);color:var(--orange)}
-.btn-solid{background:var(--peach);border:none;color:#fff}
+.btn-outline{
+  background:transparent !important;
+  border:2px solid var(--orange) !important;
+  color:var(--orange) !important;
+}
+.btn-outline:hover{
+  background:var(--orange) !important;
+  color:#fff !important;
+}
+.btn-solid{
+  background:var(--orange) !important;
+  border:none !important;
+  color:#fff !important;
+}
+.btn-solid:hover{
+  background:#e57000 !important;
+  color:#fff !important;
+}
+
+/* Specific modal button styling */
+.enroll-modal-footer .btn{
+  background:var(--orange) !important;
+  border:none !important;
+  color:#fff !important;
+  min-width:120px;
+}
+.enroll-modal-footer .btn-outline{
+  background:transparent !important;
+  border:2px solid var(--orange) !important;
+  color:var(--orange) !important;
+}
+.enroll-modal-footer .btn-outline:hover{
+  background:var(--orange) !important;
+  color:#fff !important;
+}
+.enroll-modal-footer .btn-solid{
+  background:var(--orange) !important;
+  color:#fff !important;
+}
+.enroll-modal-footer .btn-solid:hover{
+  background:#e57000 !important;
+  color:#fff !important;
+}
 
 /* ---------- Tools ---------- */
 .tools{display:flex;flex-wrap:wrap;gap:22px;justify-content:center;margin:24px 0 12px}

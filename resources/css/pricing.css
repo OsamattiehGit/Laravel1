@@ -96,7 +96,7 @@ body {
   position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   height: 400px;
-  width: 300px;
+  width: 320px;
   display: flex;
   flex-direction: column;
   overflow: visible;
@@ -112,7 +112,7 @@ body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: 2px solid #FF7F00;
   height: 500px;
-  width: 300px;
+  width: 320px;
   display: flex;
   flex-direction: column;
   transform: scale(1.05);
@@ -134,7 +134,7 @@ body {
   background: #ffffff;
   color: #FF7F00;
   padding: 8px 16px;
-  border-radius: 15px;
+  border-radius: 8px;
   font-weight: 600;
   font-size: 12px;
   position: absolute;
@@ -327,7 +327,7 @@ body {
   .plan-card,
   .plan-card-employee {
     margin: 20px 0;
-    width: 300px;
+    width: 320px;
     height: 420px;
   }
 
@@ -350,7 +350,7 @@ body {
   .plan-card,
   .plan-card-employee {
     margin: 15px 0;
-    width: 300px;
+    width: 320px;
     height: 400px;
   }
 
@@ -382,7 +382,7 @@ body {
   .plan-card,
   .plan-card-employee {
     margin: 10px 0;
-    width: 280px;
+    width: 300px;
     height: 380px;
   }
 

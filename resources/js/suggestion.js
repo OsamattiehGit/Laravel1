@@ -10,7 +10,7 @@ let selectedPath = {
 
 const steps = [
     {
-        text: "Welcome, Prasad. Let us know your current status?",
+        text: "Welcome, Let us know your current status?",
         options: [
             { label: "Looking For Job", icon: "job" },
             { label: "IT to Non-IT Job Shift", icon: "switch" },
