@@ -1,19 +1,45 @@
 @php
     $current = Request::segment(1); // e.g. "about", "pricing", "faq", etc
+    // Handle homepage case (empty segment)
+    if (empty($current)) {
+        $current = 'home';
+    }
+    
     // Priority: FAQ/pricing orange > about blue > default white
     if ($current === 'faq' || $current === 'contact') {
         $navbarBg = '#f3702b';
         $navbarText = 'white';
+        // FAQ & Contact: Login = orange bg + white border + white text, Create = white bg + black text
+        $loginBg = '#f3702b';
+        $loginBorder = '1px solid white';
+        $loginText = 'white';
+        $createBg = 'white';
+        $createBorder = '1px solid white';
+        $createText = 'black';
     } elseif ($current === 'about'|| $current === 'pricing' || $current === 'profile') {
         $navbarBg = '#003366';
         $navbarText = 'white';
+        // Pricing & About: Login = blue bg + white border + white text, Create = white bg + black text
+        $loginBg = '#003366';
+        $loginBorder = '1px solid white';
+        $loginText = 'white';
+        $createBg = 'white';
+        $createBorder = '1px solid white';
+        $createText = 'black';
     } else {
         $navbarBg = 'white';
         $navbarText = '#333';
+        // Rest pages: Login = white bg + orange border + orange text, Create = orange bg + white text
+        $loginBg = 'white';
+        $loginBorder = '1px solid #f3702b';
+        $loginText = '#f3702b';
+        $createBg = '#f3702b';
+        $createBorder = '1px solid #f3702b';
+        $createText = 'white';
     }
 @endphp
 
-<header style="background-color: {{ $navbarBg }}; padding: 0 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 0;">
+<header style="background-color: {{ $navbarBg }}; padding: 20px 5px 0 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 0;">
     <nav style="display: flex; align-items: center; justify-content: space-between; margin:0; padding:0; position: relative;">
 
         <!-- Logo -->
@@ -97,13 +123,33 @@
         <!-- Auth Buttons -->
         <div id="auth-buttons" style="display: flex; gap: 10px; align-items: center;">
             @guest
-                <a href="{{ route('login') }}" style="padding: 8px 20px; background-color: #f37021; color: white; border-radius: 4px; text-decoration: none;border: 1px solid black;margin-right:10px">Login</a>
+                <a href="{{ route('login') }}" style="
+                    padding: 8px 20px; 
+                    background-color: {{ $loginBg }}; 
+                    color: {{ $loginText }}; 
+                    border-radius: 4px; 
+                    text-decoration: none;
+                    border: {{ $loginBorder }};
+                    margin-right: 10px;
+                    transition: all 0.2s ease;
+                ">Login</a>
 
-                <a href="{{ route('register') }}" style="border: black;padding: 8px 20px; background-color: #f37021; color: white; border-radius: 4px; text-decoration: none;border: 1px solid black;margin-right:40px">Create Account</a>
+                <a href="{{ route('register') }}" style="
+                    padding: 8px 20px; 
+                    background-color: {{ $createBg }}; 
+                    color: {{ $createText }}; 
+                    border-radius: 4px; 
+                    text-decoration: none;
+                    border: {{ $createBorder }};
+                    margin-right: 40px;
+                    transition: all 0.2s ease;
+                ">Create Account</a>
             @else
-                <a href="{{ url('admin/courses') }}" title="Settings">
-                    <img src="{{ asset('images/settings-icon.svg') }}" alt="Settings" style="height: 24px;padding-right:10px">
-                </a>
+                @if(auth()->user()->isAdmin())
+                    <a href="{{ route('admin.dashboard') }}" title="Admin Panel">
+                        <img src="{{ asset('images/settings-icon.svg') }}" alt="Admin Panel" style="height: 24px;padding-right:10px">
+                    </a>
+                @endif
                 <a href="{{ url('/profile') }}" title="Profile">
                     <img src="{{ asset('images/profile-icon.png') }}" alt="Profile" style="height: 28px; border-radius: 50%;">
                 </a>
@@ -117,6 +163,12 @@
 </header>
 
 <style>
+    /* Hover effects for auth buttons */
+    #auth-buttons a:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+    }
+    
     @media (max-width: 768px) {
         nav a img {
             padding-left: 10px !important;

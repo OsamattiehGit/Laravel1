@@ -216,6 +216,54 @@ public function getSuggestedCourses(Request $request)
     return response()->json(['courses' => $courses]);
 }
 
+/**
+ * Search courses for AJAX live search
+ */
+public function search(Request $request)
+{
+    $query = $request->get('q');
+    
+    if (!$query || strlen($query) < 2) {
+        return response()->json([]);
+    }
+    
+    $courses = Course::with('category')
+        ->where(function($q) use ($query) {
+            $q->where('title', 'like', "%{$query}%")
+              ->orWhere('description', 'like', "%{$query}%")
+              ->orWhereHas('category', function($cat) use ($query) {
+                  $cat->where('name', 'like', "%{$query}%");
+              });
+        })
+        ->where('status', 'opened')
+        ->orderByRaw("
+            CASE 
+                WHEN title LIKE ? THEN 1
+                WHEN title LIKE ? THEN 2
+                WHEN description LIKE ? THEN 3
+                ELSE 4
+            END
+        ", [
+            "{$query}%",
+            "%{$query}%", 
+            "%{$query}%"
+        ])
+        ->limit(5)
+        ->get(['id', 'title', 'category_id'])
+        ->map(function($course) {
+            return [
+                'id' => $course->id,
+                'title' => $course->title,
+                'category' => $course->category ? [
+                    'id' => $course->category->id,
+                    'name' => $course->category->name
+                ] : null
+            ];
+        });
+    
+    return response()->json($courses);
+}
+
 
 
 

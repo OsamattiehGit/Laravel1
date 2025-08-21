@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize carousel
+    initializeCarousel();
+    
+    // Initialize live search
+    initializeLiveSearch();
+});
+
+function initializeCarousel() {
     const container = document.querySelector('.carousel-container');
     const track     = container?.querySelector('.carousel-track');
     const slides    = track ? Array.from(track.children) : [];
@@ -66,5 +74,167 @@ document.addEventListener('DOMContentLoaded', () => {
     track.style.transform='translateX(0)';
     dots.forEach((d,i)=>d.classList.toggle('active', i===0));
     start();
-  });
+}
+
+function initializeLiveSearch() {
+    const searchInput = document.getElementById('homepage-search-input');
+    const searchForm = document.getElementById('homepage-search-form');
+    const suggestionsContainer = document.getElementById('search-suggestions');
+    const suggestionsList = suggestionsContainer?.querySelector('.suggestions-list');
+    
+    if (!searchInput || !suggestionsContainer || !suggestionsList) return;
+
+    let searchTimeout;
+    let selectedIndex = -1;
+
+    // Live search with debouncing
+    searchInput.addEventListener('input', debounce((e) => {
+        const query = e.target.value.trim();
+        selectedIndex = -1;
+        
+        if (query.length < 2) {
+            hideSuggestions();
+            return;
+        }
+        
+        performLiveSearch(query);
+    }, 300));
+
+    // Keyboard navigation
+    searchInput.addEventListener('keydown', (e) => {
+        const suggestions = suggestionsList.querySelectorAll('.suggestion-item');
+        
+        switch(e.key) {
+            case 'ArrowDown':
+                e.preventDefault();
+                selectedIndex = Math.min(selectedIndex + 1, suggestions.length - 1);
+                updateSelection(suggestions);
+                break;
+            case 'ArrowUp':
+                e.preventDefault();
+                selectedIndex = Math.max(selectedIndex - 1, -1);
+                updateSelection(suggestions);
+                break;
+            case 'Enter':
+                if (selectedIndex >= 0 && suggestions[selectedIndex]) {
+                    e.preventDefault();
+                    suggestions[selectedIndex].click();
+                }
+                break;
+            case 'Escape':
+                hideSuggestions();
+                searchInput.blur();
+                break;
+        }
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!searchInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
+            hideSuggestions();
+        }
+    });
+
+    // Prevent form submission if suggestions are visible
+    searchForm.addEventListener('submit', (e) => {
+        if (suggestionsContainer.style.display !== 'none') {
+            const suggestions = suggestionsList.querySelectorAll('.suggestion-item');
+            if (suggestions.length > 0 && selectedIndex >= 0) {
+                e.preventDefault();
+                suggestions[selectedIndex].click();
+            }
+        }
+    });
+
+    async function performLiveSearch(query) {
+        try {
+            const result = await AjaxRequest.get(`/api/search-courses?q=${encodeURIComponent(query)}`);
+            
+            if (result.success) {
+                displaySuggestions(result.data, query);
+            } else {
+                console.error('Search failed:', result.error);
+                hideSuggestions();
+            }
+        } catch (error) {
+            console.error('Search error:', error);
+            hideSuggestions();
+        }
+    }
+
+    function displaySuggestions(courses, query) {
+        if (!courses || courses.length === 0) {
+            suggestionsList.innerHTML = '<div class="no-suggestions">No courses found matching "' + query + '"</div>';
+            showSuggestions();
+            return;
+        }
+
+        suggestionsList.innerHTML = courses.map((course, index) => `
+            <div class="suggestion-item" onclick="selectCourse('${course.id}', '${escapeHtml(course.title)}')" data-index="${index}">
+                <div class="suggestion-icon">📚</div>
+                <div class="suggestion-content">
+                    <div class="suggestion-title">${highlightText(course.title, query)}</div>
+                    <div class="suggestion-category">${course.category?.name || 'Course'}</div>
+                </div>
+            </div>
+        `).join('');
+
+        showSuggestions();
+    }
+
+    function updateSelection(suggestions) {
+        suggestions.forEach((item, index) => {
+            item.classList.toggle('selected', index === selectedIndex);
+        });
+        
+        if (selectedIndex >= 0 && suggestions[selectedIndex]) {
+            suggestions[selectedIndex].scrollIntoView({ block: 'nearest' });
+        }
+    }
+
+    function showSuggestions() {
+        suggestionsContainer.style.display = 'block';
+    }
+
+    function hideSuggestions() {
+        suggestionsContainer.style.display = 'none';
+        selectedIndex = -1;
+    }
+
+    function highlightText(text, query) {
+        if (!query) return escapeHtml(text);
+        
+        const regex = new RegExp(`(${escapeRegex(query)})`, 'gi');
+        return escapeHtml(text).replace(regex, '<strong>$1</strong>');
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    function escapeRegex(string) {
+        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+}
+
+// Global function to handle course selection
+window.selectCourse = function(courseId, courseTitle) {
+    const searchInput = document.getElementById('homepage-search-input');
+    const suggestionsContainer = document.getElementById('search-suggestions');
+    
+    // Fill the search input
+    if (searchInput) {
+        searchInput.value = courseTitle;
+    }
+    
+    // Hide suggestions
+    if (suggestionsContainer) {
+        suggestionsContainer.style.display = 'none';
+    }
+    
+    // Redirect to course page
+    window.location.href = `/course/${courseId}`;
+};
   

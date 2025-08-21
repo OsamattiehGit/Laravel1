@@ -29,16 +29,29 @@
         </p>
 
         <!-- SEARCH FORM -->
-<form class="hero-search-form" action="/courses" method="get">
-  <input
-    name="q"
-    type="text"
-    class="search-input"
-    placeholder="Search courses..."
-    required
-    autocomplete="off"
-  >
-  <button type="submit" class="search-btn">Search</button>
+<form class="hero-search-form" action="/courses" method="get" id="homepage-search-form">
+  <div class="search-container">
+    <input
+      name="q"
+      type="text"
+      class="search-input"
+      id="homepage-search-input"
+      placeholder="Search courses..."
+      autocomplete="off"
+    >
+    <button type="submit" class="search-btn">Search</button>
+    
+    <!-- Live search suggestions dropdown -->
+    <div id="search-suggestions" class="search-suggestions" style="display: none;">
+      <div class="suggestions-header">
+        <span>Quick Results</span>
+      </div>
+      <div class="suggestions-list"></div>
+      <div class="suggestions-footer">
+        <span>Press Enter to see all results</span>
+      </div>
+    </div>
+  </div>
 </form>
 
 

@@ -22,6 +22,9 @@
     'resources/css/pricing.css',
   ])
 
+  <!-- Chat Widget Styles -->
+  <link rel="stylesheet" href="{{ asset('css/chat-widget.css') }}">
+
   {{-- Page-specific CSS --}}
   @stack('styles')
 </head>
@@ -50,11 +53,17 @@
      'resources/js/home.js',
   ])
 
+  <!-- Chat Widget Script -->
+  <script src="{{ asset('js/chat-widget.js') }}"></script>
+
   {{-- Page-specific JS and variables --}}
   <script>
     window.courseBalance = @json(auth()->user()->course_balance ?? 0);
     window.enrollUrlBase = @json(url('course'));
     window.pricingUrl = @json(route('pricing.page'));
+    window.isAuthenticated = @json(auth()->check());
+    window.loginUrl = @json(route('login'));
+    window.currentUserId = @json(auth()->id() ?? null);
   </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
   @stack('scripts')

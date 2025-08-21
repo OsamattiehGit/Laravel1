@@ -14,7 +14,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <h2 class="pricing-title">Our Pricing</h2>
+        <h2 class="pricing-title-2"><span class="pricing-title-1">Our</span> Pricing</h2>
       </div>
     </div>
 

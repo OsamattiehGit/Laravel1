@@ -70,6 +70,33 @@ public function enroll(Request $request, \App\Models\Course $course)
     ]);
 }
 
-
+public function dropCourse(Request $request, Course $course)
+{
+    $user = auth()->user();
+    
+    // Check if user is enrolled in this course
+    $enrollment = $user->enrollments()->where('course_id', $course->id)->first();
+    
+    if (!$enrollment) {
+        return response()->json([
+            'success' => false,
+            'message' => 'You are not enrolled in this course.'
+        ], 404);
+    }
+    
+    // Delete the enrollment
+    $enrollment->delete();
+    
+    // Return success response for AJAX or redirect for normal requests
+    if ($request->wantsJson() || $request->ajax()) {
+        return response()->json([
+            'success' => true,
+            'message' => "You have been dropped from \"{$course->title}\""
+        ]);
+    }
+    
+    return redirect()->back()
+        ->with('success', "You have been dropped from \"{$course->title}\"");
+}
 
 }

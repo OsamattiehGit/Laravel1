@@ -61,6 +61,10 @@
         max-width: 600px;
     }
 
+    .hero-text-content {
+        padding-left: 60px;
+    }
+
     /* Hero Images Container */
     .hero-images-container {
         position: relative;
@@ -440,6 +444,10 @@
             padding-bottom: 60px;
         }
 
+        .hero-text-content {
+            padding-left: 40px;
+        }
+
         .hero-images-container {
             height: 400px;
             margin-top: 40px;
@@ -482,6 +490,11 @@
     @media (max-width: 768px) {
         .hero-title {
             font-size: 2.5rem;
+        }
+
+        .hero-text-content {
+            padding-left: 20px;
+            text-align: center;
         }
 
         .hero-images-container {
@@ -527,6 +540,11 @@
             border-radius: 0 0 30px 0;
         }
 
+        .hero-text-content {
+            padding-left: 10px;
+            text-align: center;
+        }
+
         .hero-title {
             font-size: 2rem;
         }
@@ -564,15 +582,17 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
-                <div class="hero-label">ABOUT US</div>
-                <h1 class="hero-title">
-                    The Platform<br>
-                    For The Next<br>
-                    Billion Learners
-                </h1>
-                <p class="hero-description">
-                    Transforming tech education for the next generation of students & employees
-                </p>
+                <div class="hero-text-content">
+                    <div class="hero-label">ABOUT US</div>
+                    <h1 class="hero-title">
+                        The Platform<br>
+                        For The Next<br>
+                        Billion Learners
+                    </h1>
+                    <p class="hero-description">
+                        Transforming tech education for the next generation of students & employees
+                    </p>
+                </div>
             </div>
             <div class="col-lg-6">
                 <div class="hero-images-container">

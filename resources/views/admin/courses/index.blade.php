@@ -10,7 +10,21 @@
 @section('content')
 <div class="admin-container">
 
+  {{-- Back to Dashboard Button --}}
+  <div class="admin-back-nav mb-3">
+    <a href="{{ route('admin.dashboard') }}" class="admin-back-btn">
+      ← Back to Dashboard
+    </a>
+  </div>
+
   <h1 class="admin-title">Admin Course Manager</h1>
+
+  {{-- Admin Navigation --}}
+  <div class="admin-navigation mb-4">
+    <a href="{{ route('admin.dashboard') }}" class="admin-nav-link">Dashboard</a>
+    <a href="{{ route('admin.courses.index') }}" class="admin-nav-link active">Courses</a>
+    <a href="{{ route('admin.announcements.index') }}" class="admin-nav-link">Announcements</a>
+  </div>
 
   <div class="admin-row">
 

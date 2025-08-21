@@ -1,6 +1,12 @@
 let selectedType = null;
 
 window.choosePlan = function(type) {
+  // Check if user is authenticated
+  if (!window.isAuthenticated) {
+    showLoginModal('You must be logged in to choose a plan.');
+    return;
+  }
+  
   const planNames = {
     A: "Complete Transformation Program",
     B: "Employee Program", 
@@ -51,7 +57,12 @@ document.getElementById("confirm-subscribe").addEventListener("click", () => {
     setTimeout(() => window.location.reload(), 2100); // Reload after toast
   })
   .catch(err => {
-    showPricingToast("Subscription failed:<br>" + err.message, false);
+    // Handle authentication errors
+    if (err.message && (err.message.includes('Authentication error') || err.message.includes('401'))) {
+      showLoginModal('Your session has expired. Please log in again.');
+    } else {
+      showPricingToast("Subscription failed:<br>" + err.message, false);
+    }
   })
   .finally(() => {
     document.getElementById("subscription-modal").style.display = "none";

@@ -26,8 +26,16 @@ body {
 
   z-index: 1;
 }
-
-.pricing-title {
+.pricing-title-1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 80px;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+.pricing-title-2 {
   font-size: 3.5rem;
   font-weight: 700;
   color: #FF7F00;

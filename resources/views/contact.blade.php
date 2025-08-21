@@ -4,6 +4,10 @@
   @vite('resources/css/contact.css')
 @endpush
 
+@push('scripts')
+  @vite('resources/js/contact.js')
+@endpush
+
 @section('content')
   <!-- HEADER -->
   <section class="contact-header">
@@ -44,9 +48,10 @@
           <div class="form-group">
             <label for="issue">Issue Related to*</label>
             <select id="issue" name="issue" required>
-              <option>Course Structure</option>
-              <option>Payment Failure</option>
-              <option>Other</option>
+              <option value="">Please select an issue</option>
+              <option value="Course Structure">Course Structure</option>
+              <option value="Payment Failure">Payment Failure</option>
+              <option value="Other">Other</option>
             </select>
           </div>
 

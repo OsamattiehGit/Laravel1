@@ -13,6 +13,24 @@ Route::get('/courses/{id}', [CourseController::class, 'show']);
 Route::post('/courses',     [CourseController::class, 'store']);
 Route::put('/courses/{id}', [CourseController::class, 'update']);
 Route::delete('/courses/{id}',[CourseController::class,'destroy']);
+
+// --- Search API ---
+Route::get('/search-courses', [CourseController::class, 'search']);
+
+// --- Contact API --- 
+// Using web route instead: Route::middleware('auth')->post('/contact', [ComplaintController::class, 'submit'])
+
+// --- Course Tracking APIs ---
+Route::post('/track-content-view', function(Request $request) {
+    // Log content view for analytics (optional)
+    return response()->json(['success' => true, 'message' => 'Content view tracked']);
+});
+
+Route::post('/track-download', function(Request $request) {
+    // Log download for analytics (optional)
+    return response()->json(['success' => true, 'message' => 'Download tracked']);
+});
+
 // --- Other resources ---
 Route::apiResource('categories',   CategoryController::class);
 Route::apiResource('enrollments',  EnrollmentController::class);

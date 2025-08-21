@@ -1,4 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize enrollment functionality
+  initializeEnrollment();
+  
+  // Initialize course content interactions
+  initializeCourseContent();
+  
+  // Initialize download tracking
+  initializeDownloadTracking();
+});
+
+function initializeEnrollment() {
   const btn = document.getElementById('enroll-btn');
   if (!btn) return;
 
@@ -18,37 +29,106 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!confirmed) return;
 
         try {
-          // 3) POST with credentials + JSON (this code stays)
-          const res = await fetch(
-            `${window.enrollUrlBase}/${courseId}/enroll`,
-            {
-              method: 'POST',
-              credentials: 'same-origin',
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-              },
-              body: JSON.stringify({})
-            }
-          );
+          // Show loading state
+          btn.disabled = true;
+          btn.innerHTML = '<span class="loading-spinner"></span> Enrolling...';
+          
+          const result = await AjaxRequest.post(`${window.enrollUrlBase}/${courseId}/enroll`, {});
 
-          // Success: 2xx codes only
-          if (res.ok) {
-            const data = await res.json();
-            showToast(`${data.message}<br>Remaining slots: <b>${data.balance}</b>`, true);
+          if (result.success) {
+            const data = result.data;
+            Toast.success(`${data.message}<br>Remaining credits: <b>${data.balance}</b>`);
             window.courseBalance = data.balance;
+            
+            // Update UI to show enrolled state
+            updateEnrollmentState(true);
+            
+            // Reload page after short delay to show new content
+            setTimeout(() => location.reload(), 2000);
           } else {
-            // Error: get message or fallback
-            const error = await res.json().catch(() => ({}));
-           showToast("You are already enrolled in this course.", false);
+            Toast.error(result.error || "Enrollment failed. Please try again.");
           }
         } catch (e) {
-          showToast('Network error: ' + (e.message || 'Unknown'), false);
+          console.error('Enrollment error:', e);
+          Toast.error('Network error. Please check your connection and try again.');
+        } finally {
+          // Reset button state
+          btn.disabled = false;
+          btn.innerHTML = '<svg>...</svg><span>Enroll Now</span>';
         }
       });
   });
-});
+}
+
+function updateEnrollmentState(isEnrolled) {
+  const enrollBtn = document.getElementById('enroll-btn');
+  if (enrollBtn && isEnrolled) {
+    enrollBtn.style.display = 'none';
+    
+    // Show success message in place of button
+    const successDiv = document.createElement('div');
+    successDiv.className = 'enrollment-success';
+    successDiv.innerHTML = `
+      <div style="background: #d4edda; color: #155724; padding: 1rem; border-radius: 8px; text-align: center;">
+        <strong>✓ Successfully Enrolled!</strong><br>
+        <small>You now have access to all course content.</small>
+      </div>
+    `;
+    enrollBtn.parentNode.insertBefore(successDiv, enrollBtn);
+  }
+}
+
+function initializeCourseContent() {
+  // Add progress tracking for course content
+  const accordionItems = document.querySelectorAll('.acc-item');
+  
+  accordionItems.forEach((item, index) => {
+    const toggle = item.querySelector('.acc-toggle');
+    if (toggle) {
+      toggle.addEventListener('change', () => {
+        if (toggle.checked) {
+          trackContentView(index + 1);
+        }
+      });
+    }
+  });
+}
+
+function initializeDownloadTracking() {
+  const downloadLinks = document.querySelectorAll('a[href*="download"], a[href*="curriculum"]');
+  
+  downloadLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const fileName = link.href.split('/').pop();
+      trackDownload(fileName);
+      
+      // Show download toast
+      Toast.info('Download started...', 2000);
+    });
+  });
+}
+
+async function trackContentView(sectionNumber) {
+  try {
+    await AjaxRequest.post('/api/track-content-view', {
+      section: sectionNumber,
+      course_id: window.courseId || document.querySelector('[data-course-id]')?.dataset.courseId
+    });
+  } catch (error) {
+    console.log('Content tracking failed:', error);
+  }
+}
+
+async function trackDownload(fileName) {
+  try {
+    await AjaxRequest.post('/api/track-download', {
+      file_name: fileName,
+      course_id: window.courseId || document.querySelector('[data-course-id]')?.dataset.courseId
+    });
+  } catch (error) {
+    console.log('Download tracking failed:', error);
+  }
+}
 
 // --- Modal & Toast Functions, unchanged ---
 function showEnrollModal(courseTitle) {

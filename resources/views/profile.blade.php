@@ -2,6 +2,9 @@
 @extends('layouts.app')
 
 @push('styles')
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <style>
     .profile-header {
         background: #003366;
@@ -104,6 +107,133 @@
         background: #f37021;
         color: #fff;
     }
+    
+    .enrolled-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 8px;
+    }
+    
+    .drop-btn {
+        background: #dc3545 !important;
+        font-size: 0.9rem;
+        padding: 6px 18px;
+    }
+    
+    .drop-btn:hover {
+        background: #c82333 !important;
+    }
+    
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+    }
+    
+    .modal.show {
+        display: block;
+    }
+    
+    .modal-dialog {
+        position: relative;
+        width: 90%;
+        max-width: 500px;
+        margin: 2rem auto;
+        pointer-events: auto;
+    }
+    
+    .modal-content {
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        overflow: hidden;
+        border: none;
+    }
+    
+    .modal-header {
+        padding: 1.5rem 1.5rem 1rem;
+        border-bottom: 1px solid #e9ecef;
+        background: #f8f9fa;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .modal-title {
+        color: #003366;
+        font-weight: 600;
+        font-size: 1.25rem;
+        margin: 0;
+    }
+    
+    .modal-body {
+        padding: 1.5rem;
+        text-align: center;
+    }
+    
+    .modal-footer {
+        padding: 1rem 1.5rem 1.5rem;
+        border-top: 1px solid #e9ecef;
+        background: #f8f9fa;
+        display: flex;
+        gap: 0.75rem;
+        justify-content: center;
+    }
+    
+    .btn-close {
+        background: transparent;
+        border: 0;
+        font-size: 1.5rem;
+        cursor: pointer;
+        opacity: 0.6;
+    }
+    
+    .btn-close:hover {
+        opacity: 1;
+    }
+    
+    .btn {
+        padding: 10px 24px;
+        border-radius: 8px;
+        font-weight: 500;
+        min-width: 120px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+    }
+    
+    .btn-secondary:hover {
+        background: #5a6268;
+    }
+    
+    .btn-danger {
+        background: #dc3545;
+        color: white;
+    }
+    
+    .btn-danger:hover {
+        background: #c82333;
+    }
+    
+    .text-warning {
+        color: #ffc107 !important;
+    }
+    
+    .text-muted {
+        color: #6c757d !important;
+    }
     @media (max-width: 767px) {
         .profile-header {
             padding: 35px 0 25px 0;
@@ -112,6 +242,15 @@
         .profile-header .profile-title { font-size: 1.5rem; }
         .enrolled-section-title { font-size: 1.15rem; }
         .enrolled-img { width: 56px; height: 56px; }
+        
+        .enrolled-actions {
+            gap: 6px;
+        }
+        
+        .enrolled-btn, .drop-btn {
+            font-size: 0.9rem;
+            padding: 6px 16px;
+        }
     }
 </style>
 @endpush
@@ -150,7 +289,12 @@
                 <div class="enrolled-desc">
                     {{ \Illuminate\Support\Str::limit($course->description, 80) }}
                 </div>
-                <a href="{{ route('course.show', $course->id) }}" class="enrolled-btn">Go to Course</a>
+                <div class="enrolled-actions">
+                    <a href="{{ route('course.show', $course->id) }}" class="enrolled-btn">Go to Course</a>
+                    <button type="button" class="enrolled-btn drop-btn" onclick="confirmDropCourse({{ $course->id }}, '{{ $course->title }}')">
+                        Drop Course
+                    </button>
+                </div>
             </div>
         @endforeach
     </div>
@@ -160,4 +304,81 @@
         </div>
     @endif
 </div>
+
+<!-- Drop Course Confirmation Modal -->
+<div id="dropCourseModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Drop Course</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-exclamation-triangle text-warning" style="font-size: 3rem;"></i>
+                    </div>
+                    <h6>Are you sure you want to drop this course?</h6>
+                    <p class="text-muted" id="dropCourseName"></p>
+                    <p class="text-muted small">This action cannot be undone. You will lose access to all course content.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form id="dropCourseForm" method="POST" style="display: inline;">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Drop Course</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
+
+@push('scripts')
+<script>
+function confirmDropCourse(courseId, courseTitle) {
+    // Set the course name in the modal
+    document.getElementById('dropCourseName').textContent = courseTitle;
+    
+    // Set the form action
+    document.getElementById('dropCourseForm').action = '{{ route("course.drop", ":id") }}'.replace(':id', courseId);
+    
+    // Show the modal using Bootstrap 5
+    const modal = new bootstrap.Modal(document.getElementById('dropCourseModal'));
+    modal.show();
+}
+
+// Handle form submission
+document.addEventListener('DOMContentLoaded', function() {
+    const dropForm = document.getElementById('dropCourseForm');
+    if (dropForm) {
+        dropForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Dropping...';
+            submitBtn.disabled = true;
+            
+            // Submit the form
+            this.submit();
+        });
+    }
+    
+    // Add click-to-close on modal backdrop
+    const modal = document.getElementById('dropCourseModal');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                const bsModal = bootstrap.Modal.getInstance(modal);
+                if (bsModal) {
+                    bsModal.hide();
+                }
+            }
+        });
+    }
+});
+</script>
+@endpush

@@ -1,4 +1,4 @@
-// Just one module: search + filter + sort + pagination
+// Enhanced AJAX course browser with real-time filtering
 document.addEventListener('DOMContentLoaded', () => {
   const grid    = document.getElementById('course-list');
   const search  = document.getElementById('search-box');
@@ -7,9 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const pager   = document.getElementById('pagination');
 
   if (!grid) return;
-    const urlParams = new URLSearchParams(window.location.search);
+  
+  // Initialize from URL parameters
+  const urlParams = new URLSearchParams(window.location.search);
   const qParam = urlParams.get('q') || '';
   search.value = qParam;
+  
+  // Add loading state management
+  let isLoading = false;
 
   // wire up events
   search.addEventListener('input', debounce(() => load(1), 300));
@@ -25,28 +30,64 @@ document.addEventListener('DOMContentLoaded', () => {
   // initial load
   load(1);
 
-  // core loader
-  function load(page) {
+  // Enhanced loader with better error handling and loading states
+  async function load(page) {
+    if (isLoading) return;
+    
     const q      = search.value.trim();
     const filter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
     const sort   = sortSel.value;
     const params = new URLSearchParams({ page, q, filter, sort });
 
-    fetch(`${window.location.origin}/api/courses?${params}`)
-      .then(r => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();
-      })
-      .then(json => {
-        render(json.data);
-        renderPager(json.meta);
-      })
-      .catch(err => {
-        console.error('Error loading courses:', err);
-        grid.innerHTML = `<p style="text-align:center;color:red;">
-                            Failed to load courses.
-                          </p>`;
-      });
+    isLoading = true;
+    addLoadingState();
+
+    try {
+      const result = await AjaxRequest.get(`/api/courses?${params}`);
+      
+      if (result.success) {
+        render(result.data.data);
+        renderPager(result.data.meta);
+        updateUrl(params);
+      } else {
+        showErrorState('Failed to load courses: ' + result.error);
+      }
+    } catch (error) {
+      console.error('Error loading courses:', error);
+      showErrorState('Network error. Please try again.');
+    } finally {
+      isLoading = false;
+      removeLoadingState();
+    }
+  }
+  
+  function addLoadingState() {
+    grid.classList.add('loading');
+    grid.innerHTML = `
+      <div class="loading-container" style="text-align:center; padding: 2rem;">
+        <div class="loading-spinner"></div>
+        <p style="margin-top: 1rem; color: #666;">Loading courses...</p>
+      </div>
+    `;
+  }
+  
+  function removeLoadingState() {
+    grid.classList.remove('loading');
+  }
+  
+  function showErrorState(message) {
+    grid.innerHTML = `
+      <div class="error-container" style="text-align:center; padding: 2rem;">
+        <div style="color: #dc3545; font-size: 1.2rem; margin-bottom: 1rem;">⚠️</div>
+        <p style="color: #dc3545; margin-bottom: 1rem;">${message}</p>
+        <button onclick="window.location.reload()" class="btn btn-primary">Retry</button>
+      </div>
+    `;
+  }
+  
+  function updateUrl(params) {
+    const newUrl = `${window.location.pathname}?${params}`;
+    window.history.replaceState({}, '', newUrl);
   }
   // render grid
   function render(courses) {
