@@ -55,6 +55,12 @@ public function store(Request $request)
     // New category
     if ($v['category_id'] === '__new__') {
         if (empty($v['new_category'])) {
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Please enter the new category name.'
+                ], 422);
+            }
             return back()->withErrors(['new_category' => 'Please enter the new category name.'])->withInput();
         }
         $cat = Category::firstOrCreate(['name' => $v['new_category']]);
@@ -141,6 +147,14 @@ public function store(Request $request)
     if ($request->hasFile('curriculum')) {
         $course->update([
             'curriculum' => $request->file('curriculum')->store('curriculums', 'public'),
+        ]);
+    }
+
+    if ($request->expectsJson()) {
+        return response()->json([
+            'success' => true,
+            'message' => 'Course added successfully.',
+            'data' => $course
         ]);
     }
 
@@ -283,6 +297,14 @@ public function store(Request $request)
         ]);
     }
 
+    if ($request->expectsJson()) {
+        return response()->json([
+            'success' => true,
+            'message' => 'Course updated successfully.',
+            'data' => $course
+        ]);
+    }
+
     return redirect()->route('admin.courses.index')->with('success','Course updated successfully.');
 }
 
@@ -300,8 +322,27 @@ public function store(Request $request)
 
         $course->delete();
 
+        if (request()->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Course deleted successfully.'
+            ]);
+        }
+
         return redirect()
             ->route('admin.courses.index')
             ->with('success','Course deleted successfully.');
+    }
+
+    public function list()
+    {
+        $courses = Course::with('category')->paginate(10);
+        
+        $html = view('admin.courses._table', compact('courses'))->render();
+        
+        return response()->json([
+            'success' => true,
+            'html' => $html
+        ]);
     }
 }

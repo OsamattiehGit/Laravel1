@@ -95,6 +95,17 @@
   100% { transform: scale(1); }
 }
 
+/* Chat pulse animation for new messages */
+@keyframes chat-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.chat-widget-toggle {
+    animation: none;
+}
+
 /* ===== CHAT WINDOW ===== */
 .chat-widget-window {
   position: fixed;

@@ -55,12 +55,18 @@ Route::middleware(['web', 'auth', 'admin'])
         Route::get('/', [App\Http\Controllers\AdminDashboardController::class, 'index'])->name('dashboard');
         Route::resource('courses', AdminCourseController::class)->except('show');
         
+        // AJAX routes for courses
+        Route::get('/courses/list', [AdminCourseController::class, 'list'])->name('courses.list');
+        
         // Announcements management
         Route::get('/announcements', [App\Http\Controllers\AdminAnnouncementController::class, 'index'])->name('announcements.index');
-        Route::post('/announcements', [App\Http\Controllers\AdminAnnouncementController::class, 'create'])->name('announcements.create');
+        Route::post('/announcements', [App\Http\Controllers\AdminAnnouncementController::class, 'store'])->name('announcements.store');
         Route::put('/announcements/{announcement}', [App\Http\Controllers\AdminAnnouncementController::class, 'update'])->name('announcements.update');
         Route::delete('/announcements/{announcement}', [App\Http\Controllers\AdminAnnouncementController::class, 'delete'])->name('announcements.delete');
         Route::patch('/announcements/{announcement}/toggle-pin', [App\Http\Controllers\AdminAnnouncementController::class, 'togglePin'])->name('announcements.toggle-pin');
+        
+        // AJAX routes for announcements
+        Route::get('/announcements/list', [App\Http\Controllers\AdminAnnouncementController::class, 'list'])->name('announcements.list');
     });
 
 // 💬 Chat System Routes

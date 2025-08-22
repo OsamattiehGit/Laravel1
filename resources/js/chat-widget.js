@@ -14,6 +14,7 @@ class ChatWidget {
         this.isTyping = false;
         this.typingTimeout = null;
         this.echo = null;
+        this.messagePollingInterval = null;
         
         this.init();
     }
@@ -65,7 +66,7 @@ class ChatWidget {
                     </div>
                 </div>
                 
-                <div class="chat-input-area" id="chat-input-area" style="display: none;">
+                <div class="chat-input-area" id="chat-input-area">
                     <button class="chat-file-btn" title="Attach file" id="chat-file-btn">
                         📎
                     </button>
@@ -96,6 +97,9 @@ class ChatWidget {
         this.closeBtn = chatWindow.querySelector('.chat-close-btn');
         this.tabs = chatWindow.querySelectorAll('.chat-tab');
         this.notificationBadge = toggleBtn.querySelector('.chat-notification-badge');
+        
+        // Initialize input area visibility - show by default for conversations tab
+        this.inputArea.style.display = 'flex';
     }
 
     bindEvents() {
@@ -156,8 +160,10 @@ class ChatWidget {
         this.chatWindow.classList.add('active');
         this.toggleBtn.style.transform = 'scale(0.9)';
         
-        // Focus input if on conversations tab
-        if (this.currentTab === 'conversations' && this.currentConversation) {
+        // Always show input area for conversations tab
+        if (this.currentTab === 'conversations') {
+            this.inputArea.style.display = 'flex';
+            // Focus input after a short delay
             setTimeout(() => this.chatInput.focus(), 300);
         }
         
@@ -175,6 +181,9 @@ class ChatWidget {
         this.chatWindow.classList.remove('active');
         this.toggleBtn.style.transform = '';
         this.chatInput.blur();
+        
+        // Stop message polling when chat is closed
+        this.stopMessagePolling();
     }
 
     switchTab(tabName) {
@@ -185,8 +194,16 @@ class ChatWidget {
             tab.classList.toggle('active', tab.dataset.tab === tabName);
         });
         
-        // Show/hide input area
-        this.inputArea.style.display = tabName === 'conversations' ? 'flex' : 'none';
+        // Show/hide input area - always show for conversations tab
+        if (tabName === 'conversations') {
+            this.inputArea.style.display = 'flex';
+            // Focus input if chat is open
+            if (this.isOpen) {
+                setTimeout(() => this.chatInput.focus(), 100);
+            }
+        } else {
+            this.inputArea.style.display = 'none';
+        }
         
         // Load content based on tab
         if (tabName === 'conversations') {
@@ -281,6 +298,13 @@ class ChatWidget {
         this.currentConversation = this.conversations.find(c => c.id == conversationId);
         if (!this.currentConversation) return;
 
+        // Ensure we're on conversations tab and input is visible
+        this.currentTab = 'conversations';
+        this.tabs.forEach(tab => {
+            tab.classList.toggle('active', tab.dataset.tab === 'conversations');
+        });
+        this.inputArea.style.display = 'flex';
+
         // Update UI to show conversation
         this.messagesContainer.innerHTML = `
             <div class="chat-conversation-header">
@@ -299,6 +323,8 @@ class ChatWidget {
         document.getElementById('chat-back-btn').addEventListener('click', (e) => {
             e.stopPropagation();
             this.renderConversations();
+            // Stop polling when going back
+            this.stopMessagePolling();
         });
 
         // Load messages
@@ -306,6 +332,12 @@ class ChatWidget {
         
         // Mark as read
         this.markAsRead(conversationId);
+        
+        // Start polling for new messages
+        this.startMessagePolling(conversationId);
+        
+        // Focus input after loading
+        setTimeout(() => this.chatInput.focus(), 500);
     }
 
     async loadMessages(conversationId) {
@@ -611,6 +643,11 @@ class ChatWidget {
                 const data = await response.json();
                 const totalUnread = data.conversations.reduce((sum, conv) => sum + (conv.unread_count || 0), 0);
                 this.updateUnreadCount(totalUnread);
+                
+                // Also refresh current conversation if we're viewing one
+                if (this.currentConversation) {
+                    await this.refreshCurrentConversation();
+                }
             }
         } catch (error) {
             console.error('Error checking unread count:', error);
@@ -703,6 +740,108 @@ class ChatWidget {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+
+    startMessagePolling(conversationId) {
+        // Stop any existing polling
+        this.stopMessagePolling();
+        
+        // Start new polling every 2 seconds for more responsive updates
+        this.messagePollingInterval = setInterval(async () => {
+            if (this.currentConversation && this.currentConversation.id == conversationId) {
+                await this.checkForNewMessages(conversationId);
+            }
+        }, 2000);
+    }
+    
+    stopMessagePolling() {
+        if (this.messagePollingInterval) {
+            clearInterval(this.messagePollingInterval);
+            this.messagePollingInterval = null;
+        }
+    }
+    
+    async checkForNewMessages(conversationId) {
+        try {
+            const response = await fetch(`/chat/conversations/${conversationId}/messages`, {
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (!response.ok) return;
+            
+            const data = await response.json();
+            const newMessages = data.messages || [];
+            
+            // Check if we have new messages by comparing message count and last message
+            if (newMessages.length > this.messages.length) {
+                // We have new messages
+                this.messages = newMessages;
+                this.renderMessages();
+                
+                // Show notification if chat is not focused
+                if (!this.isOpen || document.hidden) {
+                    this.incrementUnreadCount();
+                }
+                
+                // Play notification sound or show visual indicator
+                this.showNewMessageIndicator();
+            } else if (newMessages.length > 0 && this.messages.length > 0) {
+                // Check if the last message is different (more reliable than just count)
+                const lastNewMessage = newMessages[newMessages.length - 1];
+                const lastCurrentMessage = this.messages[this.messages.length - 1];
+                
+                if (lastNewMessage.id !== lastCurrentMessage.id || 
+                    lastNewMessage.updated_at !== lastCurrentMessage.updated_at) {
+                    // We have new messages
+                    this.messages = newMessages;
+                    this.renderMessages();
+                    
+                    // Show notification if chat is not focused
+                    if (!this.isOpen || document.hidden) {
+                        this.incrementUnreadCount();
+                    }
+                    
+                    // Play notification sound or show visual indicator
+                    this.showNewMessageIndicator();
+                }
+            }
+        } catch (error) {
+            console.error('Error checking for new messages:', error);
+        }
+    }
+
+    showNewMessageIndicator() {
+        // Flash the chat toggle button to indicate new message
+        if (this.toggleBtn) {
+            this.toggleBtn.style.animation = 'chat-pulse 0.5s ease-in-out';
+            setTimeout(() => {
+                this.toggleBtn.style.animation = '';
+            }, 500);
+        }
+        
+        // Update browser tab title if chat is not focused
+        if (document.hidden) {
+            const originalTitle = document.title;
+            document.title = '💬 New message - ' + originalTitle;
+            setTimeout(() => {
+                document.title = originalTitle;
+            }, 3000);
+        }
+    }
+
+    async refreshCurrentConversation() {
+        if (this.currentConversation) {
+            // Reload conversations list to get updated unread counts
+            await this.loadConversations();
+            
+            // If we're currently viewing a conversation, reload its messages
+            if (this.currentConversation.id) {
+                await this.loadMessages(this.currentConversation.id);
+            }
+        }
     }
 }
 

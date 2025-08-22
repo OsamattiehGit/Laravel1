@@ -16,6 +16,10 @@
         $createBg = 'white';
         $createBorder = '1px solid white';
         $createText = 'black';
+        // Logout button: white background + black text
+        $logoutBg = 'white';
+        $logoutText = 'black';
+        $logoutBorder = '1px solid white';
     } elseif ($current === 'about'|| $current === 'pricing' || $current === 'profile') {
         $navbarBg = '#003366';
         $navbarText = 'white';
@@ -26,6 +30,10 @@
         $createBg = 'white';
         $createBorder = '1px solid white';
         $createText = 'black';
+        // Logout button: white background + black text
+        $logoutBg = 'white';
+        $logoutText = 'black';
+        $logoutBorder = '1px solid white';
     } else {
         $navbarBg = 'white';
         $navbarText = '#333';
@@ -36,6 +44,10 @@
         $createBg = '#f3702b';
         $createBorder = '1px solid #f3702b';
         $createText = 'white';
+        // Logout button: orange background + white text (keep as is)
+        $logoutBg = '#f37021';
+        $logoutText = 'white';
+        $logoutBorder = 'none';
     }
 @endphp
 
@@ -155,7 +167,15 @@
                 </a>
                 <form method="POST" action="{{ route('logout') }}" style="display: inline;padding-left:10px;padding-right:50px">
                     @csrf
-                    <button type="submit" style="padding: 8px 20px; background-color: #f37021; color: white; border: none; border-radius: 4px; cursor: pointer;">Logout</button>
+                    <button type="submit" style="
+                        padding: 8px 20px; 
+                        background-color: {{ $logoutBg }}; 
+                        color: {{ $logoutText }}; 
+                        border: {{ $logoutBorder }}; 
+                        border-radius: 4px; 
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                    ">Logout</button>
                 </form>
             @endguest
         </div>
@@ -165,6 +185,12 @@
 <style>
     /* Hover effects for auth buttons */
     #auth-buttons a:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+    }
+    
+    /* Hover effects for logout button */
+    #auth-buttons button[type="submit"]:hover {
         opacity: 0.9;
         transform: translateY(-1px);
     }
@@ -181,16 +207,19 @@
 
         #nav-menu {
             display: none !important;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
+            position: fixed !important;
+            top: 80px !important;
+            left: 0 !important;
+            right: 0 !important;
             background-color: {{ $navbarBg }};
             flex-direction: column !important;
             gap: 0 !important;
             padding: 15px !important;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             z-index: 1000;
+            max-height: calc(100vh - 80px) !important;
+            overflow-y: auto !important;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
         #nav-menu.show {
@@ -199,26 +228,37 @@
 
         #nav-menu li {
             text-align: center;
-            padding: 10px 0;
+            padding: 12px 0 !important;
             border-bottom: 1px solid rgba(255,255,255,0.1);
+            min-height: 44px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
         }
 
         #nav-menu li:last-child {
             border-bottom: none;
         }
 
+        #nav-menu li a {
+            width: 100% !important;
+            padding: 8px 0 !important;
+            display: block !important;
+        }
+
         #auth-buttons {
             display: none !important;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
+            position: fixed !important;
+            top: 80px !important;
+            left: 0 !important;
+            right: 0 !important;
             background-color: {{ $navbarBg }};
             justify-content: center !important;
             flex-wrap: wrap;
             padding: 15px !important;
             margin-top: 0 !important;
             z-index: 1000;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
         #auth-buttons.show {
@@ -240,6 +280,24 @@
             padding: 6px 12px !important;
             font-size: 14px !important;
         }
+        
+        #nav-menu {
+            top: 70px !important;
+            max-height: calc(100vh - 70px) !important;
+        }
+        
+        #auth-buttons {
+            top: 70px !important;
+        }
+        
+        #nav-menu li {
+            padding: 10px 0 !important;
+            min-height: 40px !important;
+        }
+        
+        #nav-menu li a {
+            font-size: 16px !important;
+        }
     }
 </style>
 
@@ -248,11 +306,19 @@
         const toggle = document.getElementById('mobile-toggle');
         const menu = document.getElementById('nav-menu');
         const authButtons = document.getElementById('auth-buttons');
+        const body = document.body;
 
         if (toggle) {
             toggle.addEventListener('click', function() {
                 menu.classList.toggle('show');
                 authButtons.classList.toggle('show');
+                
+                // Prevent body scroll when menu is open
+                if (menu.classList.contains('show')) {
+                    body.style.overflow = 'hidden';
+                } else {
+                    body.style.overflow = '';
+                }
             });
         }
 
@@ -261,6 +327,16 @@
             if (!event.target.closest('nav') && menu.classList.contains('show')) {
                 menu.classList.remove('show');
                 authButtons.classList.remove('show');
+                body.style.overflow = '';
+            }
+        });
+        
+        // Close menu when pressing Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && menu.classList.contains('show')) {
+                menu.classList.remove('show');
+                authButtons.classList.remove('show');
+                body.style.overflow = '';
             }
         });
     });

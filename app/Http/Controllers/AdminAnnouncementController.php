@@ -20,32 +20,32 @@ class AdminAnnouncementController extends Controller
         return view('admin.announcements.index', compact('announcements', 'courses'));
     }
 
-    public function create(Request $request)
+    public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'course_id' => 'required|exists:courses,id',
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'priority' => 'required|in:low,normal,high,urgent',
+            'priority' => 'required|in:low,medium,high',
             'expires_at' => 'nullable|date|after:now',
             'is_pinned' => 'boolean'
         ]);
 
-        $announcement = CourseAnnouncement::create([
-            'course_id' => $request->course_id,
-            'admin_id' => Auth::id(),
-            'title' => $request->title,
-            'content' => $request->content,
-            'priority' => $request->priority,
-            'expires_at' => $request->expires_at,
-            'is_pinned' => $request->has('is_pinned')
-        ]);
+        // Add admin_id and handle is_pinned properly
+        $validated['admin_id'] = Auth::id();
+        $validated['is_pinned'] = $request->has('is_pinned');
 
-        // Broadcast the announcement to all enrolled users
-        event(new \App\Events\CourseAnnouncementCreated($announcement));
+        $announcement = CourseAnnouncement::create($validated);
 
-        return redirect()->route('admin.announcements.index')
-            ->with('success', 'Announcement created successfully!');
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Announcement created successfully!',
+                'data' => $announcement
+            ]);
+        }
+
+        return redirect()->route('admin.announcements.index')->with('success', 'Announcement created successfully!');
     }
 
     public function update(Request $request, CourseAnnouncement $announcement)
@@ -54,7 +54,7 @@ class AdminAnnouncementController extends Controller
             'course_id' => 'required|exists:courses,id',
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'priority' => 'required|in:low,normal,high,urgent',
+            'priority' => 'required|in:low,medium,high',
             'expires_at' => 'nullable|date|after:now',
             'is_pinned' => 'boolean'
         ]);
@@ -107,6 +107,20 @@ class AdminAnnouncementController extends Controller
         return response()->json([
             'success' => true,
             'is_pinned' => $announcement->is_pinned
+        ]);
+    }
+
+    public function list()
+    {
+        $announcements = CourseAnnouncement::with('course')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        
+        $html = view('admin.announcements._table', compact('announcements'))->render();
+        
+        return response()->json([
+            'success' => true,
+            'html' => $html
         ]);
     }
 }

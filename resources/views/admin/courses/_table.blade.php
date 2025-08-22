@@ -19,17 +19,13 @@
            class="admin-btn admin-btn-secondary"
         >Edit</a>
 
-        <form
-          action="{{ route('admin.courses.destroy', $c) }}"
-          method="POST"
-          style="display:inline-block;"
-          onsubmit="return confirm('Delete this course?')"
+        <button
+          type="button"
+          class="admin-btn admin-btn-secondary"
+          onclick="deleteCourse({{ $c->id }})"
         >
-          @csrf @method('DELETE')
-          <button type="submit" class="admin-btn admin-btn-secondary">
-            Delete
-          </button>
-        </form>
+          Delete
+        </button>
       </td>
     </tr>
   @endforeach

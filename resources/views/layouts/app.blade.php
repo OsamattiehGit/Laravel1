@@ -61,9 +61,8 @@
     window.courseBalance = @json(auth()->user()->course_balance ?? 0);
     window.enrollUrlBase = @json(url('course'));
     window.pricingUrl = @json(route('pricing.page'));
+    window.currentUserId = @json(auth()->id());
     window.isAuthenticated = @json(auth()->check());
-    window.loginUrl = @json(route('login'));
-    window.currentUserId = @json(auth()->id() ?? null);
   </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
   @stack('scripts')

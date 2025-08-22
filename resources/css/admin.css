@@ -480,3 +480,139 @@
   background: #f8d7da;
   color: #721c24;
 }
+
+/* ===== TOAST NOTIFICATIONS ===== */
+.admin-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border-left: 4px solid #6c757d;
+  transform: translateX(400px);
+  transition: transform 0.3s ease;
+  max-width: 400px;
+  min-width: 300px;
+}
+
+.admin-toast.show {
+  transform: translateX(0);
+}
+
+.admin-toast-success {
+  border-left-color: #28a745;
+}
+
+.admin-toast-error {
+  border-left-color: #dc3545;
+}
+
+.admin-toast-info {
+  border-left-color: #17a2b8;
+}
+
+.admin-toast-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.admin-toast-message {
+  color: #333;
+  font-weight: 500;
+  flex: 1;
+  margin-right: 1rem;
+}
+
+.admin-toast-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #6c757d;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.admin-toast-close:hover {
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+/* ===== LOADING STATES ===== */
+.admin-loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.admin-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid var(--orange);
+  border-radius: 50%;
+  animation: admin-spin 1s linear infinite;
+}
+
+@keyframes admin-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ===== FORM IMPROVEMENTS ===== */
+.admin-form-control:focus,
+.admin-form-select:focus,
+.admin-form-textarea:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 0.2rem rgba(255, 127, 0, 0.25);
+  outline: none;
+}
+
+.admin-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===== TABLE IMPROVEMENTS ===== */
+.admin-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.admin-table tbody tr:hover {
+  background-color: rgba(255, 127, 0, 0.05) !important;
+}
+
+/* ===== MODAL IMPROVEMENTS ===== */
+.modal.fade {
+  transition: opacity 0.15s linear;
+}
+
+.modal.fade.show {
+  opacity: 1;
+}
+
+.modal-dialog {
+  transition: transform 0.3s ease-out;
+}
+
+.modal.fade .modal-dialog {
+  transform: translate(0, -50px);
+}
+
+.modal.show .modal-dialog {
+  transform: none;
+}

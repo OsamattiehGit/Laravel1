@@ -98,12 +98,13 @@
 <script>
 // Make functions globally available immediately
 window.editAnnouncement = function(id, courseId, title, content, priority, expiresAt, isPinned) {
-    console.log('editAnnouncement called with:', { id, courseId, title, content, priority, expiresAt, isPinned });
+    const editModal = document.getElementById('editAnnouncementModal');
+    if (editModal) {
+        editModal.style.display = 'block'; // Simplified display
+        editModal.classList.add('show');
+    }
     
-    // Set the form action with proper route parameter
-    document.getElementById('editAnnouncementForm').action = '{{ route("admin.announcements.update", ":id") }}'.replace(':id', id);
-    
-    // Populate the form fields
+    // Populate form fields
     document.getElementById('edit_course_id').value = courseId;
     document.getElementById('edit_title').value = title;
     document.getElementById('edit_content').value = content;
@@ -111,27 +112,83 @@ window.editAnnouncement = function(id, courseId, title, content, priority, expir
     document.getElementById('edit_expires_at').value = expiresAt;
     document.getElementById('edit_is_pinned').checked = isPinned;
     
-    // Show the modal using simple display toggle
-    const editModal = document.getElementById('editAnnouncementModal');
-    if (editModal) {
-        editModal.style.display = 'block';
-        editModal.classList.add('show');
-    }
+    // Set form action
+    document.getElementById('editAnnouncementForm').action = '{{ route("admin.announcements.update", ":id") }}'.replace(':id', id);
 };
 
 window.confirmDelete = function(id) {
-    console.log('confirmDelete called with id:', id);
-    
-    // Set the form action with proper route parameter
-    document.getElementById('deleteForm').action = '{{ route("admin.announcements.delete", ":id") }}'.replace(':id', id);
-    
-    // Show the confirmation modal using simple display toggle
     const deleteModal = document.getElementById('deleteConfirmModal');
     if (deleteModal) {
-        deleteModal.style.display = 'block';
+        deleteModal.style.display = 'block'; // Simplified display
         deleteModal.classList.add('show');
     }
+    
+    // Store the announcement ID for deletion
+    window.announcementToDelete = id;
 };
+
+// Function to delete announcement via AJAX
+window.deleteAnnouncement = function() {
+    if (!window.announcementToDelete) {
+        showToast('No announcement selected for deletion', 'error');
+        return;
+    }
+    
+    // Call the global deleteAnnouncement function from admin.js
+    if (typeof deleteAnnouncement === 'function') {
+        deleteAnnouncement(window.announcementToDelete);
+    } else {
+        // Fallback to direct AJAX call
+        fetch(`/admin/announcements/${window.announcementToDelete}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                showToast(result.message, 'success');
+                closeModal(document.getElementById('deleteConfirmModal'));
+                // Refresh the page to show updated list
+                location.reload();
+            } else {
+                showToast(result.message || 'Error deleting announcement', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Delete error:', error);
+            showToast('Network error. Please try again.', 'error');
+        });
+    }
+};
+
+// Toast notification function
+function showToast(message, type = 'info') {
+    // Create toast element
+    const toast = document.createElement('div');
+    toast.className = `admin-toast admin-toast-${type}`;
+    toast.innerHTML = `
+        <div class="admin-toast-content">
+            <span class="admin-toast-message">${message}</span>
+            <button class="admin-toast-close" onclick="this.parentElement.parentElement.remove()">×</button>
+        </div>
+    `;
+    
+    // Add to page
+    document.body.appendChild(toast);
+    
+    // Show toast
+    setTimeout(() => toast.classList.add('show'), 100);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        if (toast.parentElement) {
+            toast.remove();
+        }
+    }, 5000);
+}
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -164,7 +221,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Available routes:');
     console.log('Edit route:', '{{ route("admin.announcements.update", ":id") }}');
     console.log('Delete route:', '{{ route("admin.announcements.delete", ":id") }}');
-    console.log('Create route:', '{{ route("admin.announcements.create") }}');
+    console.log('Store route:', '{{ route("admin.announcements.store") }}');
 });
 
 function initializeFormListeners() {
@@ -184,7 +241,7 @@ function initializeFormListeners() {
     // Handle form submission for delete
     const deleteForm = document.getElementById('deleteForm');
     if (deleteForm) {
-        deleteForm.addEventListener('submit', function(e) {
+        editForm.addEventListener('submit', function(e) {
             console.log('Delete form submitted');
             console.log('Form action:', this.action);
             console.log('Form method:', this.method);
@@ -289,7 +346,7 @@ function showAlert(message, type) {
                                         <td>{{ $announcement->course->title ?? 'N/A' }}</td>
                                         <td>{{ $announcement->title }}</td>
                                         <td>
-                                            <span class="badge bg-{{ $announcement->priority === 'urgent' ? 'danger' : ($announcement->priority === 'high' ? 'warning' : ($announcement->priority === 'normal' ? 'info' : 'success')) }}">
+                                            <span class="badge bg-{{ $announcement->priority === 'high' ? 'danger' : ($announcement->priority === 'medium' ? 'warning' : 'success') }}">
                                                 {{ ucfirst($announcement->priority) }}
                                             </span>
                                         </td>
@@ -335,7 +392,7 @@ function showAlert(message, type) {
                 <h5 class="modal-title">Add Announcement</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form action="{{ route('admin.announcements.create') }}" method="POST">
+            <form action="{{ route('admin.announcements.store') }}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">
@@ -364,9 +421,8 @@ function showAlert(message, type) {
                                 <label for="priority" class="form-label">Priority</label>
                                 <select name="priority" id="priority" class="form-select" required>
                                     <option value="low">Low</option>
-                                    <option value="normal" selected>Normal</option>
+                                    <option value="medium" selected>Medium</option>
                                     <option value="high">High</option>
-                                    <option value="urgent">Urgent</option>
                                 </select>
                             </div>
                         </div>
@@ -432,9 +488,8 @@ function showAlert(message, type) {
                                 <label for="edit_priority" class="form-label">Priority</label>
                                 <select name="priority" id="edit_priority" class="form-select" required>
                                     <option value="low">Low</option>
-                                    <option value="normal">Normal</option>
+                                    <option value="medium">Medium</option>
                                     <option value="high">High</option>
-                                    <option value="urgent">Urgent</option>
                                 </select>
                             </div>
                         </div>
@@ -481,11 +536,7 @@ function showAlert(message, type) {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <form id="deleteForm" method="POST" style="display: inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete Announcement</button>
-                </form>
+                <button type="button" class="btn btn-danger" onclick="deleteAnnouncement()">Delete Announcement</button>
             </div>
         </div>
     </div>

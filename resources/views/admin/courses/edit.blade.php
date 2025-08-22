@@ -2,8 +2,16 @@
 
 @section('title', "Edit Course « {$course->title} »")
 
+@section('meta')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
+
 @push('styles')
   @vite('resources/css/admin.css')
+@endpush
+
+@push('scripts')
+  @vite('resources/js/admin.js')
 @endpush
 
 

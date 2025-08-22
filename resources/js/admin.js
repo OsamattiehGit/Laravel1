@@ -231,4 +231,297 @@ document.addEventListener("DOMContentLoaded", () => {
     container.appendChild(createSection(sectionIndex));
     sectionIndex++;
   });
+
+  // 4) AJAX Form Submissions for Courses
+  initializeCourseAjax();
+  
+  // 5) AJAX Form Submissions for Announcements
+  initializeAnnouncementAjax();
 });
+
+// ===== COURSE AJAX FUNCTIONS =====
+function initializeCourseAjax() {
+  const courseForms = document.querySelectorAll('form[action*="courses"]');
+  
+  courseForms.forEach(form => {
+    form.addEventListener('submit', handleCourseSubmit);
+  });
+}
+
+async function handleCourseSubmit(e) {
+  e.preventDefault();
+  
+  const form = e.target;
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const originalText = submitBtn.textContent;
+  
+  try {
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Saving...';
+    
+    // Create FormData for file uploads
+    const formData = new FormData(form);
+    
+    // Determine if this is create or update
+    const isUpdate = form.action.includes('/edit') || form.action.includes('/update');
+    const url = form.action;
+    const method = isUpdate ? 'PUT' : 'POST';
+    
+    // Add method override for PUT requests
+    if (method === 'PUT') {
+      formData.append('_method', 'PUT');
+    }
+    
+    const response = await fetch(url, {
+      method: 'POST', // Always POST for FormData
+      body: formData,
+      headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+        'Accept': 'application/json'
+      }
+    });
+    
+    const result = await response.json();
+    
+    if (result.success) {
+      showToast(result.message, 'success');
+      
+      // If it's a new course, reset the form
+      if (!isUpdate) {
+        form.reset();
+        // Reset course content builder if it exists
+        const container = document.getElementById('course-content-details');
+        if (container) {
+          container.innerHTML = '';
+          // Add a simple section placeholder instead of calling createSection
+          container.innerHTML = '<div class="border rounded p-3 mb-3">Course content will be built here</div>';
+        }
+      }
+      
+      // Refresh the courses list if it exists
+      refreshCoursesList();
+      
+    } else {
+      showToast(result.message || 'Error saving course', 'error');
+    }
+    
+  } catch (error) {
+    console.error('Course save error:', error);
+    showToast('Network error. Please try again.', 'error');
+  } finally {
+    // Reset button state
+    submitBtn.disabled = false;
+    submitBtn.textContent = originalText;
+  }
+}
+
+async function deleteCourse(courseId) {
+  if (!confirm('Are you sure you want to delete this course?')) {
+    return;
+  }
+  
+  try {
+    const response = await fetch(`/admin/courses/${courseId}`, {
+      method: 'DELETE',
+      headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    });
+    
+    const result = await response.json();
+    
+    if (result.success) {
+      showToast(result.message, 'success');
+      refreshCoursesList();
+    } else {
+      showToast(result.message || 'Error deleting course', 'error');
+    }
+    
+  } catch (error) {
+    console.error('Course delete error:', error);
+    showToast('Network error. Please try again.', 'error');
+  }
+}
+
+async function refreshCoursesList() {
+  try {
+    const response = await fetch('/admin/courses/list', {
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+    const result = await response.json();
+    
+    if (result.success) {
+      const coursesTable = document.querySelector('.admin-table tbody');
+      if (coursesTable) {
+        coursesTable.innerHTML = result.html;
+      }
+    }
+  } catch (error) {
+    console.error('Error refreshing courses list:', error);
+  }
+}
+
+// ===== ANNOUNCEMENT AJAX FUNCTIONS =====
+function initializeAnnouncementAjax() {
+  const announcementForms = document.querySelectorAll('form[action*="announcements"]');
+  
+  announcementForms.forEach(form => {
+    form.addEventListener('submit', handleAnnouncementSubmit);
+  });
+}
+
+async function handleAnnouncementSubmit(e) {
+  e.preventDefault();
+  
+  const form = e.target;
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const originalText = submitBtn.textContent;
+  
+  try {
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Saving...';
+    
+    // Create FormData
+    const formData = new FormData(form);
+    
+    // Determine if this is create or update
+    const isUpdate = form.action.includes('/edit') || form.action.includes('/update');
+    const url = form.action;
+    const method = isUpdate ? 'PUT' : 'POST';
+    
+    // Add method override for PUT requests
+    if (method === 'PUT') {
+      formData.append('_method', 'PUT');
+    }
+    
+    const response = await fetch(url, {
+      method: 'POST', // Always POST for FormData
+      body: formData,
+      headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+        'Accept': 'application/json'
+      }
+    });
+    
+    const result = await response.json();
+    
+    if (result.success) {
+      showToast(result.message, 'success');
+      
+      // Close modal if it exists
+      const modal = form.closest('.modal');
+      if (modal) {
+        closeModal(modal);
+      }
+      
+      // If it's a new announcement, reset the form
+      if (!isUpdate) {
+        form.reset();
+      }
+      
+      // Refresh the announcements list
+      refreshAnnouncementsList();
+      
+    } else {
+      showToast(result.message || 'Error saving announcement', 'error');
+    }
+    
+  } catch (error) {
+    console.error('Announcement save error:', error);
+    showToast('Network error. Please try again.', 'error');
+  } finally {
+    // Reset button state
+    submitBtn.disabled = false;
+    submitBtn.textContent = originalText;
+  }
+}
+
+async function deleteAnnouncement(announcementId) {
+  try {
+    const response = await fetch(`/admin/announcements/${announcementId}`, {
+      method: 'DELETE',
+      headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    });
+    
+    const result = await response.json();
+    
+    if (result.success) {
+      showToast(result.message, 'success');
+      refreshAnnouncementsList();
+    } else {
+      showToast(result.message || 'Error deleting announcement', 'error');
+    }
+    
+  } catch (error) {
+    console.error('Announcement delete error:', error);
+    showToast('Network error. Please try again.', 'error');
+  }
+}
+
+async function refreshAnnouncementsList() {
+  try {
+    const response = await fetch('/admin/announcements/list', {
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+    const result = await response.json();
+    
+    if (result.success) {
+      const announcementsTable = document.querySelector('.admin-table tbody');
+      if (announcementsTable) {
+        announcementsTable.innerHTML = result.html;
+      }
+    }
+  } catch (error) {
+    console.error('Error refreshing announcements list:', error);
+  }
+}
+
+// ===== UTILITY FUNCTIONS =====
+function showToast(message, type = 'info') {
+  // Create toast element
+  const toast = document.createElement('div');
+  toast.className = `admin-toast admin-toast-${type}`;
+  toast.innerHTML = `
+    <div class="admin-toast-content">
+      <span class="admin-toast-message">${message}</span>
+      <button class="admin-toast-close" onclick="this.parentElement.parentElement.remove()">×</button>
+    </div>
+  `;
+  
+  // Add to page
+  document.body.appendChild(toast);
+  
+  // Show toast
+  setTimeout(() => toast.classList.add('show'), 100);
+  
+  // Auto remove after 5 seconds
+  setTimeout(() => {
+    if (toast.parentElement) {
+      toast.remove();
+    }
+  }, 5000);
+}
+
+function closeModal(modalElement) {
+  if (modalElement) {
+    modalElement.style.display = 'none';
+    modalElement.classList.remove('show');
+  }
+}
+
+// Make functions globally available
+window.deleteCourse = deleteCourse;
+window.deleteAnnouncement = deleteAnnouncement;
+window.closeModal = closeModal;
