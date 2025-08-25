@@ -275,6 +275,33 @@
     </div>
 </div>
 
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">
+                        <i class="fas fa-bell text-warning me-2"></i>
+                        Desktop Notifications
+                    </h6>
+                    <p class="card-text small text-muted mb-3">
+                        Enable desktop notifications to stay updated on course enrollments, drops, and other important updates.
+                    </p>
+                    <button id="notificationPermissionBtn" class="btn btn-outline-warning btn-sm">
+                        <i class="fas fa-bell me-2"></i>
+                        Enable Notifications
+                    </button>
+                    <button id="testNotificationBtn" class="btn btn-outline-info btn-sm ms-2" style="display: none;">
+                        <i class="fas fa-paper-plane me-2"></i>
+                        Test Notification
+                    </button>
+                    <div id="notificationStatus" class="mt-2 small"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container mb-5">
     <div class="enrolled-section-title">Your Enrolled Courses</div>
     @if(count($enrollments ?? []) > 0)
@@ -336,6 +363,7 @@
 @endsection
 
 @push('scripts')
+@vite('resources/js/desktop-notifications.js')
 <script>
 function confirmDropCourse(courseId, courseTitle) {
     // Set the course name in the modal
@@ -351,6 +379,21 @@ function confirmDropCourse(courseId, courseTitle) {
 
 // Handle form submission
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize notification permission button
+    initializeNotificationButton();
+    
+    // Request notification permission on page load
+    if (window.requestNotificationPermission) {
+        window.requestNotificationPermission();
+    }
+    
+    // Show success notification if there's a session message
+    @if(session('success'))
+        if (window.showDesktopNotification) {
+            window.showDesktopNotification('Course Dropped', @json(session('success')));
+        }
+    @endif
+    
     const dropForm = document.getElementById('dropCourseForm');
     if (dropForm) {
         dropForm.addEventListener('submit', function(e) {
@@ -380,5 +423,81 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+function initializeNotificationButton() {
+    const btn = document.getElementById('notificationPermissionBtn');
+    const status = document.getElementById('notificationStatus');
+    const testBtn = document.getElementById('testNotificationBtn');
+    
+    if (!btn || !status || !testBtn) return;
+    
+    // Update button based on current permission
+    updateNotificationButton();
+    
+    // Add click handler
+    btn.addEventListener('click', function() {
+        if (Notification.permission === 'default') {
+            Notification.requestPermission().then(permission => {
+                updateNotificationButton();
+                if (permission === 'granted') {
+                    showNotificationStatus('Notifications enabled! You\'ll receive updates for course activities.', 'success');
+                } else if (permission === 'denied') {
+                    showNotificationStatus('Notifications blocked. You can enable them in your browser settings.', 'warning');
+                }
+            });
+        } else if (Notification.permission === 'denied') {
+            showNotificationStatus('Notifications are blocked. Please enable them in your browser settings.', 'warning');
+        }
+    });
+
+    // Add test notification button handler
+    testBtn.addEventListener('click', function() {
+        if (window.testNotification) {
+            const success = window.testNotification();
+            if (success) {
+                showNotificationStatus('Test notification sent! Check your desktop.', 'success');
+            }
+        }
+    });
+}
+
+function updateNotificationButton() {
+    const btn = document.getElementById('notificationPermissionBtn');
+    const status = document.getElementById('notificationStatus');
+    const testBtn = document.getElementById('testNotificationBtn');
+    
+    if (!btn || !status || !testBtn) return;
+    
+    switch (Notification.permission) {
+        case 'granted':
+            btn.innerHTML = '<i class="fas fa-check text-success me-2"></i>Notifications Enabled';
+            btn.className = 'btn btn-success btn-sm';
+            btn.disabled = true;
+            showNotificationStatus('Desktop notifications are enabled!', 'success');
+            testBtn.style.display = 'inline-block'; // Show test button
+            break;
+        case 'denied':
+            btn.innerHTML = '<i class="fas fa-times text-danger me-2"></i>Notifications Blocked';
+            btn.className = 'btn btn-danger btn-sm';
+            btn.disabled = true;
+            showNotificationStatus('Notifications are blocked. Enable them in browser settings.', 'warning');
+            testBtn.style.display = 'none'; // Hide test button
+            break;
+        default:
+            btn.innerHTML = '<i class="fas fa-bell me-2"></i>Enable Notifications';
+            btn.className = 'btn btn-outline-warning btn-sm';
+            btn.disabled = false;
+            showNotificationStatus('Click to enable desktop notifications', 'info');
+            testBtn.style.display = 'none'; // Hide test button
+    }
+}
+
+function showNotificationStatus(message, type) {
+    const status = document.getElementById('notificationStatus');
+    if (!status) return;
+    
+    const alertClass = type === 'success' ? 'text-success' : type === 'warning' ? 'text-warning' : 'text-info';
+    status.innerHTML = `<span class="${alertClass}"><i class="fas fa-info-circle me-1"></i>${message}</span>`;
+}
 </script>
 @endpush

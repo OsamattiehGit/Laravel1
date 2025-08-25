@@ -1,3 +1,5 @@
+import { requestNotificationPermission, showNotification } from './desktop-notifications';
+
 let selectedType = null;
 
 window.choosePlan = function(type) {
@@ -25,6 +27,9 @@ function showPricingToast(msg, isSuccess = true) {
   toast.style.display = 'block';
   setTimeout(() => { toast.style.display = 'none'; }, 2500);
 }
+document.addEventListener('DOMContentLoaded', () => {
+  requestNotificationPermission();
+});
 
 document.getElementById("confirm-subscribe").addEventListener("click", () => {
   if (!selectedType) return;
@@ -54,6 +59,7 @@ document.getElementById("confirm-subscribe").addEventListener("click", () => {
       `${data.message}<br><b>New Balance:</b> ${data.new_balance}`,
       true
     );
+    showNotification('Subscription Successful', `${data.message} New Balance: ${data.new_balance}`);
     setTimeout(() => window.location.reload(), 2100); // Reload after toast
   })
   .catch(err => {

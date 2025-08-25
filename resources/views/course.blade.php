@@ -204,6 +204,7 @@
       <span>Demo</span>
     </a>
 
+    @if(!$isEnrolled)
     <button id="enroll-btn"
             class="cta-btn cta-outline"
             data-course-id="{{ $course->id }}"
@@ -214,6 +215,14 @@
 </svg>
       <span>Enroll Now</span>
     </button>
+    @else
+    <div class="enrollment-success">
+      <div style="background: #d4edda; color: #155724; padding: 1rem; border-radius: 8px; text-align: center;">
+        <strong>✓ Already Enrolled!</strong><br>
+        <small>You have access to all course content.</small>
+      </div>
+    </div>
+    @endif
   </div>
 
   @if($isEnrolled)
@@ -273,7 +282,7 @@
   <script>
     window.enrollUrlBase = "{{ url('/course') }}";
     window.pricingUrl    = "{{ url('/pricing') }}";
-    window.courseBalance = {{ (int) (auth()->user()->balance ?? 0) }};
+    window.courseBalance = {{ (int) (auth()->user()->course_balance ?? 0) }};
     
     // Define the enrollment required function directly here
     window.showEnrollmentRequired = function() {

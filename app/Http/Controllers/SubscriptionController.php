@@ -40,7 +40,8 @@ public function subscribe(Request $request)
       'course_credits' => $credits,
     ]);
 
-    $newBalance = $user->subscriptions()->sum('course_credits');
+    // Use the course_balance field which accounts for used credits
+    $newBalance = $user->course_balance;
 
     return response()->json([
       'message'     => "Successfully subscribed to Plan {$request->type}",

@@ -48,9 +48,13 @@
   {{-- Global JS via Vite --}}
   @vite([
     'resources/js/app.js',
-    'resources/js/main.js',
-     'resources/js/admin.js',
-     'resources/js/home.js',
+    'resources/js/admin.js',
+    'resources/js/home.js',
+    'resources/js/course.js',
+    'resources/js/courses.js',
+    'resources/js/pricing.js',
+    'resources/js/contact.js',
+    'resources/js/ajax-utils.js',
   ])
 
   <!-- Chat Widget Script -->
@@ -64,7 +68,7 @@
     window.currentUserId = @json(auth()->id());
     window.isAuthenticated = @json(auth()->check());
   </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
   @stack('scripts')
 </body>
 </html>
